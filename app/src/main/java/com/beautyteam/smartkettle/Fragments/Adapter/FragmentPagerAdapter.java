@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.beautyteam.smartkettle.Fragments.NewsFragment;
+import com.beautyteam.smartkettle.MainActivity;
 
 /**
  * Created by Admin on 25.10.2014.
@@ -27,7 +28,7 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Title " + position;
+        return MainActivity.screenNames[position];
     }
 
 }

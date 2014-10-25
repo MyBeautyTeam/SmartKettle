@@ -21,17 +21,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class NewsFragment extends Fragment {
-
-    static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
-    NewsListAdapter newsListAdapter;
-
-    int pageNumber;
     int backColor;
 
     public static NewsFragment getInstance(int page) {
         NewsFragment newsFragment = new NewsFragment();
-        Bundle arguments = new Bundle();
-        arguments.putInt(ARGUMENT_PAGE_NUMBER, page);
+        Bundle arguments = new Bundle(); // Пока пусто, возможно нет необходимости в getInstance
         newsFragment.setArguments(arguments);
         return newsFragment;
     }
@@ -39,7 +33,6 @@ public class NewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageNumber = getArguments().getInt(ARGUMENT_PAGE_NUMBER);
 
         Random rnd = new Random();
         backColor = Color.argb(40, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
@@ -65,14 +58,14 @@ public class NewsFragment extends Fragment {
         newsList.addFooterView(newsBtn);
         // =======================
         ArrayList<News> arrayList = new ArrayList<News>();
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник скипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
          // ======================
         newsList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
     }
