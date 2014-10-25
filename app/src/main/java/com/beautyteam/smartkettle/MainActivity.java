@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -36,7 +38,7 @@ public class MainActivity extends FragmentActivity {
     // used to store app title
     private CharSequence appTitle;
 
-    static private String[] viewsNames = {"artur", "dima", "max"};;
+    static private String[] viewsNames = {"Новости", "Устройства", "Настройки"};;
     //===================
 
     @Override
@@ -55,7 +57,7 @@ public class MainActivity extends FragmentActivity {
 
         drawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
-                R.drawable.ic_drawer, //иконка
+                R.drawable.ic_launcher, //иконка
                 R.string.app_name, // описание открытия ???
                 R.string.app_name // описание закрытия ???
         ){
@@ -121,7 +123,7 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-/*  НАДО ЛИ?
+/*  НАДО ЛИ? */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -141,7 +143,6 @@ public class MainActivity extends FragmentActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
-}
-*/
 }
