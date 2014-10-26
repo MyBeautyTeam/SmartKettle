@@ -79,15 +79,16 @@ public class DeviceInfoFragment extends Fragment {
                 mCallback.refreshDeviceInfo();
             }
         });
-        ArrayList<Device> arrayList = new ArrayList<Device>();
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
+        ArrayList<News> arrayList = new ArrayList<News>();
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
 
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         deviceInfoList.addFooterView(newsBtn);
-        deviceInfoList.setAdapter(new DevicesListAdapter(getActivity(), arrayList));
+        deviceInfoList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
     }
 
 }

@@ -12,7 +12,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -30,7 +29,6 @@ import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Mechanics.Device;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class MainActivity extends FragmentActivity
                         implements CompoundButton.OnCheckedChangeListener {
@@ -41,7 +39,8 @@ public class MainActivity extends FragmentActivity
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-    private SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout newsRefreshLayout;
+    private SwipeRefreshLayout deviceNewsRefreshLayout;
 
 
     private DrawerLayout drawerLayout; // Главный layout
@@ -206,13 +205,13 @@ public class MainActivity extends FragmentActivity
 
     public void refreshNewsList(){
         Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();
-        if (refreshLayout == null) refreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
-        refreshLayout.setRefreshing(true);
+        if (newsRefreshLayout == null) newsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
+        newsRefreshLayout.setRefreshing(true);
         final Activity thisActivity = this;
-        refreshLayout.postDelayed(new Runnable() {
+        newsRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                refreshLayout.setRefreshing(false);
+                newsRefreshLayout.setRefreshing(false);
                 Toast.makeText(thisActivity, "Refreshed", Toast.LENGTH_SHORT).show();
             }
         }, 2000);
@@ -220,13 +219,13 @@ public class MainActivity extends FragmentActivity
 
     public void refreshDeviceInfo() {
         Toast.makeText(this, "Refreshing details list...", Toast.LENGTH_SHORT).show();
-        if (refreshLayout == null) refreshLayout = (SwipeRefreshLayout)findViewById(R.id.deviceInfoRefreshLayout);
-        refreshLayout.setRefreshing(true);
+        if (deviceNewsRefreshLayout == null) deviceNewsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.deviceInfoRefreshLayout);
+        deviceNewsRefreshLayout.setRefreshing(true);
         final Activity thisActivity = this;
-        refreshLayout.postDelayed(new Runnable() {
+        deviceNewsRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                refreshLayout.setRefreshing(false);
+                deviceNewsRefreshLayout.setRefreshing(false);
                 Toast.makeText(thisActivity, "Refreshed", Toast.LENGTH_SHORT).show();
             }
         }, 2000);

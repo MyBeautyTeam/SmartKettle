@@ -67,7 +67,6 @@ public class DevicesFragment extends Fragment {
         deviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Device dev = (Device)adapterView.getItemAtPosition(position);
                     mCallback.addDeviceDetailsFragment((Device)adapterView.getItemAtPosition(position));
                 }
             });

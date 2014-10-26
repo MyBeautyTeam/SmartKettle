@@ -1,5 +1,4 @@
 package com.beautyteam.smartkettle.Fragments.Adapter;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,44 +6,34 @@ import android.widget.BaseAdapter;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
-
 import java.util.ArrayList;
-
 /**
  * Created by Admin on 26.10.2014.
  */
 public class DevicesListAdapter extends BaseAdapter{
-
     private ArrayList<Device> devicesArrayList;
     private Context context;
     private LayoutInflater inflater;
-
     public DevicesListAdapter(Context _context, ArrayList<Device> _devicesArrayList ) {
         context = _context;
         devicesArrayList = _devicesArrayList;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
     @Override
     public int getCount() {
         return devicesArrayList.size();
     }
-
     @Override
     public Object getItem(int position) {
         return devicesArrayList.get(position);
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
@@ -64,11 +53,9 @@ public class DevicesListAdapter extends BaseAdapter{
         viewHolder.image.setImageResource(device.getImageId());
         return convertView;
     }
-
     private class ViewHolder {
         public TextView name;
         public TextView description;
         public ImageView image;
     }
-
 }
