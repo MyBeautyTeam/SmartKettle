@@ -1,5 +1,6 @@
 package com.beautyteam.smartkettle;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,6 +12,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
@@ -27,13 +31,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class MainActivity extends FragmentActivity
-                        implements CompoundButton.OnCheckedChangeListener {
+                        implements CompoundButton.OnCheckedChangeListener,
+                        OnRefreshListener {
 
     static final String TAG = "myLogs";
 
 
-    ViewPager pager;
-    PagerAdapter pagerAdapter;
+
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
+    private SwipeRefreshLayout refreshLayout;
 
 
     private DrawerLayout drawerLayout; // Главный layout
@@ -49,6 +56,8 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        // ================== Drawer
         appTitle =  getTitle();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -85,6 +94,7 @@ public class MainActivity extends FragmentActivity
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
+        // =============== PAGER
         pager = (ViewPager) findViewById(R.id.pager);
         pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
@@ -105,6 +115,11 @@ public class MainActivity extends FragmentActivity
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        // ========== Refresher
+
+        int a;
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -186,6 +201,21 @@ public class MainActivity extends FragmentActivity
         SharedPreferences.Editor editor = sPref.edit();
         editor.putBoolean(SettingsFragment.settingsName[numberOfCheckbox], isChecked);
         editor.commit();
+    }
+
+    @Override
+    public void onRefresh(){
+        Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show();
+        if (refreshLayout == null) refreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
+        refreshLayout.setRefreshing(true);
+        final Activity thisActivity = this;
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(false);
+                Toast.makeText(thisActivity, "Refreshed", Toast.LENGTH_SHORT).show();
+            }
+        }, 3000);
     }
 
 }

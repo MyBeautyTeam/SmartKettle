@@ -3,15 +3,18 @@ package com.beautyteam.smartkettle.Fragments;
 /**
  * Created by Admin on 25.10.2014.
  */
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
 import com.beautyteam.smartkettle.Mechanics.News;
@@ -22,6 +25,8 @@ import java.util.Random;
 
 public class NewsFragment extends Fragment {
     int backColor;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private OnRefreshListener mCallback;
 
     public static NewsFragment getInstance(int page) {
         NewsFragment newsFragment = new NewsFragment();
@@ -49,10 +54,19 @@ public class NewsFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallback = (OnRefreshListener)activity;
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView newsList = (ListView) view.findViewById(R.id.newsList);
         newsList.setBackgroundColor(backColor);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(mCallback);
 
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         newsList.addFooterView(newsBtn);
