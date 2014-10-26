@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#ff64e1ff">
+    <TextView
+        android:id="@+id/deviceInfoName"
+        android:layout_width="wrap_content"
+        android:textSize="15dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/deviceInfoImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/deviceInfoDescript"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="История использования:"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/deviceInfoRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/deviceInfoList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

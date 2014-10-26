@@ -25,14 +25,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
+import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
+import com.beautyteam.smartkettle.Mechanics.Device;
 
 import java.util.HashMap;
 import java.util.Set;
 
 public class MainActivity extends FragmentActivity
-                        implements CompoundButton.OnCheckedChangeListener,
-                        OnRefreshListener {
+                        implements CompoundButton.OnCheckedChangeListener {
 
     static final String TAG = "myLogs";
 
@@ -203,9 +204,8 @@ public class MainActivity extends FragmentActivity
         editor.commit();
     }
 
-    @Override
-    public void onRefresh(){
-        Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show();
+    public void refreshNewsList(){
+        Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();
         if (refreshLayout == null) refreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
         refreshLayout.setRefreshing(true);
         final Activity thisActivity = this;
@@ -215,7 +215,29 @@ public class MainActivity extends FragmentActivity
                 refreshLayout.setRefreshing(false);
                 Toast.makeText(thisActivity, "Refreshed", Toast.LENGTH_SHORT).show();
             }
-        }, 3000);
+        }, 2000);
     }
 
+    public void refreshDeviceInfo() {
+        Toast.makeText(this, "Refreshing details list...", Toast.LENGTH_SHORT).show();
+        if (refreshLayout == null) refreshLayout = (SwipeRefreshLayout)findViewById(R.id.deviceInfoRefreshLayout);
+        refreshLayout.setRefreshing(true);
+        final Activity thisActivity = this;
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(false);
+                Toast.makeText(thisActivity, "Refreshed", Toast.LENGTH_SHORT).show();
+            }
+        }, 2000);
+    }
+
+
+
+    public void addDeviceDetailsFragment(Device device) {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.drawer_layout, DeviceInfoFragment.getInstance(device));
+        fTran.addToBackStack(null);
+        fTran.commit();
+    }
 }

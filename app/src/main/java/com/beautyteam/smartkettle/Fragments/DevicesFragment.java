@@ -8,11 +8,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.DevicesListAdapter;
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
+import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
@@ -24,6 +26,8 @@ import java.util.Random;
  * Created by Admin on 26.10.2014.
  */
 public class DevicesFragment extends Fragment {
+    private MainActivity mCallback;
+
     public static DevicesFragment getInstance() {
         DevicesFragment devicesFragment = new DevicesFragment();
         Bundle arguments = new Bundle();
@@ -40,6 +44,7 @@ public class DevicesFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        mCallback = (MainActivity)activity;
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -58,6 +63,14 @@ public class DevicesFragment extends Fragment {
         arrayList.add(new Device("Чайник Samsung", "Большой, толстый, приятный", R.drawable.ic_drawer));
         // ======================
         deviceList.setAdapter(new DevicesListAdapter(getActivity(), arrayList));
+
+        deviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Device dev = (Device)adapterView.getItemAtPosition(position);
+                    mCallback.addDeviceDetailsFragment((Device)adapterView.getItemAtPosition(position));
+                }
+            });
     }
 
 

@@ -17,6 +17,7 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.widget.ListView;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
+import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
@@ -26,7 +27,7 @@ import java.util.Random;
 public class NewsFragment extends Fragment {
     int backColor;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private OnRefreshListener mCallback;
+    private MainActivity mCallback;
 
     public static NewsFragment getInstance() { // Пока не используется
         NewsFragment newsFragment = new NewsFragment();
@@ -52,7 +53,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallback = (OnRefreshListener)activity;
+        mCallback = (MainActivity)activity;
     }
 
     @Override
@@ -62,7 +63,12 @@ public class NewsFragment extends Fragment {
         newsList.setBackgroundColor(backColor);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(mCallback);
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mCallback.refreshNewsList();
+            }
+        });
 
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         newsList.addFooterView(newsBtn);
@@ -79,4 +85,5 @@ public class NewsFragment extends Fragment {
          // ======================
         newsList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
     }
+
 }
