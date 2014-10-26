@@ -28,7 +28,7 @@ public class NewsFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private OnRefreshListener mCallback;
 
-    public static NewsFragment getInstance(int page) {
+    public static NewsFragment getInstance() { // Пока не используется
         NewsFragment newsFragment = new NewsFragment();
         Bundle arguments = new Bundle(); // Пока пусто, возможно нет необходимости в getInstance
         newsFragment.setArguments(arguments);
@@ -46,10 +46,6 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /*TextView tvPage = (TextView) view.findViewById(R.id.);
-        tvPage.setText("Page " + pageNumber);*/
-
-
         return inflater.inflate(R.layout.fragment_news, null);
     }
 
