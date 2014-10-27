@@ -74,14 +74,16 @@ public class NewsFragment extends Fragment {
         newsList.addFooterView(newsBtn);
         // =======================
         ArrayList<News> arrayList = new ArrayList<News>();
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "10 минут назад", R.drawable.ic_drawer));
          // ======================
         newsList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
     }

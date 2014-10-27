@@ -5,12 +5,14 @@ package com.beautyteam.smartkettle.Mechanics;
  */
 public class Device {
     private String name;
-    private String description;
+    private String shortDescription;
+    private String longDescription;
     private int image;
 
-    public Device(String _name, String _description, int _image) {
+    public Device(String _name, String _shortDescription, String _longDescription, int _image) {
         name = _name;
-        description = _description;
+        longDescription = _longDescription;
+        shortDescription = _shortDescription;
         image = _image;
     }
 
@@ -18,11 +20,15 @@ public class Device {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
     public int getImageId() {
         return image;
+    }
+
+    public String getLongDescription() {
+        return longDescription;
     }
 }

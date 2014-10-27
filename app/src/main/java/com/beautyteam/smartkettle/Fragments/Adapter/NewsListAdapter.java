@@ -1,7 +1,6 @@
 package com.beautyteam.smartkettle.Fragments.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -61,7 +58,7 @@ public class NewsListAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
         News news = (News)getItem(position);
-        viewHolder.mainText.setText(news.getNewsText());
+        viewHolder.mainText.setText(news.getShortNewsText());
         viewHolder.date.setText(news.getDateInfo());
         viewHolder.image.setImageResource(news.getImageId());
         return convertView;

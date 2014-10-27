@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.beautyteam.smartkettle.Fragments.Adapter.DevicesListAdapter;
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
@@ -40,7 +39,7 @@ public class DeviceInfoFragment extends Fragment {
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
         Bundle arguments = new Bundle();
         arguments.putString(NAME, device.getName());
-        arguments.putString(DESCRIPTION, device.getDescription());
+        arguments.putString(DESCRIPTION, device.getLongDescription());
         arguments.putInt(IMAGE, device.getImageId());
         deviceInfoFragment.setArguments(arguments);
         return deviceInfoFragment;
@@ -80,11 +79,11 @@ public class DeviceInfoFragment extends Fragment {
             }
         });
         ArrayList<News> arrayList = new ArrayList<News>();
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно", "10 минут назад", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно", "10 минут назад", R.drawable.ic_drawer));
 
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         deviceInfoList.addFooterView(newsBtn);

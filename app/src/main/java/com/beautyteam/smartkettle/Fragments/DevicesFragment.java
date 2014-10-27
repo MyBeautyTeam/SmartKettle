@@ -53,14 +53,19 @@ public class DevicesFragment extends Fragment {
 
         // =======================
         ArrayList<Device> arrayList = new ArrayList<Device>();
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпотичный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Большой, толстый, приятный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Большой, толстый, приятный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Большой, толстый, приятный", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Большой, толстый, приятный", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
+
         // ======================
         deviceList.setAdapter(new DevicesListAdapter(getActivity(), arrayList));
 

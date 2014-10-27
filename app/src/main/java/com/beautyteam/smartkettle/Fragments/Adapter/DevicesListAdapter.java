@@ -7,7 +7,6 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.beautyteam.smartkettle.Mechanics.Device;
-import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 import java.util.ArrayList;
 /**
@@ -49,7 +48,7 @@ public class DevicesListAdapter extends BaseAdapter{
         }
         Device device = (Device)getItem(position);
         viewHolder.name.setText(device.getName());
-        viewHolder.description.setText(device.getDescription());
+        viewHolder.description.setText(device.getShortDescription());
         viewHolder.image.setImageResource(device.getImageId());
         return convertView;
     }
