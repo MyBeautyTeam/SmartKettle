@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class NewsFragment extends Fragment {
-    int backColor;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MainActivity mCallback;
 
@@ -39,9 +38,6 @@ public class NewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Random rnd = new Random();
-        backColor = Color.argb(40, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
     @Override
@@ -60,7 +56,6 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView newsList = (ListView) view.findViewById(R.id.newsList);
-        newsList.setBackgroundColor(backColor);
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {

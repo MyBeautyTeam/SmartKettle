@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Login"/>
+    <EditText
+        android:id="@+id/loginEditLoginAct"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:layout_marginRight="50dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Password"/>
+    <EditText
+        android:id="@+id/passEditLoginAct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:inputType="textPassword"/>
+    <Button
+        android:id="@+id/okBtnLoginAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"/>
+    <ImageView
+        android:id="@+id/loadImageLoginAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_drawer"/>
+    <TextView
+        android:id="@+id/errorMessageLoginAct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffe31200"
+        android:text="Incorrect login or password"
+        />
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.beautyteam.smartkettle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity
 
     private CharSequence appTitle; // Заголовок приложения
 
-    public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки"};
+    public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,10 +117,6 @@ public class MainActivity extends FragmentActivity
             }
         });
 
-        // ========== Refresher
-
-        int a;
-
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -131,17 +128,31 @@ public class MainActivity extends FragmentActivity
             drawerLayout.closeDrawer(drawerList);
 
             switch (position) {
-                case 0:
-                case 1:
-                case 2:
+                case 0: // История
+                case 1: // Устройства
+                case 2: // Что-то еще
                     pager.setCurrentItem(position, true);
                     break;
-                case 3:
+                case 3: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
+                    break;
+                case 4: // Выход
+                    SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sPref.edit();
+                    editor.putString(LoginActivity.LOGIN, null);
+                    editor.putString(LoginActivity.PASS, null);
+                    editor.commit();
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    MainActivity.this.startActivity(loginIntent);
+                    MainActivity.this.finish();
+                    break;
+
+
+
             }
         }
     }
@@ -176,7 +187,7 @@ public class MainActivity extends FragmentActivity
 
     HashMap<String, Boolean> getCheckboxValueMap() {
         HashMap<String, Boolean> valueToName = new HashMap<String, Boolean>();
-        SharedPreferences sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
         valueToName.put(SettingsFragment.settingsName[0], sPref.getBoolean(SettingsFragment.settingsName[0], true));
         valueToName.put(SettingsFragment.settingsName[1], sPref.getBoolean(SettingsFragment.settingsName[1], true));
         valueToName.put(SettingsFragment.settingsName[2], sPref.getBoolean(SettingsFragment.settingsName[2], true));
