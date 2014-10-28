@@ -20,17 +20,10 @@ import com.beautyteam.smartkettle.R;
 
 import java.util.ArrayList;
 
-
-
 /**
  * Created by Admin on 26.10.2014.
  */
 public class DeviceInfoFragment extends Fragment {
-    /*
-    Дамы и господа, внимание-внивание! У нас нарисовался костыль! Архитектурная ошибка, так сказать!
-    Она происходит от коммита, в котором я говорил, что совершу глупость! Ее можно исправить, но
-    времени на это пока нет. Поэтому, пусть будет так! Если не сработает запланированный свайп - я все верну!
-     */
     private final static String NAME = "name";
     private final static String DESCRIPTION = "description";
     private final static String IMAGE = "image";
