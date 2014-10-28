@@ -1,8 +1,12 @@
 package com.beautyteam.smartkettle;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
 
@@ -30,6 +34,7 @@ import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Mechanics.Device;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends FragmentActivity
                         implements CompoundButton.OnCheckedChangeListener {
@@ -176,7 +181,36 @@ public class MainActivity extends FragmentActivity
         // Handle action bar actions click
         switch (item.getItemId()) {
             case R.id.action_settings:
-                return true;
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MY RANDOM APP");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "MY RANDOM TEXTasdasdas asda sawd awdaw wd wadadw");
+
+                PackageManager pm = getPackageManager();
+                List<ResolveInfo> activityList = pm.queryIntentActivities(shareIntent, 0);
+                for (final ResolveInfo app : activityList)
+                {
+                    if ((app.activityInfo.name).contains("facebook"))
+                    {
+                        final ActivityInfo activity = app.activityInfo;
+                        final ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
+                        shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                        shareIntent.setComponent(name);
+                        startActivity(shareIntent);
+                        break;
+                    }
+                    if ("com.twitter.android.PostActivity".equals(app.activityInfo.name))
+                    {
+                        final ActivityInfo activity = app.activityInfo;
+                        final ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
+                        shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                        shareIntent.setComponent(name);
+                        startActivity(shareIntent);
+                        break;
+                    }
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }

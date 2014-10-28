@@ -2,6 +2,11 @@ package com.beautyteam.smartkettle.Mechanics;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Admin on 25.10.2014.
@@ -9,14 +14,26 @@ import android.os.Parcelable;
 public class News implements Parcelable {
     private String shortNewsText;
     private String longNewsText;
-    private String date;
     private int image;
+    private long dateLong;
+    private String dateInfo;
+    private static final long SECONDS_IN_MONTH=2629743;
+    private static final long SECONDS_IN_DAY=86400;
+    private static final long SECONDS_IN_HOUR=3600;
+    private static final long SECONDS_IN_MINUTE=60;
 
-    public News(String _shortNewsText, String _longNewsText, String _date, int _image) {
+
+    public News(String _shortNewsText, String _longNewsText, String _dateInfo, int _image) {
         shortNewsText = _shortNewsText;
         longNewsText = _longNewsText;
-        date = _date;
+        dateInfo = _dateInfo;
         image = _image;
+
+        try {
+            Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_dateInfo);
+            dateLong = date.getTime();
+        } catch (ParseException e) {
+        }
     }
 
     public String getShortNewsText() {
@@ -28,7 +45,20 @@ public class News implements Parcelable {
     }
 
     public String getDateInfo() {
-        return date;
+        long diffSecond = dateDiffer();
+        if ((int)(diffSecond/SECONDS_IN_MONTH) > 0) {
+            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " месяц назад";
+        }
+        if ((int)(diffSecond/SECONDS_IN_DAY) > 0) {
+            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " день назад";
+        }
+        if ((int)(diffSecond/SECONDS_IN_HOUR) > 0) {
+            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " часов назад";
+        }
+        if ((int)(diffSecond/SECONDS_IN_MINUTE) > 0) {
+            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " минуты назад";
+        }
+        return "" + diffSecond + " секунд назад";
     }
 
     public String getLongNewsText() {
@@ -44,7 +74,8 @@ public class News implements Parcelable {
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(shortNewsText);
         parcel.writeString(longNewsText);
-        parcel.writeString(date);
+        parcel.writeString(dateInfo);
+        parcel.writeLong(dateLong);
         parcel.writeInt(image);
     }
 
@@ -61,4 +92,10 @@ public class News implements Parcelable {
             return new News[size];
         }
     };
+
+    private long dateDiffer() {
+        Calendar calendar = Calendar.getInstance();
+        long diffTime = calendar.getTime().getTime() - dateLong;
+        return diffTime/1000;
+    }
 }

@@ -1,11 +1,15 @@
 package com.beautyteam.smartkettle.Fragments.Adapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.content.Context;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.R;
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ public class DevicesListAdapter extends BaseAdapter{
     private ArrayList<Device> devicesArrayList;
     private Context context;
     private LayoutInflater inflater;
+
+
     public DevicesListAdapter(Context _context, ArrayList<Device> _devicesArrayList ) {
         context = _context;
         devicesArrayList = _devicesArrayList;
