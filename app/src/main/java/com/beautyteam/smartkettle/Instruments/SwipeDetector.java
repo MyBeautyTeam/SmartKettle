@@ -4,6 +4,7 @@ package com.beautyteam.smartkettle.Instruments;
  * Created by Admin on 28.10.2014.
  */
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,9 +22,10 @@ public abstract class SwipeDetector implements View.OnTouchListener {
     }
 
     private static final String logTag = "SwipeDetector";
-    private static final int MIN_DISTANCE = 10;
+    private static final int MIN_DISTANCE = 50;
     private float downX, downY, upX, upY;
     private Action mSwipeDetected = Action.None;
+    public View view;
 
     public boolean swipeDetected() {
         return mSwipeDetected != Action.None;
@@ -36,6 +38,7 @@ public abstract class SwipeDetector implements View.OnTouchListener {
     public abstract void ActionRL();
 
     public boolean onTouch(View v, MotionEvent event) {
+        view = v;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downX = event.getX();
@@ -57,11 +60,13 @@ public abstract class SwipeDetector implements View.OnTouchListener {
 
                         Log.d(logTag, "Swipe Left to Right");
                         mSwipeDetected = Action.LR;
+
                         return true;
                     }
                     if (deltaX > 0) {
                         Log.d(logTag, "Swipe Right to Left");
                         ActionRL();
+                        v.setBackgroundColor(Color.rgb(0,0,0));
                         mSwipeDetected = Action.RL;
                         return true;
                     }

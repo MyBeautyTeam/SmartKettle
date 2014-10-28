@@ -1,6 +1,7 @@
 package com.beautyteam.smartkettle.Fragments.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
@@ -61,6 +63,12 @@ public class NewsListAdapter extends BaseAdapter{
         viewHolder.mainText.setText(news.getShortNewsText());
         viewHolder.date.setText(news.getDateInfo());
         viewHolder.image.setImageResource(news.getImageId());
+        convertView.setOnTouchListener(new SwipeDetector() {
+            @Override
+            public void ActionRL() {
+                this.view.setBackgroundColor(Color.rgb(0,0,0));
+            }
+        });
         return convertView;
     }
 
