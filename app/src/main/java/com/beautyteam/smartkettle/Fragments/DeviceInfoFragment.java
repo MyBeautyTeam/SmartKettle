@@ -1,13 +1,15 @@
 package com.beautyteam.smartkettle.Fragments;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +23,6 @@ import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Admin on 26.10.2014.
@@ -71,6 +72,19 @@ public class DeviceInfoFragment extends Fragment {
         image = (ImageView)view.findViewById(R.id.deviceInfoImage);
         mainContentView = view.findViewById(R.id.deviceInfoContent);
 
+
+        final Animation animationSwipeLeft = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.swipe_device_info_left);
+        final Animation animationSwipeRight = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.swipe_device_info_right);
+
+        /*
+        Допольно сложный кусок кода.
+        Hander нужен, чтобы через 2 секунды снова разрешить свайп.
+        Возможно, стоит перенести обработчик в класс SwipeDetector.
+        Теряется гибкость, но логика не нарушается. Хуй.
+         */
+        final Handler handler = new Handler();
         SwipeDetector swipeDetector = new SwipeDetector() {
             @Override
             public void actionLR() {
@@ -78,10 +92,17 @@ public class DeviceInfoFragment extends Fragment {
 
             @Override
             public void actionRL() {
-                int c1 = new Random().nextInt()%256;
-                int c3 = new Random().nextInt()%256;
-                int c2 = new Random().nextInt()%256;
-                getView().setBackgroundColor(Color.rgb(c1,c2,c3));
+                if (getIsHandled()) {
+                    setIsHandled(false);
+                    getView().startAnimation(animationSwipeLeft);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                           getView().startAnimation(animationSwipeRight);
+                           setIsHandled(true);
+                        }
+                    }, 3000);
+                }
             }
 
             @Override
