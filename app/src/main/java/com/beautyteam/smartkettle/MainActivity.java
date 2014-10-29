@@ -1,5 +1,6 @@
 package com.beautyteam.smartkettle;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,16 +16,18 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
+import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
@@ -33,24 +36,24 @@ import com.beautyteam.smartkettle.Mechanics.Device;
 import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity
-                        implements CompoundButton.OnCheckedChangeListener {
+                        implements CompoundButton.OnCheckedChangeListener,
+                        View.OnClickListener {
 
     static final String TAG = "myLogs";
     static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
+
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private SwipeRefreshLayout newsRefreshLayout;
     private SwipeRefreshLayout deviceNewsRefreshLayout;
-
+    private ImageButton actionBarPlusBtn;
+    private TextView actionBarTitleView;
 
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
-    private ActionBarDrawerToggle drawerToggle; // Переключатель
 
-    private CharSequence appTitle; // Заголовок приложения
-
-    public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
+    public static String[] screenNames = {"Новости", "Устройства", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,35 +62,29 @@ public class MainActivity extends FragmentActivity
 
 
         // ================== Drawer
-        appTitle =  getTitle();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, screenNames));
 
-        // Включает значок и позволяет вести себя как кнопки-переключателя
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.drawable.ic_launcher, //иконка
-                R.string.app_name, // описание открытия ???
-                R.string.app_name // описание закрытия ???
-        ){
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(appTitle); // Показать название приложения
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-            }
+        //===================ActionBar
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
 
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(appTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
+        View actionBarView = mInflater.inflate(R.layout.action_bar, null);
+        actionBarTitleView = (TextView) actionBarView.findViewById(R.id.actionBarTitleText);
+        actionBarTitleView.setText(R.string.app_name);
 
-        drawerLayout.setDrawerListener(drawerToggle);
+        actionBarPlusBtn = (ImageButton) actionBarView.findViewById(R.id.actionBarPlusBtn);
+
+        actionBarPlusBtn.setOnClickListener(this);
+        actionBarTitleView.setOnClickListener(this);
+
+        actionBar.setCustomView(actionBarView);
+        actionBar.setDisplayShowCustomEnabled(true);
 
         if (savedInstanceState == null) {
         }
@@ -119,6 +116,21 @@ public class MainActivity extends FragmentActivity
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.actionBarPlusBtn:
+                FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+                fTran.replace(R.id.drawer_layout, new AddTaskFragment());
+                fTran.addToBackStack(null);
+                fTran.commit();
+                break;
+            case R.id.actionBarTitleText:
+                TweetMaker tweetMaker = new TweetMaker(this, TWEET_MESSAGE);
+                tweetMaker.submit();
+        }
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(
@@ -130,17 +142,16 @@ public class MainActivity extends FragmentActivity
             switch (position) {
                 case 0: // История
                 case 1: // Устройства
-                case 2: // Что-то еще
                     pager.setCurrentItem(position, true);
                     break;
-                case 3: // Настройки
+                case 2: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
                     break;
-                case 4: // Выход
+                case 3: // Выход
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
@@ -151,39 +162,9 @@ public class MainActivity extends FragmentActivity
                     MainActivity.this.finish();
                     break;
 
-
-
             }
         }
     }
-
-
-/*  НАДО ЛИ? */
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action bar actions click
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                TweetMaker tweetMaker = new TweetMaker(this, TWEET_MESSAGE);
-                tweetMaker.submit();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
 
 
     HashMap<String, Boolean> getCheckboxValueMap() {
@@ -255,4 +236,5 @@ public class MainActivity extends FragmentActivity
     public void removeDevice() {
         Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
     }
+
 }
