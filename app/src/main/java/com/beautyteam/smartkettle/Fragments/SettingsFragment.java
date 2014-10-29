@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 
 import java.util.HashMap;

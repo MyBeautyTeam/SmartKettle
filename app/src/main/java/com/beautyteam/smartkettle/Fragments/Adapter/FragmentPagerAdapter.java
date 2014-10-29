@@ -11,7 +11,7 @@ import com.beautyteam.smartkettle.MainActivity;
  * Created by Admin on 25.10.2014.
  */
 public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
+    final int PAGE_COUNT = 2;
 
     public FragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -24,8 +24,6 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
                 return NewsFragment.getInstance();
             case 1:
                 return DevicesFragment.getInstance();
-            case 2:
-                return NewsFragment.getInstance();
         }
         return NewsFragment.getInstance();
     }

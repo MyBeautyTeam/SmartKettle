@@ -59,6 +59,8 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ListView newsList = (ListView) view.findViewById(R.id.newsList);
 
+
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
