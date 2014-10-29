@@ -10,6 +10,14 @@ import android.view.View;
 
 public abstract class SwipeDetector implements View.OnTouchListener {
 
+    public Boolean getIsHandled() {
+        return isHandled;
+    }
+
+    public void setIsHandled(Boolean isHandled) {
+        this.isHandled = isHandled;
+    }
+
     public static enum Action {
         LR, // Left to Right
         RL, // Right to Left
@@ -19,10 +27,11 @@ public abstract class SwipeDetector implements View.OnTouchListener {
     }
 
     private static final String logTag = "SwipeDetector";
-    private static int MIN_DISTANCE = 500;
+    private static int MIN_DISTANCE = 100;
     private float downX, downY, upX, upY;
     private View view;
     private Action mSwipeDetected = Action.None;
+    private Boolean isHandled = true;
 
     public boolean swipeDetected() {
         return mSwipeDetected != Action.None;
@@ -66,7 +75,9 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                 if (Math.abs(deltaX) > MIN_DISTANCE) {
                     // left or right
                     if (deltaX < 0) {
-                        actionLR();
+                        if (isHandled) {
+                            actionLR();
+                        }
                         Log.d(logTag, "Swipe Left to Right");
                         mSwipeDetected = Action.LR;
 
@@ -74,7 +85,9 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                     }
                     if (deltaX > 0) {
                         Log.d(logTag, "Swipe Right to Left");
-                        actionRL();
+                        if (isHandled) {
+                            actionRL();
+                        }
                         mSwipeDetected = Action.RL;
                         return true;
                     }
@@ -85,13 +98,17 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                         // top or down
                         if (deltaY < 0) {
                             Log.d(logTag, "Swipe Top to Bottom");
-                            actionTB();
+                            if (isHandled) {
+                                actionTB();
+                            }
                             mSwipeDetected = Action.TB;
                             return false;
                         }
                         if (deltaY > 0) {
                             Log.d(logTag, "Swipe Bottom to Top");
-                            actionBT();
+                            if (isHandled) {
+                                actionBT();
+                            }
                             mSwipeDetected = Action.BT;
                             return false;
                         }
