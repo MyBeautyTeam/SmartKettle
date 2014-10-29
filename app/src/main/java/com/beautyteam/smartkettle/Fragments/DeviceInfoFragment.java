@@ -1,6 +1,7 @@
 package com.beautyteam.smartkettle.Fragments;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,12 +14,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
+import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Admin on 26.10.2014.
@@ -34,6 +37,7 @@ public class DeviceInfoFragment extends Fragment {
     private TextView name;
     private TextView description;
     private ImageView image;
+    private View mainContentView;
 
     public static DeviceInfoFragment getInstance(Device device) { // Пока не используется
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
@@ -65,6 +69,36 @@ public class DeviceInfoFragment extends Fragment {
         name = (TextView)view.findViewById(R.id.deviceInfoName);
         description = (TextView)view.findViewById(R.id.deviceInfoDescript);
         image = (ImageView)view.findViewById(R.id.deviceInfoImage);
+        mainContentView = view.findViewById(R.id.deviceInfoContent);
+
+        SwipeDetector swipeDetector = new SwipeDetector() {
+            @Override
+            public void actionLR() {
+            }
+
+            @Override
+            public void actionRL() {
+                int c1 = new Random().nextInt()%256;
+                int c3 = new Random().nextInt()%256;
+                int c2 = new Random().nextInt()%256;
+                getView().setBackgroundColor(Color.rgb(c1,c2,c3));
+            }
+
+            @Override
+            public void actionTB() {
+            }
+
+            @Override
+            public void actionBT() {
+            }
+        };
+
+        mainContentView.setOnTouchListener(swipeDetector);
+        mainContentView.setOnClickListener(new View.OnClickListener() { // Почему-то нужен для работы TouchListener'a
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         name.setText(getArguments().getString(NAME));
         description.setText(getArguments().getString(DESCRIPTION));

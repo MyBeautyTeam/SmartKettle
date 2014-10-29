@@ -6,6 +6,7 @@ android:background="#ff64e1ff">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/deviceInfoContent"
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView

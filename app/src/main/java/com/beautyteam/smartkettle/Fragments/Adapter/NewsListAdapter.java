@@ -63,12 +63,6 @@ public class NewsListAdapter extends BaseAdapter{
         viewHolder.mainText.setText(news.getShortNewsText());
         viewHolder.date.setText(news.getDateInfo());
         viewHolder.image.setImageResource(news.getImageId());
-        convertView.setOnTouchListener(new SwipeDetector() {
-            @Override
-            public void ActionRL() {
-                this.view.setBackgroundColor(Color.rgb(0,0,0));
-            }
-        });
         return convertView;
     }
 

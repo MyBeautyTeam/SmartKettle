@@ -4,12 +4,9 @@ package com.beautyteam.smartkettle.Instruments;
  * Created by Admin on 28.10.2014.
  */
 
-import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.logging.Logger;
 
 public abstract class SwipeDetector implements View.OnTouchListener {
 
@@ -22,23 +19,35 @@ public abstract class SwipeDetector implements View.OnTouchListener {
     }
 
     private static final String logTag = "SwipeDetector";
-    private static final int MIN_DISTANCE = 50;
+    private static int MIN_DISTANCE = 500;
     private float downX, downY, upX, upY;
+    private View view;
     private Action mSwipeDetected = Action.None;
-    public View view;
 
     public boolean swipeDetected() {
         return mSwipeDetected != Action.None;
     }
 
+    public View getView() {
+        return view;
+    }
+
+
+    public abstract void actionLR();
+    public abstract void actionRL();
+    public abstract void actionTB();
+    public abstract void actionBT();
+
+
+
     public Action getAction() {
         return mSwipeDetected;
     }
 
-    public abstract void ActionRL();
+//    public abstract void ActionRL();
 
     public boolean onTouch(View v, MotionEvent event) {
-        view = v;
+        this.view = v;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 downX = event.getX();
@@ -57,7 +66,7 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                 if (Math.abs(deltaX) > MIN_DISTANCE) {
                     // left or right
                     if (deltaX < 0) {
-
+                        actionLR();
                         Log.d(logTag, "Swipe Left to Right");
                         mSwipeDetected = Action.LR;
 
@@ -65,8 +74,7 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                     }
                     if (deltaX > 0) {
                         Log.d(logTag, "Swipe Right to Left");
-                        ActionRL();
-                        v.setBackgroundColor(Color.rgb(0,0,0));
+                        actionRL();
                         mSwipeDetected = Action.RL;
                         return true;
                     }
@@ -77,11 +85,13 @@ public abstract class SwipeDetector implements View.OnTouchListener {
                         // top or down
                         if (deltaY < 0) {
                             Log.d(logTag, "Swipe Top to Bottom");
+                            actionTB();
                             mSwipeDetected = Action.TB;
                             return false;
                         }
                         if (deltaY > 0) {
                             Log.d(logTag, "Swipe Bottom to Top");
+                            actionBT();
                             mSwipeDetected = Action.BT;
                             return false;
                         }
