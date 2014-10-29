@@ -251,4 +251,8 @@ public class MainActivity extends FragmentActivity
         fTran.addToBackStack(null);
         fTran.commit();
     }
+
+    public void removeDevice() {
+        Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
+    }
 }
