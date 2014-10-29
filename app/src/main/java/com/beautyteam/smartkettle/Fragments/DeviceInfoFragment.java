@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class DeviceInfoFragment extends Fragment {
     private TextView description;
     private ImageView image;
     private View mainContentView;
+    private Button removeBtn;
 
     public static DeviceInfoFragment getInstance(Device device) { // Пока не используется
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
@@ -71,12 +73,56 @@ public class DeviceInfoFragment extends Fragment {
         description = (TextView)view.findViewById(R.id.deviceInfoDescript);
         image = (ImageView)view.findViewById(R.id.deviceInfoImage);
         mainContentView = view.findViewById(R.id.deviceInfoContent);
+        removeBtn = (Button) view.findViewById(R.id.deviceInfoRemoveBtn);
+        removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.removeDevice();
+            }
+        });
 
 
         final Animation animationSwipeLeft = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.swipe_device_info_left);
         final Animation animationSwipeRight = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.swipe_device_info_right);
+        final Animation animationApear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_0_to_1);
+        final Animation animationDispear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_1_to_0);
+
+        animationSwipeLeft.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setRemoveBtnParams(true, 1.1f);
+                removeBtn.startAnimation(animationApear);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        animationSwipeRight.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                removeBtn.startAnimation(animationDispear);
+                setRemoveBtnParams(false, 50f);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         /*
         Допольно сложный кусок кода.
@@ -99,9 +145,10 @@ public class DeviceInfoFragment extends Fragment {
                         @Override
                         public void run() {
                            getView().startAnimation(animationSwipeRight);
+
                            setIsHandled(true);
                         }
-                    }, 3000);
+                    }, 5000);
                 }
             }
 
@@ -142,6 +189,18 @@ public class DeviceInfoFragment extends Fragment {
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         deviceInfoList.addFooterView(newsBtn);
         deviceInfoList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
+    }
+
+    private void setRemoveBtnParams(Boolean isVisiable, float weight) {
+        if  (isVisiable) {
+            removeBtn.setVisibility(View.VISIBLE);
+        } else {
+            removeBtn.setVisibility(View.INVISIBLE);
+        }
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT, weight);
+        removeBtn.setLayoutParams(param);
     }
 
 }
