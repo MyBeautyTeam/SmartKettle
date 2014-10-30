@@ -24,6 +24,9 @@ import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class NewsFragment extends Fragment {
@@ -74,16 +77,31 @@ public class NewsFragment extends Fragment {
         // =======================
         ArrayList<News> arrayList = new ArrayList<News>();
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 12:10:50", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:05:50", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "26 October 2014, 12:10:50", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "22 October 2014, 13:05:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:10:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:17:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 12:01:50", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "30 October 2014, 13:00:50", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "30 October 2014, 16:00:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
          // ======================
+        Collections.sort(arrayList, new Comparator<News>() {
+            @Override
+            public int compare(News news1, News news2) {
+                if(news1.getDateLong() > (news2.getDateLong())) {
+                    return -1;
+                } else {
+                    if (news1.getDateLong() == (news2.getDateLong())) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+        });
+
         newsList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
     }
 

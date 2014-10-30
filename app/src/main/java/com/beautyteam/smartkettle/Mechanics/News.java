@@ -47,16 +47,16 @@ public class News implements Parcelable {
     public String getDateInfo() {
         long diffSecond = dateDiffer();
         if ((int)(diffSecond/SECONDS_IN_MONTH) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " месяц назад";
+            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " months ago";
         }
         if ((int)(diffSecond/SECONDS_IN_DAY) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " день назад";
+            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " days ago";
         }
         if ((int)(diffSecond/SECONDS_IN_HOUR) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " часов назад";
+            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " hours ago";
         }
         if ((int)(diffSecond/SECONDS_IN_MINUTE) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " минуты назад";
+            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " minutes ago";
         }
         return "" + diffSecond + " секунд назад";
     }
@@ -97,5 +97,9 @@ public class News implements Parcelable {
         Calendar calendar = Calendar.getInstance();
         long diffTime = calendar.getTime().getTime() - dateLong;
         return diffTime/1000;
+    }
+
+    public long getDateLong(){
+        return dateLong;
     }
 }
