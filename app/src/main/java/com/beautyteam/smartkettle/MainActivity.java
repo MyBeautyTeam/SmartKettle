@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
@@ -143,6 +145,19 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+    public String registerDevice(HashMap params) {
+        if (params.get("key").equals("") || params.get("title").equals("")) {
+            return "Пустые значения!";
+        }
+        return "success";
+    }
+
+    public void removeFragment(Fragment fragment) {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.remove(fragment);
+        fTran.commit();
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(
@@ -179,7 +194,6 @@ public class MainActivity extends FragmentActivity
                     MainActivity.this.startActivity(loginIntent);
                     MainActivity.this.finish();
                     break;
-
             }
         }
     }
@@ -278,6 +292,4 @@ public class MainActivity extends FragmentActivity
         fTran.addToBackStack(null);
         fTran.commit();
     }
-
-
 }

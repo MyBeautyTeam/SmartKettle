@@ -1,15 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/deviceAddFragment"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffdff3ff">
+    android:background="#ffdff3ff"
+    android:gravity="center">
     <TextView
+        android:id="@+id/deviceAddKeyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/device_key"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:id="@+id/deviceAddKey"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="50dp"
-        android:text="REGISTER DEVICE PAGE"
-        />
-
-</LinearLayout>
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:layout_marginRight="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_below="@+id/deviceAddKeyLabel"/>
+    <TextView
+        android:id="@+id/deviceAddTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/device_title"
+        android:layout_below="@+id/deviceAddKey"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:id="@+id/deviceAddTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:inputType="text"
+        android:layout_below="@+id/deviceAddTitleLabel"/>
+    <Button
+        android:id="@+id/deviceAddButtonsSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deviceAddTitle"
+        android:text="@string/buttons_submit"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignParentTop="false"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp" />
+    <Button
+        android:id="@+id/deviceAddButtonsReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/deviceAddButtonsSubmit"
+        android:layout_toLeftOf="@+id/deviceAddButtonsSubmit"
+        android:text="@string/buttons_reset"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="10dp" />
+    <ImageView
+        android:id="@+id/deviceAddLoadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_loading"
+        android:layout_below="@+id/deviceAddButtonsReset"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/deviceAddErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffe31200"
+        android:text="dsdhs"
+        android:textSize="18sp"
+        android:layout_below="@+id/deviceAddLoadImage"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
