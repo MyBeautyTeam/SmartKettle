@@ -2,7 +2,11 @@ package com.beautyteam.smartkettle;
 
 import android.app.ActionBar;
 import android.app.Activity;
+
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -34,6 +38,7 @@ import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
+import com.beautyteam.smartkettle.network.ApiService;
 
 import java.util.HashMap;
 
@@ -44,7 +49,13 @@ public class MainActivity extends FragmentActivity
     static final String TAG = "myLogs";
     static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
 
-
+    public static final String OWNER = "OWNER";
+    public static final String ID_DEVICE = "ID_DEVICE";
+    public static final String EVENT_DATE_BEGIN = "EVENT_DATE_BEGIN";
+    public static final String TEMPERATURE = "TEMPERATURE";
+    public static final String NAME_DEVICE = "NAME_DEVICE";
+    public static final String ID_PAGE = "ID_PAGE";
+    public static final String ID_EVENT = "ID_EVENT";
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private SwipeRefreshLayout newsRefreshLayout;
@@ -57,12 +68,14 @@ public class MainActivity extends FragmentActivity
     private ListView drawerList; // Список в меню слева
 
     public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
+    private CharSequence appTitle; // Заголовок приложения
+    public BroadcastReceiver receiver;
+    //public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // ================== Drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
