@@ -21,12 +21,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
+import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
 import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
@@ -48,12 +50,13 @@ public class MainActivity extends FragmentActivity
     private SwipeRefreshLayout newsRefreshLayout;
     private SwipeRefreshLayout deviceNewsRefreshLayout;
     private ImageButton actionBarPlusBtn;
+    private ImageView actionBarKettle;
     private TextView actionBarTitleView;
 
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
 
-    public static String[] screenNames = {"Новости", "Устройства", "Настройки", "Выход"};
+    public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +82,11 @@ public class MainActivity extends FragmentActivity
         actionBarTitleView.setText(R.string.app_name);
 
         actionBarPlusBtn = (ImageButton) actionBarView.findViewById(R.id.actionBarPlusBtn);
+        actionBarKettle = (ImageView) actionBarView.findViewById(R.id.actionBarImage);
 
         actionBarPlusBtn.setOnClickListener(this);
         actionBarTitleView.setOnClickListener(this);
+        actionBarKettle.setOnClickListener(this);
 
         actionBar.setCustomView(actionBarView);
         actionBar.setDisplayShowCustomEnabled(true);
@@ -128,6 +133,13 @@ public class MainActivity extends FragmentActivity
             case R.id.actionBarTitleText:
                 TweetMaker tweetMaker = new TweetMaker(this, TWEET_MESSAGE);
                 tweetMaker.submit();
+                break;
+            case R.id.actionBarImage:
+                FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                fTrans.replace(R.id.drawer_layout, new AddDeviceFragment());
+                fTrans.addToBackStack(null);
+                fTrans.commit();
+                break;
         }
     }
 
@@ -144,14 +156,20 @@ public class MainActivity extends FragmentActivity
                 case 1: // Устройства
                     pager.setCurrentItem(position, true);
                     break;
-                case 2: // Настройки
+                case 2: // Добавить устройство
+                    addAddTaskFragment();
+                    break;
+                case 3: // Добавить задачу
+                    addAddDeviceFragment();
+                    break;
+                case 4: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
                     break;
-                case 3: // Выход
+                case 5: // Выход
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
@@ -236,5 +254,30 @@ public class MainActivity extends FragmentActivity
     public void removeDevice() {
         Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
     }
+
+    public void disableActionBarButton() {
+        actionBarPlusBtn.setEnabled(false);
+        actionBarKettle.setEnabled(false);
+    }
+
+    public void enableActionBarButton() {
+        actionBarPlusBtn.setEnabled(true);
+        actionBarKettle.setEnabled(true);
+    }
+
+    private void addAddTaskFragment() {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.drawer_layout, new AddTaskFragment());
+        fTran.addToBackStack(null);
+        fTran.commit();
+    }
+
+    private void addAddDeviceFragment() {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.drawer_layout, new AddDeviceFragment());
+        fTran.addToBackStack(null);
+        fTran.commit();
+    }
+
 
 }
