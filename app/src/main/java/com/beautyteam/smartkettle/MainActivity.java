@@ -93,9 +93,6 @@ public class MainActivity extends FragmentActivity
         actionBar.setCustomView(actionBarView);
         actionBar.setDisplayShowCustomEnabled(true);
 
-        if (savedInstanceState == null) {
-        }
-
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -180,12 +177,13 @@ public class MainActivity extends FragmentActivity
                 case 4: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
+
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
                     break;
                 case 5: // Выход
-                    SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
+                    SharedPreferences sPref = getPreferences(MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
                     editor.putString(LoginActivity.PASS, null);
@@ -201,13 +199,12 @@ public class MainActivity extends FragmentActivity
 
     HashMap<String, Boolean> getCheckboxValueMap() {
         HashMap<String, Boolean> valueToName = new HashMap<String, Boolean>();
-        SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
+        SharedPreferences sPref = getPreferences(MODE_PRIVATE);
         valueToName.put(SettingsFragment.settingsName[0], sPref.getBoolean(SettingsFragment.settingsName[0], true));
         valueToName.put(SettingsFragment.settingsName[1], sPref.getBoolean(SettingsFragment.settingsName[1], true));
         valueToName.put(SettingsFragment.settingsName[2], sPref.getBoolean(SettingsFragment.settingsName[2], true));
         return valueToName;
     }
-
     @Override // Обработчик на Checkbox в SettingsFragment
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int numberOfCheckbox = 0;
@@ -228,6 +225,7 @@ public class MainActivity extends FragmentActivity
         editor.commit();
     }
 
+    
     public void refreshNewsList(){
         Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();
         if (newsRefreshLayout == null) newsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
