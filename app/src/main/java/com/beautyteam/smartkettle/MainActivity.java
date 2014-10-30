@@ -1,8 +1,10 @@
 package com.beautyteam.smartkettle;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -32,6 +34,7 @@ import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Mechanics.Device;
+import com.beautyteam.smartkettle.network.ApiService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +44,13 @@ public class MainActivity extends FragmentActivity
 
     static final String TAG = "myLogs";
 
+    public static final String OWNER = "OWNER";
+    public static final String ID_DEVICE = "ID_DEVICE";
+    public static final String EVENT_DATE_BEGIN = "EVENT_DATE_BEGIN";
+    public static final String TEMPERATURE = "TEMPERATURE";
+    public static final String NAME_DEVICE = "NAME_DEVICE";
+    public static final String ID_PAGE = "ID_PAGE";
+    public static final String ID_EVENT = "ID_EVENT";
 
 
     private ViewPager pager;
@@ -54,14 +64,13 @@ public class MainActivity extends FragmentActivity
     private ActionBarDrawerToggle drawerToggle; // Переключатель
 
     private CharSequence appTitle; // Заголовок приложения
-
+    public BroadcastReceiver receiver;
     public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // ================== Drawer
         appTitle =  getTitle();
