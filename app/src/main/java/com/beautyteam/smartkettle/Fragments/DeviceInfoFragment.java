@@ -81,6 +81,7 @@ public class DeviceInfoFragment extends Fragment {
             }
         });
 
+        ((MainActivity) getActivity()).disableActionBarButton();// Отключаем клики по кнопкам
 
         final Animation animationSwipeLeft = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.swipe_device_info_left);
@@ -201,6 +202,12 @@ public class DeviceInfoFragment extends Fragment {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT, weight);
         removeBtn.setLayoutParams(param);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
     }
 
 }
