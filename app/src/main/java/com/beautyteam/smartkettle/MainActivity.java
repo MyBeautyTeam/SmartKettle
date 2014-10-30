@@ -1,14 +1,15 @@
 package com.beautyteam.smartkettle;
 
+import android.app.ActionBar;
 import android.app.Activity;
+<<<<<<< HEAD
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+=======
+>>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
 
@@ -21,28 +22,34 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
+import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
+import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
+import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.network.ApiService;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends FragmentActivity
-                        implements CompoundButton.OnCheckedChangeListener {
+                        implements CompoundButton.OnCheckedChangeListener,
+                        View.OnClickListener {
 
     static final String TAG = "myLogs";
+<<<<<<< HEAD
 
     public static final String OWNER = "OWNER";
     public static final String ID_DEVICE = "ID_DEVICE";
@@ -51,21 +58,29 @@ public class MainActivity extends FragmentActivity
     public static final String NAME_DEVICE = "NAME_DEVICE";
     public static final String ID_PAGE = "ID_PAGE";
     public static final String ID_EVENT = "ID_EVENT";
+=======
+    static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
+>>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private SwipeRefreshLayout newsRefreshLayout;
     private SwipeRefreshLayout deviceNewsRefreshLayout;
-
+    private ImageButton actionBarPlusBtn;
+    private ImageView actionBarKettle;
+    private TextView actionBarTitleView;
 
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
-    private ActionBarDrawerToggle drawerToggle; // Переключатель
 
+<<<<<<< HEAD
     private CharSequence appTitle; // Заголовок приложения
     public BroadcastReceiver receiver;
     public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
+=======
+    public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
+>>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,35 +88,31 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.activity_main);
 
         // ================== Drawer
-        appTitle =  getTitle();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, screenNames));
 
-        // Включает значок и позволяет вести себя как кнопки-переключателя
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerToggle = new ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.drawable.ic_launcher, //иконка
-                R.string.app_name, // описание открытия ???
-                R.string.app_name // описание закрытия ???
-        ){
-            public void onDrawerClosed(View view) {
-                getActionBar().setTitle(appTitle); // Показать название приложения
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
-            }
+        //===================ActionBar
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
 
-            public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(appTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
+        View actionBarView = mInflater.inflate(R.layout.action_bar, null);
+        actionBarTitleView = (TextView) actionBarView.findViewById(R.id.actionBarTitleText);
+        actionBarTitleView.setText(R.string.app_name);
 
-        drawerLayout.setDrawerListener(drawerToggle);
+        actionBarPlusBtn = (ImageButton) actionBarView.findViewById(R.id.actionBarPlusBtn);
+        actionBarKettle = (ImageView) actionBarView.findViewById(R.id.actionBarImage);
+
+        actionBarPlusBtn.setOnClickListener(this);
+        actionBarTitleView.setOnClickListener(this);
+        actionBarKettle.setOnClickListener(this);
+
+        actionBar.setCustomView(actionBarView);
+        actionBar.setDisplayShowCustomEnabled(true);
 
         if (savedInstanceState == null) {
         }
@@ -133,6 +144,28 @@ public class MainActivity extends FragmentActivity
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.actionBarPlusBtn:
+                FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+                fTran.replace(R.id.drawer_layout, new AddTaskFragment());
+                fTran.addToBackStack(null);
+                fTran.commit();
+                break;
+            case R.id.actionBarTitleText:
+                TweetMaker tweetMaker = new TweetMaker(this, TWEET_MESSAGE);
+                tweetMaker.submit();
+                break;
+            case R.id.actionBarImage:
+                FragmentTransaction fTrans = getSupportFragmentManager().beginTransaction();
+                fTrans.replace(R.id.drawer_layout, new AddDeviceFragment());
+                fTrans.addToBackStack(null);
+                fTrans.commit();
+                break;
+        }
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(
@@ -144,17 +177,22 @@ public class MainActivity extends FragmentActivity
             switch (position) {
                 case 0: // История
                 case 1: // Устройства
-                case 2: // Что-то еще
                     pager.setCurrentItem(position, true);
                     break;
-                case 3: // Настройки
+                case 2: // Добавить устройство
+                    addAddTaskFragment();
+                    break;
+                case 3: // Добавить задачу
+                    addAddDeviceFragment();
+                    break;
+                case 4: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
                     break;
-                case 4: // Выход
+                case 5: // Выход
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
@@ -165,67 +203,9 @@ public class MainActivity extends FragmentActivity
                     MainActivity.this.finish();
                     break;
 
-
-
             }
         }
     }
-
-
-/*  НАДО ЛИ? */
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle action bar actions click
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MY RANDOM APP");
-                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "MY RANDOM TEXTasdasdas asda sawd awdaw wd wadadw");
-
-                PackageManager pm = getPackageManager();
-                List<ResolveInfo> activityList = pm.queryIntentActivities(shareIntent, 0);
-                for (final ResolveInfo app : activityList)
-                {
-                    if ((app.activityInfo.name).contains("facebook"))
-                    {
-                        final ActivityInfo activity = app.activityInfo;
-                        final ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
-                        shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                        shareIntent.setComponent(name);
-                        startActivity(shareIntent);
-                        break;
-                    }
-                    if ("com.twitter.android.PostActivity".equals(app.activityInfo.name))
-                    {
-                        final ActivityInfo activity = app.activityInfo;
-                        final ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
-                        shareIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                        shareIntent.setComponent(name);
-                        startActivity(shareIntent);
-                        break;
-                    }
-                }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
 
 
     HashMap<String, Boolean> getCheckboxValueMap() {
@@ -293,4 +273,34 @@ public class MainActivity extends FragmentActivity
         fTran.addToBackStack(null);
         fTran.commit();
     }
+
+    public void removeDevice() {
+        Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
+    }
+
+    public void disableActionBarButton() {
+        actionBarPlusBtn.setEnabled(false);
+        actionBarKettle.setEnabled(false);
+    }
+
+    public void enableActionBarButton() {
+        actionBarPlusBtn.setEnabled(true);
+        actionBarKettle.setEnabled(true);
+    }
+
+    private void addAddTaskFragment() {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.drawer_layout, new AddTaskFragment());
+        fTran.addToBackStack(null);
+        fTran.commit();
+    }
+
+    private void addAddDeviceFragment() {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.drawer_layout, new AddDeviceFragment());
+        fTran.addToBackStack(null);
+        fTran.commit();
+    }
+
+
 }

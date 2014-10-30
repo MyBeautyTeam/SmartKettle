@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +50,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         errorMessage = (TextView)findViewById(R.id.errorMessageLoginAct);
         okBtn = (Button)findViewById(R.id.okBtnLoginAct);
         loadImage = (ImageView)findViewById(R.id.loadImageLoginAct);
+
+        Animation infinityRotate = AnimationUtils.loadAnimation(this, R.anim.rotate_infinity);
+        loadImage.startAnimation(infinityRotate);
 
         okBtn.setOnClickListener(this);
         errorMessage.setVisibility(View.INVISIBLE);
@@ -116,7 +121,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     okBtn.setEnabled(true);
                 }
             }
-        }, 2000);
+        }, 4000);
         //============================
     }
 

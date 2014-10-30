@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.widget.ListView;
 
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
+import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
@@ -56,6 +58,8 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ListView newsList = (ListView) view.findViewById(R.id.newsList);
+
+
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
