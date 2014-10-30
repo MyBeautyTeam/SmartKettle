@@ -183,7 +183,7 @@ public class MainActivity extends FragmentActivity
                     fTran.commit();
                     break;
                 case 5: // Выход
-                    SharedPreferences sPref = getPreferences(MODE_PRIVATE);
+                    SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
                     editor.putString(LoginActivity.PASS, null);
