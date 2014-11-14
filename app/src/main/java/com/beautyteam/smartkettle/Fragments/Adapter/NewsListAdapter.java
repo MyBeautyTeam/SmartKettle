@@ -1,7 +1,6 @@
 package com.beautyteam.smartkettle.Fragments.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 

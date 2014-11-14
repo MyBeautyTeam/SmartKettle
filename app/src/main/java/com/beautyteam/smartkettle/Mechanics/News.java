@@ -3,6 +3,7 @@ package com.beautyteam.smartkettle.Mechanics;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.text.ParseException;
@@ -128,7 +129,9 @@ public class News implements Parcelable {
         return event_date_end;
     }
 
+
     public long getDateLong(){
         return dateLong;
     }
+
 }
