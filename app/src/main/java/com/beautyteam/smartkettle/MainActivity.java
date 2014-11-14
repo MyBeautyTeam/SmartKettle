@@ -2,11 +2,8 @@ package com.beautyteam.smartkettle;
 
 import android.app.ActionBar;
 import android.app.Activity;
-<<<<<<< HEAD
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-=======
->>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -49,8 +46,6 @@ public class MainActivity extends FragmentActivity
                         View.OnClickListener {
 
     static final String TAG = "myLogs";
-<<<<<<< HEAD
-
     public static final String OWNER = "OWNER";
     public static final String ID_DEVICE = "ID_DEVICE";
     public static final String EVENT_DATE_BEGIN = "EVENT_DATE_BEGIN";
@@ -58,9 +53,7 @@ public class MainActivity extends FragmentActivity
     public static final String NAME_DEVICE = "NAME_DEVICE";
     public static final String ID_PAGE = "ID_PAGE";
     public static final String ID_EVENT = "ID_EVENT";
-=======
     static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
->>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 
 
     private ViewPager pager;
@@ -74,13 +67,9 @@ public class MainActivity extends FragmentActivity
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
 
-<<<<<<< HEAD
     private CharSequence appTitle; // Заголовок приложения
     public BroadcastReceiver receiver;
-    public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
-=======
     public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
->>>>>>> 898605100df247939f3ebacef9471445bb73d69e
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

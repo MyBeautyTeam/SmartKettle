@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by asus on 29.10.2014.
@@ -49,6 +50,7 @@ public class Network {
             str = handleInputStream(in);
         }
         connection.disconnect();
+        //str = URLEncoder.encode(str, "UTF-8");
         return str;
     }
 

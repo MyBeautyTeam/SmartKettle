@@ -45,9 +45,9 @@ public class DeviceInfoFragment extends Fragment {
     public static DeviceInfoFragment getInstance(Device device) { // Пока не используется
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
         Bundle arguments = new Bundle();
-        arguments.putString(NAME, device.getName());
-        arguments.putString(DESCRIPTION, device.getLongDescription());
-        arguments.putInt(IMAGE, device.getImageId());
+        arguments.putString(NAME, device.getTitle());
+        arguments.putString(DESCRIPTION, device.getDescription());
+        arguments.putInt(IMAGE, device.getTypeId());
         deviceInfoFragment.setArguments(arguments);
         return deviceInfoFragment;
     }
