@@ -3,7 +3,6 @@ package com.beautyteam.smartkettle.Mechanics;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.text.ParseException;
@@ -30,7 +29,7 @@ public class News implements Parcelable {
     private String event_date;
     @JsonProperty("event_date_end")
     private String event_date_end;
-    private long eventDateBegin;
+    private long dateLong;
     private String dateInfo;
     private static final long SECONDS_IN_MONTH=2629743;
     private static final long SECONDS_IN_DAY=86400;
@@ -49,7 +48,7 @@ public class News implements Parcelable {
 
         try {
             Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_dateInfo);
-            eventDateBegin = date.getTime();
+            dateLong = date.getTime();
         } catch (ParseException e) {
         }
     }
@@ -65,16 +64,16 @@ public class News implements Parcelable {
     public String getDateInfo() {
         long diffSecond = dateDiffer();
         if ((int)(diffSecond/SECONDS_IN_MONTH) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " месяц назад";
+            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " months ago";
         }
         if ((int)(diffSecond/SECONDS_IN_DAY) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " день назад";
+            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " days ago";
         }
         if ((int)(diffSecond/SECONDS_IN_HOUR) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " часов назад";
+            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " hours ago";
         }
         if ((int)(diffSecond/SECONDS_IN_MINUTE) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " минуты назад";
+            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " minutes ago";
         }
         return "" + diffSecond + " секунд назад";
     }
@@ -93,7 +92,7 @@ public class News implements Parcelable {
         parcel.writeString(short_news);
         parcel.writeString(long_news);
         parcel.writeString(dateInfo);
-        parcel.writeLong(eventDateBegin);
+        parcel.writeLong(dateLong);
         parcel.writeInt(id);
     }
 
@@ -113,7 +112,7 @@ public class News implements Parcelable {
 
     private long dateDiffer() {
         Calendar calendar = Calendar.getInstance();
-        long diffTime = calendar.getTime().getTime() - eventDateBegin;
+        long diffTime = calendar.getTime().getTime() - dateLong;
         return diffTime/1000;
     }
 
@@ -127,5 +126,9 @@ public class News implements Parcelable {
 
     public String getEvent_date_end() {
         return event_date_end;
+    }
+
+    public long getDateLong(){
+        return dateLong;
     }
 }

@@ -4,5 +4,9 @@
     <string name="app_name">SmartKettle</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Share</string>
+    <string name="device_key">Идентификатор устройста</string>
+    <string name="device_title">Название устройства</string>
+    <string name="buttons_reset">Очистить</string>
+    <string name="buttons_submit">Сохранить</string>
 
 </resources>

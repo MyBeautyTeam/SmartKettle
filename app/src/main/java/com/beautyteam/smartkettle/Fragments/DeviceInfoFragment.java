@@ -32,6 +32,7 @@ public class DeviceInfoFragment extends Fragment {
     private final static String NAME = "name";
     private final static String DESCRIPTION = "description";
     private final static String IMAGE = "image";
+    private final static String LANDSCAPE = "landscape";
 
     MainActivity mCallback;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -41,6 +42,8 @@ public class DeviceInfoFragment extends Fragment {
     private ImageView image;
     private View mainContentView;
     private Button removeBtn;
+    private String orientation;
+
 
     public static DeviceInfoFragment getInstance(Device device) { // Пока не используется
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
@@ -69,6 +72,10 @@ public class DeviceInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ListView deviceInfoList = (ListView) view.findViewById(R.id.deviceInfoList);
 
+        if (view.findViewById(R.id.deviceInfoHorisontal)!=null) {
+            orientation = "landscape";
+        }
+
         name = (TextView)view.findViewById(R.id.deviceInfoName);
         description = (TextView)view.findViewById(R.id.deviceInfoDescript);
         image = (ImageView)view.findViewById(R.id.deviceInfoImage);
@@ -89,6 +96,11 @@ public class DeviceInfoFragment extends Fragment {
                 R.anim.swipe_device_info_right);
         final Animation animationApear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_0_to_1);
         final Animation animationDispear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_1_to_0);
+
+        if (LANDSCAPE.equals(orientation)) {
+            animationSwipeRight.setDuration(0);
+            animationSwipeLeft.setDuration(0);
+        }
 
         animationSwipeLeft.setAnimationListener(new Animation.AnimationListener() {
             @Override

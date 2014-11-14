@@ -33,12 +33,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public final static String LOGIN = "LOGIN";
     public final static String PASS = "PASS";
     public final static String LOGIN_PREF = "LOGIN_PREF";
-    EditText loginEditText;
-    EditText passEditText;
-    TextView errorMessage;
-    Button okBtn;
-    ImageView loadImage;
+
     private final String LOG = "LogService";
+
+    private EditText loginEditText;
+    private EditText passEditText;
+    private TextView errorMessage;
+    private Button okBtn;
+    private ImageView loadImage;
+    private Animation infinityRotate;
 
 
     @Override
@@ -53,8 +56,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         okBtn = (Button)findViewById(R.id.okBtnLoginAct);
         loadImage = (ImageView)findViewById(R.id.loadImageLoginAct);
 
-        Animation infinityRotate = AnimationUtils.loadAnimation(this, R.anim.rotate_infinity);
-        loadImage.startAnimation(infinityRotate);
+
+        infinityRotate = AnimationUtils.loadAnimation(this, R.anim.rotate_infinity);
+        loadImage.setVisibility(View.INVISIBLE);
+
 
         okBtn.setOnClickListener(this);
         errorMessage.setVisibility(View.INVISIBLE);
@@ -66,6 +71,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             // Если данные есть - пробуем подключится
             loginEditText.setText(sPref.getString(LOGIN, ""));
             passEditText.setText(sPref.getString(PASS, ""));
+            loadImage.setVisibility(View.VISIBLE);
+            loadImage.startAnimation(infinityRotate);
             onClick(null); // Вынести в отдельную функцию, когда все станет по-уму
 
             /*loginEditText.setEnabled(false);
@@ -86,6 +93,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         loadImage.setVisibility(View.VISIBLE);
+        loadImage.startAnimation(infinityRotate);
         loginEditText.setEnabled(false);
         passEditText.setEnabled(false);
         okBtn.setEnabled(false);
@@ -114,6 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     LoginActivity.this.startActivity(loginIntent);
                     LoginActivity.this.finish();
                 } else {
+                    loadImage.clearAnimation();
                     loadImage.setVisibility(View.INVISIBLE);
                     errorMessage.setVisibility(View.VISIBLE);
                     loginEditText.setEnabled(true);

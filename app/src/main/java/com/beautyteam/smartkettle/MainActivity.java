@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
@@ -68,6 +70,7 @@ public class MainActivity extends FragmentActivity
     private ListView drawerList; // Список в меню слева
 
     public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
+
     private CharSequence appTitle; // Заголовок приложения
     public BroadcastReceiver receiver;
 
@@ -89,6 +92,7 @@ public class MainActivity extends FragmentActivity
         actionBar.setDisplayShowTitleEnabled(false);
         LayoutInflater mInflater = LayoutInflater.from(this);
 
+
         View actionBarView = mInflater.inflate(R.layout.action_bar, null);
         actionBarTitleView = (TextView) actionBarView.findViewById(R.id.actionBarTitleText);
         actionBarTitleView.setText(R.string.app_name);
@@ -102,9 +106,6 @@ public class MainActivity extends FragmentActivity
 
         actionBar.setCustomView(actionBarView);
         actionBar.setDisplayShowCustomEnabled(true);
-
-        if (savedInstanceState == null) {
-        }
 
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -155,6 +156,20 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+
+    public String registerDevice(HashMap params) {
+        if (params.get("key").equals("") || params.get("title").equals("")) {
+            return "Пустые значения!";
+        }
+        return "success";
+    }
+
+    public void removeFragment(Fragment fragment) {
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.remove(fragment);
+        fTran.commit();
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(
@@ -177,6 +192,7 @@ public class MainActivity extends FragmentActivity
                 case 4: // Настройки
                     FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
                     HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
+
                     fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
                     fTran.addToBackStack(null);
                     fTran.commit();
@@ -191,7 +207,6 @@ public class MainActivity extends FragmentActivity
                     MainActivity.this.startActivity(loginIntent);
                     MainActivity.this.finish();
                     break;
-
             }
         }
     }
@@ -199,13 +214,12 @@ public class MainActivity extends FragmentActivity
 
     HashMap<String, Boolean> getCheckboxValueMap() {
         HashMap<String, Boolean> valueToName = new HashMap<String, Boolean>();
-        SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
+        SharedPreferences sPref = getPreferences(MODE_PRIVATE);
         valueToName.put(SettingsFragment.settingsName[0], sPref.getBoolean(SettingsFragment.settingsName[0], true));
         valueToName.put(SettingsFragment.settingsName[1], sPref.getBoolean(SettingsFragment.settingsName[1], true));
         valueToName.put(SettingsFragment.settingsName[2], sPref.getBoolean(SettingsFragment.settingsName[2], true));
         return valueToName;
     }
-
     @Override // Обработчик на Checkbox в SettingsFragment
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int numberOfCheckbox = 0;
@@ -226,6 +240,7 @@ public class MainActivity extends FragmentActivity
         editor.commit();
     }
 
+    
     public void refreshNewsList(){
         Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();
         if (newsRefreshLayout == null) newsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
@@ -290,6 +305,4 @@ public class MainActivity extends FragmentActivity
         fTran.addToBackStack(null);
         fTran.commit();
     }
-
-
 }
