@@ -7,34 +7,36 @@ import android.os.Parcelable;
  * Created by Admin on 26.10.2014.
  */
 public class Device implements Parcelable{
-    private String name;
-    private String shortDescription;
-    private String longDescription;
-    private int image;
+    private String title;
+    private String summary;
+    private String description;
+    private int type;
     private int id;
 
-    public Device(String _name, String _shortDescription, String _longDescription, int _image, int _id) {
-        name = _name;
-        longDescription = _longDescription;
-        shortDescription = _shortDescription;
-        image = _image;
+    public Device() {}
+
+    public Device(String _name, String _shortDescription, String _longDescription, int _type, int _id) {
+        title = _name;
+        description = _longDescription;
+        summary = _shortDescription;
+        type = _type;
         id = _id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getSummary() {
+        return summary;
     }
 
-    public int getImageId() {
-        return image;
+    public int getTypeId() {
+        return type;
     }
 
-    public String getLongDescription() {
-        return longDescription;
+    public String getDescription() {
+        return description;
     }
 
     public int getId() {
@@ -48,11 +50,11 @@ public class Device implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(name);
-        parcel.writeString(shortDescription);
-        parcel.writeString(longDescription);
+        parcel.writeString(title);
+        parcel.writeString(summary);
+        parcel.writeString(description);
         parcel.writeInt(id);
-        parcel.writeInt(image);
+        parcel.writeInt(type);
     }
 
     public static final Parcelable.Creator<Device> CREATOR = new Parcelable.Creator<Device>() {

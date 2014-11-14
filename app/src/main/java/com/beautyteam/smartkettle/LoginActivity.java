@@ -20,6 +20,9 @@ import android.os.Handler;
 
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.network.ApiService;
+import com.beautyteam.smartkettle.network.JsonParser;
+import com.beautyteam.smartkettle.network.Processor;
+import com.beautyteam.smartkettle.network.ServiceHelper;
 
 import java.util.ArrayList;
 
@@ -35,7 +38,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     TextView errorMessage;
     Button okBtn;
     ImageView loadImage;
-    private BroadcastReceiver receiver;
     private final String LOG = "LogService";
 
 
@@ -88,18 +90,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         passEditText.setEnabled(false);
         okBtn.setEnabled(false);
         //===========================Service
-        Intent intent = new Intent(LoginActivity.this, ApiService.class);
-        startService(intent);
-
-        receiver = new Receiver();
-        IntentFilter intentFilter = new IntentFilter(
-                ApiService.ACTION_LOGIN);
-        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(receiver, intentFilter);
+        Intent intent = new Intent(LoginActivity.this, ServiceHelper.class);
+        intent.setAction(JsonParser.ACTION_LOGIN);
+        intent.putExtra(LOGIN, loginEditText.getText().toString());
+        intent.putExtra(PASS, passEditText.getText().toString());
+        ServiceHelper serviceHelper = new ServiceHelper(LoginActivity.this);
+        serviceHelper.serviceStarter(intent);
 
         //============================ DEBUG
         // SharedPref оставить. Проверка, возможно, в onReceive
-        Handler handler = new Handler();
+        /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -123,37 +123,48 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }, 4000);
         //============================
+    */
     }
 
-    public class Receiver extends BroadcastReceiver {
+    @Override
+    protected void onDestroy() {
+        Log.d(LOG, "onDestroy");
+        super.onDestroy();
+    }
+
+   /* public class Receiver extends BroadcastReceiver {
+        public static final String ACTION = "login.received";
 
         @Override
         public void onReceive(Context context, Intent intent) {
             int idOwner = 0;
             ArrayList<Device> deviceArray = new ArrayList<Device>();
-            if (intent.getStringExtra(ApiService.EXTRA_ERROR).isEmpty() ) {
-                idOwner = intent.getIntExtra(ApiService.EXTRA_ID_OWNER, 0);
-                deviceArray = intent.getParcelableArrayListExtra(ApiService.EXTRA_DEVICE);
+            if (intent.getStringExtra(JsonParser.EXTRA_ERROR).isEmpty() ) {
+                idOwner = intent.getIntExtra(JsonParser.EXTRA_ID_OWNER, 0);
+                deviceArray = intent.getParcelableArrayListExtra(JsonParser.EXTRA_DEVICE);
                 //ArrayList newsArray = intent.getStringArrayListExtra(ApiService.EXTRA_NEWS);
                 Device device = deviceArray.get(0);
                 Log.d(LOG, "id="+idOwner);
-                Log.d(LOG, "long="+deviceArray.get(0).getLongDescription());
-
+                Log.d(LOG, "long="+deviceArray.get(0).getDescription());
+                SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sPref.edit();
+                editor.putString(LoginActivity.LOGIN, loginEditText.getText().toString());
+                editor.putString(LoginActivity.PASS, passEditText.getText().toString());
+                editor.commit();
+                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(loginIntent);
+                LoginActivity.this.finish();
             }
             else {
+                loadImage.setVisibility(View.INVISIBLE);
+                errorMessage.setVisibility(View.VISIBLE);
+                loginEditText.setEnabled(true);
+                passEditText.setEnabled(true);
+                okBtn.setEnabled(true);
 
             }
-            /*Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            mainIntent.setAction(ACTION_MAININTENT);
-            mainIntent.addCategory(Intent.CATEGORY_DEFAULT);
-            mainIntent.putExtra(MAIN_KEY_OUT, listOfLang);
-            mainIntent.putExtra(MAIN_KEY_OUT2, mapAliasToAvailable);
-            mainIntent.putExtra(MAIN_KEY_OUT1, mapNameToAlias);
-            mainIntent.putExtra(MAIN_KEY_OUT3, mapAliasToName);
-            Splash.this.startActivity(mainIntent);
-            Splash.this.finish();
-        */
+
         }
-    }
+    }*/
 
 }

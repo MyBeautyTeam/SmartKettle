@@ -48,7 +48,6 @@ public class MainActivity extends FragmentActivity
 
     static final String TAG = "myLogs";
     static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
-
     public static final String OWNER = "OWNER";
     public static final String ID_DEVICE = "ID_DEVICE";
     public static final String EVENT_DATE_BEGIN = "EVENT_DATE_BEGIN";
@@ -56,6 +55,7 @@ public class MainActivity extends FragmentActivity
     public static final String NAME_DEVICE = "NAME_DEVICE";
     public static final String ID_PAGE = "ID_PAGE";
     public static final String ID_EVENT = "ID_EVENT";
+
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private SwipeRefreshLayout newsRefreshLayout;
@@ -70,7 +70,6 @@ public class MainActivity extends FragmentActivity
     public static String[] screenNames = {"Новости", "Устройства", "Добавить задачу", "Добавить устройство", "Настройки", "Выход"};
     private CharSequence appTitle; // Заголовок приложения
     public BroadcastReceiver receiver;
-    //public static String[] screenNames = {"Новости", "Устройства", "Заголовок", "Настройки", "Выход"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
