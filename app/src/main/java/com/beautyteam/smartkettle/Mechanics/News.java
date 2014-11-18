@@ -58,7 +58,7 @@ public class News implements Parcelable {
         if ((int)(diffSecond/SECONDS_IN_MINUTE) > 0) {
             return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " minutes ago";
         }
-        return "" + diffSecond + " секунд назад";
+        return "" + diffSecond + " seconds ago";
     }
 
     public String getLongNewsText() {

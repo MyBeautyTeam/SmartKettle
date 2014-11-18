@@ -2,8 +2,11 @@ package com.beautyteam.smartkettle;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -12,10 +15,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +36,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beautyteam.smartkettle.Database.DevicesContract;
+import com.beautyteam.smartkettle.Database.NewsContract;
+import com.beautyteam.smartkettle.Database.SmartContentProvider;
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
 import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
@@ -36,6 +46,7 @@ import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
+import com.beautyteam.smartkettle.Mechanics.News;
 
 import java.util.HashMap;
 
@@ -63,7 +74,23 @@ public class MainActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ContentValues cv1 = new ContentValues();
+        cv1.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, 0);
+        cv1.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, "Чайничек");
+        cv1.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, 1);
+        Uri newUri1 = getContentResolver().insert(SmartContentProvider.DEVICE_CONTENT_URI, cv1);
+        Log.d("MyLog", "insert, result Uri : " + newUri1.toString());
+        ContentValues cv = new ContentValues();
+        cv.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, 1);
+        cv.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, 1);
+        cv.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, "hey, long");
+        cv.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, "hey, short");
+        cv.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_END, "28 October 2014, 13:00:50");
+        Log.d("MyLog", "insert, result Uri : ");
+        Uri newUri = getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, cv);
+        Log.d("MyLog", "insert, result Uri : " + newUri.toString());
+
+                setContentView(R.layout.activity_main);
 
 
         // ================== Drawer
