@@ -1,8 +1,6 @@
-package com.beautyteam.smartkettle.network;
+package com.beautyteam.smartkettle.ServiceWork;
 
 import android.util.Log;
-
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * Created by asus on 29.10.2014.
