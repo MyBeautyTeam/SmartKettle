@@ -16,7 +16,7 @@ import com.beautyteam.smartkettle.R;
 import java.util.ArrayList;
 
 /**
- * Created by Admin on 25.10.2014.
+ * УДАЛИТЬ!!!
  */
 public class NewsListAdapter extends BaseAdapter{
 

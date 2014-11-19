@@ -14,7 +14,7 @@ import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.R;
 import java.util.ArrayList;
 /**
- * Created by Admin on 26.10.2014.
+ * УДАЛИТЬ!
  */
 public class DevicesListAdapter extends BaseAdapter{
     private ArrayList<Device> devicesArrayList;

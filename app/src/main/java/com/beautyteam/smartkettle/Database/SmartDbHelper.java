@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SmartDbHelper extends SQLiteOpenHelper{
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "smartkettle";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -22,9 +22,8 @@ public class SmartDbHelper extends SQLiteOpenHelper{
             NewsContract.NewsEntry._ID + INTEGER_TYPE + " PRIMARY KEY, " +
             NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
             NewsContract.NewsEntry.COLUMN_NAME_DEVICE + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
-            NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE + CHAR_TYPE + NULL + COMMA_SEP +
+            NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE + CHAR_TYPE + NOT_NULL + COMMA_SEP +
             NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_BEGIN + CHAR_TYPE + NULL + COMMA_SEP +
-            NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_END + CHAR_TYPE + NULL + COMMA_SEP +
             NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS + CHAR_TYPE + NOT_NULL + COMMA_SEP +
             NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS + TEXT_TYPE + NOT_NULL + COMMA_SEP +
             NewsContract.NewsEntry.COLUMN_NAME_TRANSACTION_STATE + INTEGER_TYPE + NULL + COMMA_SEP +
@@ -37,7 +36,7 @@ public class SmartDbHelper extends SQLiteOpenHelper{
     private static final String SQL_CREATE_DEVICES =
         "CREATE TABLE " + DevicesContract.DevicesEntry.TABLE_NAME + " (" +
             DevicesContract.DevicesEntry._ID + INTEGER_TYPE + " PRIMARY KEY, " +
-            DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
+            DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID + INTEGER_TYPE + NOT_NULL + COMMA_SEP + //unique
             DevicesContract.DevicesEntry.COLUMN_NAME_TYPE + INTEGER_TYPE + NOT_NULL + COMMA_SEP +
             DevicesContract.DevicesEntry.COLUMN_NAME_TITLE + CHAR_TYPE + NOT_NULL + COMMA_SEP +
             DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY + CHAR_TYPE + NULL + COMMA_SEP +

@@ -12,6 +12,7 @@ public  final class DevicesContract {
         public static final String COLUMN_NAME_TITLE = "title";
         public static final String COLUMN_NAME_SUMMARY = "summary";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
+
         public static final String COLUMN_NAME_TRANSACTION_STATE = "transaction_state";
     }
 }

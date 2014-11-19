@@ -1,35 +1,41 @@
 package com.beautyteam.smartkettle.Fragments;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.beautyteam.smartkettle.Fragments.Adapter.DevicesListAdapter;
-import com.beautyteam.smartkettle.Fragments.Adapter.NewsListAdapter;
-import com.beautyteam.smartkettle.Instruments.SwipeDetector;
+import com.beautyteam.smartkettle.Database.DevicesContract;
+import com.beautyteam.smartkettle.Database.SmartContentProvider;
+import com.beautyteam.smartkettle.Fragments.Adapter.DevicesListCursorAdapter;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
-import com.beautyteam.smartkettle.Mechanics.News;
 import com.beautyteam.smartkettle.R;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-/**
- * Created by Admin on 26.10.2014.
- */
-public class DevicesFragment extends Fragment {
+public class DevicesFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<Cursor> {
     private MainActivity mCallback;
-    private SwipeDetector swipeDetector;
+    private ListView deviceList;
+
+    private static final String[] PROJECTION = new String[] {
+            DevicesContract.DevicesEntry._ID,
+            DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID,
+            DevicesContract.DevicesEntry.COLUMN_NAME_TYPE,
+            DevicesContract.DevicesEntry.COLUMN_NAME_TITLE,
+            DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY,
+            DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION
+    };
+    private static final String SORT_ORDER = DevicesContract.DevicesEntry.COLUMN_NAME_TITLE;
+    private static final int LOADER_ID = 1;
+    private DevicesListCursorAdapter mAdapter;
 
     public static DevicesFragment getInstance() {
         DevicesFragment devicesFragment = new DevicesFragment();
@@ -39,8 +45,14 @@ public class DevicesFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getLoaderManager().initLoader(LOADER_ID, null, this);
         return inflater.inflate(R.layout.fragment_devices, null);
     }
 
@@ -52,32 +64,29 @@ public class DevicesFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView deviceList = (ListView) view.findViewById(R.id.devicesList);
-
-        // =======================
-        ArrayList<Device> arrayList = new ArrayList<Device>();
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Tefal", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-        arrayList.add(new Device("Чайник Samsung", "Прикольный, белый, симпатичный", "Прикольный, белый, симпатичный, красивый, умный, интеллегентный, воспитанный, сердечный, дружелюбный!", R.drawable.ic_drawer));
-
-        // ======================
-        deviceList.setAdapter(new DevicesListAdapter(getActivity(), arrayList));
-
+        deviceList = (ListView) view.findViewById(R.id.devicesList);
         deviceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    mCallback.addDeviceDetailsFragment((Device)adapterView.getItemAtPosition(position));
-                }
-            });
+                mCallback.addDeviceDetailsFragment((Device)adapterView.getItemAtPosition(position));
+            }
+        });
+    }
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), SmartContentProvider.DEVICE_CONTENT_URI, PROJECTION, null, null, SORT_ORDER);
+    }
+
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        switch (loader.getId()) {
+            case LOADER_ID:
+                mAdapter = new DevicesListCursorAdapter(getActivity(), cursor, 0);
+                deviceList.setAdapter(mAdapter);
+                break;
+        }
+    }
+
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 
 }
