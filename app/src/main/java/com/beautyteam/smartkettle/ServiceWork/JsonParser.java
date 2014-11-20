@@ -2,6 +2,7 @@ package com.beautyteam.smartkettle.ServiceWork;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
@@ -46,6 +47,12 @@ public class JsonParser {
     private JSONObject devices;
     private JSONObject history;
     private Context context;
+
+    // Проверка на существование
+    private static final String[] DEVICE_PROJECTION = { DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID };
+    private static final String DEVICE_SELECTION = String.valueOf(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID) + " = ?";
+    private static final String[] NEWS_PROJECTION = { NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID };
+    private static final String NEWS_SELECTION = String.valueOf(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID) + " = ?";
 
     public JsonParser(Context _context) {
         context = _context;
@@ -101,8 +108,16 @@ public class JsonParser {
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, device.get(i).getId());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, device.get(i).getSummary());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, device.get(i).getTitle());
-//            context.getContentResolver().query(SmartContentProvider.DEVICE_CONTENT_URI,);
-            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.DEVICE_CONTENT_URI, deviceValues);
+            Cursor cursor = context.getContentResolver().query(
+                    SmartContentProvider.DEVICE_CONTENT_URI,
+                    DEVICE_PROJECTION,
+                    DEVICE_SELECTION,
+                    new String[]{String.valueOf(device.get(i).getId())},
+                    null
+            );
+            if (cursor.getCount() == 0) {
+                context.getContentResolver().insert(SmartContentProvider.DEVICE_CONTENT_URI, deviceValues);
+            }
             deviceValues.clear();
         }
     }
@@ -114,10 +129,19 @@ public class JsonParser {
         for (int i = 0; i < historyEnd.size(); i++) {
             historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyEnd.get(i).getId());
             historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyEnd.get(i).getDeviceId());
-            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, historyEnd.get(i).getShortNews());
-            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, historyEnd.get(i).getLongNews());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, /*historyEnd.get(i).getShortNews()*/"Ваш чайник вскипел :)");
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, /*historyEnd.get(i).getLongNews()*/"Ваш чайник вскипел :)");
             historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyEnd.get(i).getEventDate());
-            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyEndValues);
+            Cursor cursor = context.getContentResolver().query(
+                    SmartContentProvider.NEWS_CONTENT_URI,
+                    NEWS_PROJECTION,
+                    NEWS_SELECTION,
+                    new String[]{String.valueOf(historyEnd.get(i).getId())},
+                    null
+            );
+            if (cursor.getCount() == 0) {
+                context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyEndValues);
+            }
             historyEndValues.clear();
         }
     }
@@ -130,10 +154,19 @@ public class JsonParser {
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyBegin.get(i).getId());
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyBegin.get(i).getDeviceId());
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_BEGIN, historyBegin.get(i).getEventDateBegin());
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, historyBegin.get(i).getShortNews());
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, historyBegin.get(i).getLongNews());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, /*historyBegin.get(i).getShortNews()*/"Вы поставили чайник :)");
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, /*historyBegin.get(i).getLongNews()*/"Вы поставили чайник :)");
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyBegin.get(i).getEventDate());
-            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyBeginValues);
+            Cursor cursor = context.getContentResolver().query(
+                    SmartContentProvider.NEWS_CONTENT_URI,
+                    NEWS_PROJECTION,
+                    NEWS_SELECTION,
+                    new String[]{String.valueOf(historyBegin.get(i).getId())},
+                    null
+            );
+            if (cursor.getCount() == 0) {
+                context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyBeginValues);
+            }
             historyBeginValues.clear();
         }
     }

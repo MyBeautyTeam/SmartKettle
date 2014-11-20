@@ -2,6 +2,7 @@ package com.beautyteam.smartkettle.Mechanics;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -49,8 +50,9 @@ public class News implements Parcelable {
         image = _image;
 
         try {
-            Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_date_info);
+            Date date = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).parse(_date_info);
             dateLong = date.getTime();
+            int i;
         }
         catch (ParseException e) {
         }

@@ -61,7 +61,7 @@ public class NewsListCursorAdapter extends CursorAdapter {
                              R.drawable.ic_drawer);
         viewHolder.mainText.setText(news.getShortNews());
         viewHolder.date.setText(news.getDateInfo());
-        viewHolder.image.setImageResource(news.getId());
+        viewHolder.image.setImageResource(news.getImage());
     }
 
     @Override
