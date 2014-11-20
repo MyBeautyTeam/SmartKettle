@@ -1,5 +1,7 @@
 package com.beautyteam.smartkettle.Fragments;
 
+
+import android.util.Log;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,14 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 
 import java.util.HashMap;
 
-/**
- * Created by Admin on 30.10.2014.
- */
 public class AddDeviceFragment extends Fragment implements  View.OnClickListener{
     private MainActivity mCallback;
     private EditText keyEditText;
@@ -39,12 +39,12 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_add_device, null);
     }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -75,11 +75,13 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
     }
 
 
+
     @Override
     public void onPause() {
         super.onPause();
         ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
     }
+
 
 
     @Override

@@ -31,6 +31,7 @@ import com.beautyteam.smartkettle.R;
 public class DeviceInfoFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private final static String NAME = "name";
+    private final static String ID = "id";
     private final static String DESCRIPTION = "description";
     private final static String IMAGE = "image";
     private final static String ID = "id";
@@ -39,6 +40,7 @@ public class DeviceInfoFragment extends Fragment implements
     MainActivity mCallback;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private int id;
     private TextView name;
     private TextView description;
     private ImageView image;
@@ -62,10 +64,10 @@ public class DeviceInfoFragment extends Fragment implements
     public static DeviceInfoFragment getInstance(Device device) { // Пока не используется
         DeviceInfoFragment deviceInfoFragment = new DeviceInfoFragment();
         Bundle arguments = new Bundle();
-        arguments.putString(NAME, device.getName());
-        arguments.putString(DESCRIPTION, device.getLongDescription());
-        arguments.putInt(IMAGE, device.getImageId());
-        arguments.putInt(ID, device.getId());
+        arguments.putString(NAME, device.getTitle());
+        arguments.putString(DESCRIPTION, device.getDescription());
+        arguments.putInt(IMAGE, device.getTypeId());
+        arguments.putInt(ID,device.getId());
         deviceInfoFragment.setArguments(arguments);
         return deviceInfoFragment;
     }
@@ -97,10 +99,11 @@ public class DeviceInfoFragment extends Fragment implements
         image = (ImageView)view.findViewById(R.id.deviceInfoImage);
         mainContentView = view.findViewById(R.id.deviceInfoContent);
         removeBtn = (Button) view.findViewById(R.id.deviceInfoRemoveBtn);
+        id = getArguments().getInt(ID);
         removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCallback.removeDevice();
+                mCallback.removeDevice(id);
             }
         });
 
@@ -110,8 +113,9 @@ public class DeviceInfoFragment extends Fragment implements
                 R.anim.swipe_device_info_left);
         final Animation animationSwipeRight = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.swipe_device_info_right);
-        final Animation animationApear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_0_to_1);
-        final Animation animationDispear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_1_to_0);
+        final Animation animationAppear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_0_to_1);
+        final Animation animationDisappear = AnimationUtils.loadAnimation(getActivity(),R.anim.alpha_from_1_to_0);
+
         if (LANDSCAPE.equals(orientation)) {
             animationSwipeRight.setDuration(0);
             animationSwipeLeft.setDuration(0);
@@ -126,7 +130,7 @@ public class DeviceInfoFragment extends Fragment implements
             @Override
             public void onAnimationEnd(Animation animation) {
                 setRemoveBtnParams(true, 1.1f);
-                removeBtn.startAnimation(animationApear);
+                removeBtn.startAnimation(animationAppear);
             }
 
             @Override
@@ -138,7 +142,7 @@ public class DeviceInfoFragment extends Fragment implements
         animationSwipeRight.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                removeBtn.startAnimation(animationDispear);
+                removeBtn.startAnimation(animationDisappear);
                 setRemoveBtnParams(false, 50f);
             }
 
@@ -200,12 +204,11 @@ public class DeviceInfoFragment extends Fragment implements
         description.setText(getArguments().getString(DESCRIPTION));
         image.setImageResource(getArguments().getInt(IMAGE));
 
-
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.deviceInfoRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mCallback.refreshDeviceInfo();
+                mCallback.refreshDeviceInfo(id);
             }
         });
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
