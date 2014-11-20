@@ -2,8 +2,11 @@ package com.beautyteam.smartkettle.ServiceWork;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
 
 import org.json.JSONException;
@@ -35,6 +38,10 @@ public class ApiService extends IntentService {
             processor.request(intent, network);
         } catch (JSONException e) {
             e.printStackTrace();
+            ResultReceiver receiver = intent.getParcelableExtra(LoginActivity.RECEIVER);
+            final Bundle data = new Bundle();
+            data.putString("ERROR","no connection");
+            receiver.send(LoginActivity.STATUS_ERROR, data);
         } catch (IOException e) {
             e.printStackTrace();
         }

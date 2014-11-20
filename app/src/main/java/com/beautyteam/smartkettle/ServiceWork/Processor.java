@@ -47,9 +47,6 @@ public class Processor {
                 ResultReceiver receiver = intent.getParcelableExtra(LoginActivity.RECEIVER);
                 final Bundle data = new Bundle();
                 if (!json.toString().contains("error")) {
-                    if(json.equals(null))
-                        data.putString("ERROR","no connection");
-                    receiver.send(LoginActivity.STATUS_ERROR, data);
                     idOwner = json.getInt("owner_key");
                     data.putInt("RECEIVER_DATA", idOwner);
                     receiver.send(1, data);
