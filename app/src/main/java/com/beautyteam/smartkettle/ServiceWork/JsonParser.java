@@ -1,9 +1,13 @@
 package com.beautyteam.smartkettle.ServiceWork;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
-import com.beautyteam.smartkettle.LoginActivity;
+import com.beautyteam.smartkettle.Database.DevicesContract;
+import com.beautyteam.smartkettle.Database.NewsContract;
+import com.beautyteam.smartkettle.Database.SmartContentProvider;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.Mechanics.News;
 
@@ -41,6 +45,11 @@ public class JsonParser {
     private JSONObject news;
     private JSONObject devices;
     private JSONObject history;
+    private Context context;
+
+    public JsonParser(Context _context) {
+        context = _context;
+    }
 
     public ArrayList newsParser(JSONObject json) throws JSONException {
         ArrayList<News> newsArray = new ArrayList<News>();
@@ -87,12 +96,13 @@ public class JsonParser {
         device =  deviceParser(json);  //parsing arraylist of devices without history
         ContentValues deviceValues = new ContentValues();
         for (int i = 0; i < device.size(); i++) {
-            deviceValues.put("description", device.get(i).getDescription());
-            deviceValues.put("type", device.get(i).getTypeId());
-            deviceValues.put("id", device.get(i).getId());
-            deviceValues.put("summary", device.get(i).getSummary());
-            deviceValues.put("title", device.get(i).getTitle());
-            toContentProvider(deviceValues, action); ///contentProvider
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, device.get(i).getDescription());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, device.get(i).getTypeId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, device.get(i).getId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, device.get(i).getSummary());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, device.get(i).getTitle());
+//            context.getContentResolver().query(SmartContentProvider.DEVICE_CONTENT_URI,);
+            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.DEVICE_CONTENT_URI, deviceValues);
             deviceValues.clear();
         }
     }
@@ -102,11 +112,12 @@ public class JsonParser {
         historyEnd = newsParser(jsonHistoryEnd);
         ContentValues historyEndValues = new ContentValues();
         for (int i = 0; i < historyEnd.size(); i++) {
-            historyEndValues.put("event_date_end", historyEnd.get(i).getEvent_date_end());
-            historyEndValues.put("long_news", historyEnd.get(i).getLong_news());
-            historyEndValues.put("id", historyEnd.get(i).getImageId());
-            historyEndValues.put("short_news", historyEnd.get(i).getShort_news());
-            toContentProvider(historyEndValues, action);
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyEnd.get(i).getId());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyEnd.get(i).getDeviceId());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, historyEnd.get(i).getShortNews());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, historyEnd.get(i).getLongNews());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyEnd.get(i).getEventDate());
+            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyEndValues);
             historyEndValues.clear();
         }
     }
@@ -116,12 +127,13 @@ public class JsonParser {
         historyBegin = newsParser(jsonHistoryBegin);
         ContentValues historyBeginValues = new ContentValues();
         for (int i = 0; i < historyBegin.size(); i++) {
-            historyBeginValues.put("event_date", historyBegin.get(i).getEvent_date());
-            historyBeginValues.put("event_date_begin", historyBegin.get(i).getEvent_date_begin());
-            historyBeginValues.put("long_news", historyBegin.get(i).getLong_news());
-            historyBeginValues.put("id", historyBegin.get(i).getImageId());
-            historyBeginValues.put("short_news", historyBegin.get(i).getShort_news());
-            toContentProvider(historyBeginValues, action);
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyBegin.get(i).getId());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyBegin.get(i).getDeviceId());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_BEGIN, historyBegin.get(i).getEventDateBegin());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, historyBegin.get(i).getShortNews());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, historyBegin.get(i).getLongNews());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyBegin.get(i).getEventDate());
+            Uri newUri =  context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyBeginValues);
             historyBeginValues.clear();
         }
     }
@@ -156,20 +168,19 @@ public class JsonParser {
                     history = devices.getJSONObject(String.valueOf(i)).getJSONObject("history");
                     sendingForNews(history, action);
                 }*/
-            }
-            else {
-                    Log.d("error"," error add device");
+            } else {
+                Log.d("error", " error add device");
             }
         } else if (action.equals(ACTION_REMOVE_DEVICE)) {
             if (!json.toString().contains("error")) {
-                  int num = json.getInt("success");
-                  ContentValues contentValues = new ContentValues();
-                    contentValues.put("success", num);
+                int num = json.getInt("success");
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("success", num);
             }
         } else if (action.equals(ACTION_ADDING_EVENTS)) {
             if (!json.toString().contains("error")) {
                 news = json.getJSONObject("news");
-                sendingForNewsBegin(news,action);
+                sendingForNewsBegin(news, action);
                 int idDevice = news.getJSONObject("devices").getInt("device_id");
                 history = json.getJSONObject("history");
                 sendingForNewsBegin(history, action);
@@ -191,9 +202,5 @@ public class JsonParser {
                 sendingForNewsEnd(history, action);
             }
         }
-    }
-
-     public void toContentProvider(ContentValues values, String action) {
-        Log.d("Values", values.toString());
     }
 }

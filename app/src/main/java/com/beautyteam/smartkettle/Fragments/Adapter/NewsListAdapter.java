@@ -58,9 +58,9 @@ public class NewsListAdapter extends BaseAdapter{
             viewHolder = (ViewHolder)convertView.getTag();
         }
         News news = (News)getItem(position);
-        viewHolder.mainText.setText(news.getShort_news());
+        viewHolder.mainText.setText(news.getShortNews());
         viewHolder.date.setText(news.getDateInfo());
-        viewHolder.image.setImageResource(news.getImageId());
+        viewHolder.image.setImageResource(news.getId());
         return convertView;
     }
 

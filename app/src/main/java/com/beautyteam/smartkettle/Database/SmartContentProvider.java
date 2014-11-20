@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -129,12 +130,18 @@ public class SmartContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        long newRowID = db.insert(
-                table,
-                null,
-                values);
-        Uri resultUri = ContentUris.withAppendedId(uri, newRowID);
-        getContext().getContentResolver().notifyChange(resultUri, null);
+        Uri resultUri = null;
+        try {
+            long newRowID = db.insert(
+                    table,
+                    null,
+                    values);
+            resultUri = ContentUris.withAppendedId(uri, newRowID);
+            getContext().getContentResolver().notifyChange(resultUri, null);
+        }
+        catch(SQLiteException e) {
+            e.printStackTrace();
+        }
         return resultUri;
     }
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -174,11 +181,17 @@ public class SmartContentProvider extends ContentProvider {
                 throw new IllegalArgumentException("Wrong URI: " + uri);
         }
         db = dbHelper.getWritableDatabase();
-        int count = db.delete(
-                table,
-                selection,
-                selectionArgs);
-        getContext().getContentResolver().notifyChange(uri, null);
+        int count = 0;
+        try {
+            count = db.delete(
+                    table,
+                    selection,
+                    selectionArgs);
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        catch(SQLiteException e) {
+            e.printStackTrace();
+        }
         return count;
     }
     public int update(Uri uri, ContentValues values, String selection,

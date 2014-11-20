@@ -20,6 +20,8 @@ import java.util.Locale;
 public class News implements Parcelable {
     @JsonProperty("id")
     private int id;
+    @JsonProperty("device_id")
+    private int device_id;
     @JsonProperty("short_news")
     private String short_news;
     @JsonProperty("long_news")
@@ -30,6 +32,7 @@ public class News implements Parcelable {
     private String event_date;
     @JsonProperty("event_date_end")
     private String event_date_end;
+    private int image;
     private long dateLong;
     private String dateInfo;
     private static final long SECONDS_IN_MONTH=2629743;
@@ -37,29 +40,32 @@ public class News implements Parcelable {
     private static final long SECONDS_IN_HOUR=3600;
     private static final long SECONDS_IN_MINUTE=60;
 
-    public News() {
+    public News() {}
 
-    }
-
-    public News(String _shortNewsText, String _longNewsText, String _dateInfo, int _image) {
-        short_news = _shortNewsText;
-        long_news = _longNewsText;
-        dateInfo = _dateInfo;
-        id = _image;
+    public News(String _short_news, String _long_news, String _date_info, int _image) {
+        short_news = _short_news;
+        long_news = _long_news;
+        dateInfo = _date_info;
+        image = _image;
 
         try {
-            Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_dateInfo);
+            Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_date_info);
             dateLong = date.getTime();
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
         }
     }
 
-    public String getShort_news() {
+    public String getShortNews() {
         return short_news;
     }
 
-    public int getImageId() {
+    public int getId() {
         return id;
+    }
+
+    public int getImage() {
+        return image;
     }
 
     public String getDateInfo() {
@@ -79,7 +85,7 @@ public class News implements Parcelable {
         return "" + diffSecond + " seconds ago";
     }
 
-    public String getLong_news() {
+    public String getLongNews() {
         return long_news;
     }
 
@@ -117,21 +123,23 @@ public class News implements Parcelable {
         return diffTime/1000;
     }
 
-    public String getEvent_date_begin() {
+    public String getEventDateBegin() {
         return event_date_begin;
     }
 
-    public String getEvent_date() {
+    public String getEventDate() {
         return event_date;
     }
 
-    public String getEvent_date_end() {
+    public String getEventDateEnd() {
         return event_date_end;
     }
-
 
     public long getDateLong(){
         return dateLong;
     }
 
+    public int getDeviceId() {
+        return device_id;
+    }
 }

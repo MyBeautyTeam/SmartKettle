@@ -1,5 +1,6 @@
 package com.beautyteam.smartkettle.ServiceWork;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,11 @@ public class Processor {
     private JSONObject json = null;
     String action = "";
     private int idOwner;
+    private Context context;
+
+    public Processor(Context _context) {
+        context = _context;
+    }
 
     public void request(Intent intent, Network network) throws JSONException, IOException {
         urlparametres = new JSONObject();
@@ -96,7 +102,7 @@ public class Processor {
                 json = new JSONObject(network.urlConnectionGet(url));
             }
         }
-        JsonParser jsonParser = new JsonParser();
+        JsonParser jsonParser = new JsonParser(context);
         jsonParser.jsonToContentProvider(action, json);
     }
 

@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,7 @@ import com.beautyteam.smartkettle.R;
 public class DeviceInfoFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private final static String NAME = "name";
-    private final static String ID = "id";
-    private final static String DESCRIPTION = "description";
+    private final static String DESCRIPTION = "summary";
     private final static String IMAGE = "image";
     private final static String ID = "id";
     private final static String LANDSCAPE = "landscape";
@@ -67,7 +67,7 @@ public class DeviceInfoFragment extends Fragment implements
         arguments.putString(NAME, device.getTitle());
         arguments.putString(DESCRIPTION, device.getDescription());
         arguments.putInt(IMAGE, device.getTypeId());
-        arguments.putInt(ID,device.getId());
+        arguments.putInt(ID, device.getId());
         deviceInfoFragment.setArguments(arguments);
         return deviceInfoFragment;
     }

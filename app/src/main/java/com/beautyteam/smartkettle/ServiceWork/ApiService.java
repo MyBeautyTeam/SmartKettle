@@ -30,7 +30,7 @@ public class ApiService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Processor processor = new Processor();
+        Processor processor = new Processor(getBaseContext());
         try {
             processor.request(intent, network);
         } catch (JSONException e) {

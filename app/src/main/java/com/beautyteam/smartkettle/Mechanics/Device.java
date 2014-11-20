@@ -13,7 +13,7 @@ public class Device implements Parcelable{
     private int type;
     private int id;
 
-    public Device() {}
+    public Device(){}
 
     public Device(String _name, String _shortDescription, String _longDescription, int _type, int _id) {
         title = _name;
@@ -21,16 +21,6 @@ public class Device implements Parcelable{
         summary = _shortDescription;
         type = _type;
         id = _id;
-    public Device(int _id,String _name, String _shortDescription, String _longDescription, int _image) {
-        id = _id;
-        name = _name;
-        longDescription = _longDescription;
-        shortDescription = _shortDescription;
-        image = _image;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getTitle() {
@@ -71,8 +61,7 @@ public class Device implements Parcelable{
 
         @Override
         public Device createFromParcel(Parcel source) {
-            Device device = new Device(source.readString(),source.readString(),source.readString(),source.readInt(), source.readInt());
-            return device;
+            return new Device(source.readString(),source.readString(),source.readString(),source.readInt(), source.readInt());
         }
 
         @Override

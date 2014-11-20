@@ -59,9 +59,9 @@ public class NewsListCursorAdapter extends CursorAdapter {
                              cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS)),
                              cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE)),
                              R.drawable.ic_drawer);
-        viewHolder.mainText.setText(news.getShortNewsText());
+        viewHolder.mainText.setText(news.getShortNews());
         viewHolder.date.setText(news.getDateInfo());
-        viewHolder.image.setImageResource(news.getImageId());
+        viewHolder.image.setImageResource(news.getId());
     }
 
     @Override

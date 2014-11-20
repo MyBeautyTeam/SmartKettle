@@ -25,20 +25,15 @@ public class DevicesListCursorAdapter extends CursorAdapter {
     }
 
     @Override
-    public int getCount() {
-        return getCursor().getCount();
-    }
-
-    @Override
     public Object getItem(int position) {
         Cursor cursor = getCursor();
         Device device = null;
         if (cursor.moveToPosition(position)) {
-            device = new Device(cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)),
-                                KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
+            device = new Device(KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
                                 cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY)),
                                 cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION)),
-                                R.drawable.ic_drawer);
+                                R.drawable.ic_drawer,
+                                cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)));
         }
         return device;
     }
@@ -53,18 +48,18 @@ public class DevicesListCursorAdapter extends CursorAdapter {
         Log.d(LOG_TAG, "DevicesListCursorAdapter bindView");
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.name = (TextView) view.findViewById(R.id.deviceListName);
-        viewHolder.description = (TextView) view.findViewById(R.id.deviceListDescript);
+        viewHolder.summary = (TextView) view.findViewById(R.id.deviceListDescript);
         viewHolder.image = (ImageView) view.findViewById(R.id.deviceListIcon);
         view.setTag(viewHolder);
 
-        Device device = new Device(cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)),
-                                   KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
+        Device device = new Device(KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
                                    cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY)),
                                    cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION)),
-                                   R.drawable.ic_drawer);
-        viewHolder.name.setText(device.getName());
-        viewHolder.description.setText(device.getShortDescription());
-        viewHolder.image.setImageResource(device.getImageId());
+                                   R.drawable.ic_drawer,
+                                   cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)));
+        viewHolder.name.setText(device.getTitle());
+        viewHolder.summary.setText(device.getSummary());
+        viewHolder.image.setImageResource(device.getTypeId());
     }
 
     @Override
@@ -75,7 +70,7 @@ public class DevicesListCursorAdapter extends CursorAdapter {
 
     private class ViewHolder {
         public TextView name;
-        public TextView description;
+        public TextView summary;
         public ImageView image;
     }
 }
