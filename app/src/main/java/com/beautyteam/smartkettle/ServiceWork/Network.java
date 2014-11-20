@@ -15,39 +15,54 @@ import java.net.URL;
  */
 
 public class Network {
-    public String urlConnectionPost(String strUrl, String urlParameters) throws IOException {
-        URL url = new URL(strUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        connection.connect();
-        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-        writer.write(urlParameters);
-        writer.flush();
-        int code = connection.getResponseCode();
+    public String urlConnectionPost(String strUrl, String urlParameters) {
+        HttpURLConnection connection = null;
         String str = "";
-        if (code == 200) {
-            InputStream in = connection.getInputStream();
-            str = handleInputStream(in);
+        try {
+            URL url = new URL(strUrl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.connect();
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            writer.write(urlParameters);
+            writer.flush();
+            int code = connection.getResponseCode();
+            if (code == 200) {
+                InputStream in = connection.getInputStream();
+                str = handleInputStream(in);
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
-        writer.close();
-        connection.disconnect();
         return str;
     }
 
     public String urlConnectionGet( String strUrl) throws IOException {
+        HttpURLConnection connection = null;
+        String str = "";
+        try {
         URL url = new URL(strUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();
         int code = connection.getResponseCode();
-        String str = "";
         if (code == 200) {
             InputStream in = connection.getInputStream();
             str = handleInputStream(in);
         }
-        connection.disconnect();
-        //str = URLEncoder.encode(str, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
         return str;
     }
 

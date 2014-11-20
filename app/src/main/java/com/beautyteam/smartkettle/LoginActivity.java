@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beautyteam.smartkettle.ServiceWork.AppResultsReceiver;
 import com.beautyteam.smartkettle.ServiceWork.JsonParser;
@@ -72,18 +73,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
             loadImage.setVisibility(View.VISIBLE);
             loadImage.startAnimation(infinityRotate);
             onClick(null); // Вынести в отдельную функцию, когда все станет по-уму
-
-            loginEditText.setEnabled(false);
-            passEditText.setEnabled(false);
-            okBtn.setEnabled(false);
-            loadImage.setVisibility(View.VISIBLE);
-
-            loginEditText.setText(sPref.getString(LOGIN, ""));
-            passEditText.setText(sPref.getString(PASS, ""));
-
-            // TODO - отправить интент на авторизацию
-            //============================ DEBUG
-            //============================
         }
 
     }
@@ -141,10 +130,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
                 LoginActivity.this.finish();
                 break;
             case STATUS_ERROR :
-                Log.d(LOG, "data.getString('ERROR)");
+                String errorString = data.getString("ERROR");
                 loadImage.clearAnimation();
                 loadImage.setVisibility(View.INVISIBLE);
-                errorMessage.setVisibility(View.VISIBLE);
+                Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
                 loginEditText.setEnabled(true);
                 passEditText.setEnabled(true);
                 okBtn.setEnabled(true);
