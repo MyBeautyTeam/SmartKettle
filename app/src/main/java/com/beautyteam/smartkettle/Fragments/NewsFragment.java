@@ -18,6 +18,7 @@ import com.beautyteam.smartkettle.Database.SmartContentProvider;
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListCursorAdapter;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
+
 public class NewsFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private SwipeRefreshLayout swipeRefreshLayout;

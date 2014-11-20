@@ -23,11 +23,6 @@ public class NewsListCursorAdapter extends CursorAdapter {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-//    @Override
-//    public int getCount() {
-//        return getCursor().getCount();
-//    }
-
     @Override
     public Object getItem(int position) {
         Cursor cursor = getCursor();

@@ -36,7 +36,6 @@ import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
-import com.beautyteam.smartkettle.ServiceWork.JsonParser;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import java.util.HashMap;

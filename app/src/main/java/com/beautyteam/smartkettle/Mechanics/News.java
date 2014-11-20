@@ -2,9 +2,6 @@ package com.beautyteam.smartkettle.Mechanics;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.text.ParseException;
@@ -51,8 +48,7 @@ public class News implements Parcelable {
 
         try {
             Date date = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).parse(_date_info);
-            dateLong = date.getTime();
-            int i;
+            dateLong = date.getTime() - 3600000;
         }
         catch (ParseException e) {
         }
