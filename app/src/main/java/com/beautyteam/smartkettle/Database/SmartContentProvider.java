@@ -238,6 +238,7 @@ public class SmartContentProvider extends ContentProvider {
                 selection,
                 selectionArgs);
         getContext().getContentResolver().notifyChange(uri, null);
+        db.close();
         return count;
     }
     public String getType(Uri uri) {

@@ -118,6 +118,7 @@ public class JsonParser {
             if (cursor.getCount() == 0) {
                 context.getContentResolver().insert(SmartContentProvider.DEVICE_CONTENT_URI, deviceValues);
             }
+            cursor.close();
             deviceValues.clear();
         }
     }
@@ -142,6 +143,7 @@ public class JsonParser {
             if (cursor.getCount() == 0) {
                 context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyEndValues);
             }
+            cursor.close();
             historyEndValues.clear();
         }
     }
@@ -167,6 +169,7 @@ public class JsonParser {
             if (cursor.getCount() == 0) {
                 context.getContentResolver().insert(SmartContentProvider.NEWS_CONTENT_URI, historyBeginValues);
             }
+            cursor.close();
             historyBeginValues.clear();
         }
     }
