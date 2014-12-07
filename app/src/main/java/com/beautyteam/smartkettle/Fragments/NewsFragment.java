@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -60,17 +62,11 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView newsList = (ListView) view.findViewById(R.id.newsList);
+        final ListView newsList = (ListView) view.findViewById(R.id.newsList);
 
 
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.newsRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mCallback.refreshNewsList();
-            }
-        });
 
         Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
         newsList.addFooterView(newsBtn);
@@ -85,7 +81,7 @@ public class NewsFragment extends Fragment {
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "30 October 2014, 13:00:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "30 October 2014, 16:00:50", R.drawable.ic_drawer));
         arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
-        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "28 October 2014, 13:00:50", R.drawable.ic_drawer));
+        arrayList.add(new News("Ваш чайник вскипел", "Ваш чайник вскипел и это было охренительно!", "30 October 2014, 18:20:50", R.drawable.ic_drawer));
          // ======================
         Collections.sort(arrayList, new Comparator<News>() {
             @Override
@@ -103,6 +99,13 @@ public class NewsFragment extends Fragment {
         });
 
         newsList.setAdapter(new NewsListAdapter(getActivity(), arrayList));
+        swipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mCallback.refreshNewsList();
+                //((BaseAdapter)newsList.getAdapter()).notifyDataSetChanged();
+            }
+        });
     }
 
 }

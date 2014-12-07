@@ -86,7 +86,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (loginEditText.getText().toString().equals("login")&&
+                if (loginEditText.getText().toString().equals("rustam")&&
                         (passEditText.getText().toString().equals("pass"))) {
                     SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();

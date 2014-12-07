@@ -2,7 +2,7 @@
 android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:background="#ffffedef">
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -48,6 +48,7 @@ android:background="#ffffedef">
             android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
             android:text="Remove"
             android:background="#ffe31200"/>
     </LinearLayout>
