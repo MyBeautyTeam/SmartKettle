@@ -7,9 +7,6 @@ import com.beautyteam.smartkettle.Fragments.DevicesFragment;
 import com.beautyteam.smartkettle.Fragments.NewsFragment;
 import com.beautyteam.smartkettle.MainActivity;
 
-/**
- * Created by Admin on 25.10.2014.
- */
 public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
     final int PAGE_COUNT = 2;
 

@@ -2,18 +2,34 @@ package com.beautyteam.smartkettle.Mechanics;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+
 /**
  * Created by Admin on 25.10.2014.
  */
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class News implements Parcelable {
-    private String shortNewsText;
-    private String longNewsText;
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("device_id")
+    private int device_id;
+    @JsonProperty("short_news")
+    private String short_news;
+    @JsonProperty("long_news")
+    private String long_news;
+    @JsonProperty("event_date_begin")
+    private String event_date_begin;
+    @JsonProperty("event_date")
+    private String event_date;
+    @JsonProperty("event_date_end")
+    private String event_date_end;
     private int image;
     private long dateLong;
     private String dateInfo;
@@ -22,25 +38,31 @@ public class News implements Parcelable {
     private static final long SECONDS_IN_HOUR=3600;
     private static final long SECONDS_IN_MINUTE=60;
 
+    public News() {}
 
-    public News(String _shortNewsText, String _longNewsText, String _dateInfo, int _image) {
-        shortNewsText = _shortNewsText;
-        longNewsText = _longNewsText;
-        dateInfo = _dateInfo;
+    public News(String _short_news, String _long_news, String _date_info, int _image) {
+        short_news = _short_news;
+        long_news = _long_news;
+        dateInfo = _date_info;
         image = _image;
 
         try {
-            Date date = new SimpleDateFormat("d MMMM yyyy, HH:mm:ss", Locale.ENGLISH).parse(_dateInfo);
-            dateLong = date.getTime();
-        } catch (ParseException e) {
+            Date date = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).parse(_date_info);
+            dateLong = date.getTime() - 3600000;
+        }
+        catch (ParseException e) {
         }
     }
 
-    public String getShortNewsText() {
-        return shortNewsText;
+    public String getShortNews() {
+        return short_news;
     }
 
-    public int getImageId() {
+    public int getId() {
+        return id;
+    }
+
+    public int getImage() {
         return image;
     }
 
@@ -61,8 +83,8 @@ public class News implements Parcelable {
         return "" + diffSecond + " seconds ago";
     }
 
-    public String getLongNewsText() {
-        return longNewsText;
+    public String getLongNews() {
+        return long_news;
     }
 
     @Override
@@ -72,11 +94,11 @@ public class News implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(shortNewsText);
-        parcel.writeString(longNewsText);
+        parcel.writeString(short_news);
+        parcel.writeString(long_news);
         parcel.writeString(dateInfo);
         parcel.writeLong(dateLong);
-        parcel.writeInt(image);
+        parcel.writeInt(id);
     }
 
     public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
@@ -99,7 +121,23 @@ public class News implements Parcelable {
         return diffTime/1000;
     }
 
+    public String getEventDateBegin() {
+        return event_date_begin;
+    }
+
+    public String getEventDate() {
+        return event_date;
+    }
+
+    public String getEventDateEnd() {
+        return event_date_end;
+    }
+
     public long getDateLong(){
         return dateLong;
+    }
+
+    public int getDeviceId() {
+        return device_id;
     }
 }
