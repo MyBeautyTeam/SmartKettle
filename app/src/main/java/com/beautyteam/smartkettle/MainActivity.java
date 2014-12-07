@@ -38,6 +38,8 @@ import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
+import com.google.android.gcm.GCMRegistrar;
+
 import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity
