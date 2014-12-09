@@ -1,6 +1,9 @@
 package com.beautyteam.smartkettle;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ import com.google.android.gcm.GCMRegistrar;
  * Created by Admin on 28.10.2014.
  */
 public class LoginActivity extends Activity implements View.OnClickListener, AppResultsReceiver.Receiver {
+
     public final static String LOGIN = "LOGIN";
     public final static String PASS = "PASS";
     public final static String ID_OWNER = "OWNER";
@@ -158,5 +162,4 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
                 break;
         }
     }
-
 }
