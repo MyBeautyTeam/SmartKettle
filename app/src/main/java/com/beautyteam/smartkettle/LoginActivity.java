@@ -54,8 +54,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // ===============
-        // Делаем проверки
 
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);

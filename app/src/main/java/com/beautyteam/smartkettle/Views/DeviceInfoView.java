@@ -16,14 +16,13 @@ import com.beautyteam.smartkettle.R;
  * Created by Admin on 10.12.2014.
  */
 public class DeviceInfoView extends ViewGroup {
-    Boolean mIsScrolling = false;
     String TAG = "CUSTOM";
     private int widthOfScreen;
 
     View secondChild;
 
     private OverScroller scroller;
-    private GestureDetector  gestureDetector;
+    private GestureDetector gestureDetector;
 
     private int offset = 0;
 
@@ -54,9 +53,6 @@ public class DeviceInfoView extends ViewGroup {
         v = getChildAt(1);
         secondChild = v;
         v.layout(v.getMeasuredWidth(), 0, 2 * v.getMeasuredWidth(), v.getMeasuredHeight());
-
-
-
     }
 
     @Override
@@ -74,69 +70,11 @@ public class DeviceInfoView extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        /*
-        ViewConfiguration vc = ViewConfiguration.get(this.getContext());
-        int mTouchSlop = vc.getScaledTouchSlop();
-
-        final int action = MotionEventCompat.getActionMasked(event);
-
-        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-            // Release the scroll.
-            mIsScrolling = false;
-            return false; // Do not intercept touch event, let the child handle it
-        }*/
-        /*
-        if (action == MotionEvent.ACTION_DOWN) {
-            last_x = event.getX();
-            last_y = event.getY();
-            return false;
-        }
-
-        if (action == event.ACTION_MOVE) {
-            if (mIsScrolling) {
-                return true;
-            }
-
-            final float xDiff = calculateDistanceX(event);
-
-            if (xDiff > mTouchSlop) {
-                mIsScrolling = true;
-                return true;
-            }
-
-        }*/
         return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        /*
-        Boolean enableScroll;
-        if (e.getAction() == MotionEvent.ACTION_DOWN) {
-            down_x = (int) e.getX();
-            down_y = (int) e.getY();
-        }
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                final Scroller scroller = new Scroller(getContext());
-
-                //scroller.fling(deltaXPast, 0, 5, 0, 0, 100, 0, 1);
-                scroller.startScroll(0,0, 3,3);
-                for (int i=0; i<100; i++)
-                    Log.d("scroll", "x=" + scroller.getCurrX());
-            }
-        });
-
-        if (e.getAction() == MotionEvent.ACTION_MOVE) {
-            if (Math.abs(down_x - (int) e.getX()) > Math.abs(down_y - (int) e.getY())) {
-                Log.d("QWERTY", "e.getX=" + (e.getX()) + "  delta=" + deltaXPast);
-                this.getChildAt(1).offsetLeftAndRight((int) (e.getX() - deltaXPast));
-                deltaXPast = (int) e.getX();
-            }
-        }
-        return true;
-        */
         return gestureDetector.onTouchEvent(e);
     }
 
@@ -152,7 +90,7 @@ public class DeviceInfoView extends ViewGroup {
     // called when the GestureListener detects fling
     public void fling(int velocityX) {
         scroller.forceFinished(true);
-        scroller.fling(offset, 0, -(int)velocityX/2, 0, 0, -widthOfScreen/2, 0, 0, 50, 0);
+        scroller.fling(offset, 0, -(int)velocityX/2, 0, 0, -2*widthOfScreen/3, 0, 0, 50, 0);
         /*
         public void fling(int startX, int startY, int velocityX, int velocityY,
             int minX, int maxX, int minY, int maxY, int overX, int overY) {
@@ -160,7 +98,6 @@ public class DeviceInfoView extends ViewGroup {
         flingView();
         Log.d(TAG, "fling");
     }
-
 
     private void flingView() {
 
@@ -178,13 +115,10 @@ public class DeviceInfoView extends ViewGroup {
 
     }
 
-
-
-
     private void checkOffset() {
         if (offset > 0) {
             offset = 0;
-        } else if (offset < -widthOfScreen/2) {
+        } else if (offset < -2*widthOfScreen/3) {
             offset = -widthOfScreen/2;
         }
     }
