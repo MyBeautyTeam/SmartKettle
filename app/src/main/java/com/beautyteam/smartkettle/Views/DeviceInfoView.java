@@ -2,11 +2,13 @@ package com.beautyteam.smartkettle.Views;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.OverScroller;
 
@@ -70,11 +72,12 @@ public class DeviceInfoView extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        return false;
+        return true;
     }
 
-    @Override
+    //@Override
     public boolean onTouchEvent(MotionEvent e) {
+        Log.d(TAG, "scroll offset = " + gestureDetector.onTouchEvent(e));
         return gestureDetector.onTouchEvent(e);
     }
 
@@ -87,10 +90,14 @@ public class DeviceInfoView extends ViewGroup {
         Log.d(TAG, "scroll offset = " + (offset));
     }
 
+    public void doubleClick() {
+        ((ButtonView)secondChild).doubleClick();
+    }
+
     // called when the GestureListener detects fling
     public void fling(int velocityX) {
         scroller.forceFinished(true);
-        scroller.fling(offset, 0, -(int)velocityX/2, 0, 0, -2*widthOfScreen/3, 0, 0, 50, 0);
+        scroller.fling(offset, 0, -(int)velocityX, 0, 0, -3*widthOfScreen/4, 0, 0, widthOfScreen/8, 0);
         /*
         public void fling(int startX, int startY, int velocityX, int velocityY,
             int minX, int maxX, int minY, int maxY, int overX, int overY) {
@@ -118,8 +125,8 @@ public class DeviceInfoView extends ViewGroup {
     private void checkOffset() {
         if (offset > 0) {
             offset = 0;
-        } else if (offset < -2*widthOfScreen/3) {
-            offset = -widthOfScreen/2;
+        } else if (offset < -3*widthOfScreen/4) {
+            offset = -3*widthOfScreen/4;
         }
     }
 }

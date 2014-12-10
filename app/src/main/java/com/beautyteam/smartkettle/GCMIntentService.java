@@ -13,13 +13,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.beautyteam.smartkettle.ServiceWork.Network;
 import com.google.android.gcm.GCMBaseIntentService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
     private static final String TAG = "GCMIntentService";
 
     NotificationManager nm;
+    final String URL = "http://beautyteam.cloudapp.net/gcm/v1/device/register/";
+
 
     @Override
     public void onCreate() {
@@ -35,6 +41,16 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     protected void onRegistered(Context context, String registrationId) {
         Log.i(TAG, "Device registered #" + registrationId);
+        Network network = new Network();
+        JSONObject urlparametres = new JSONObject();
+        try {
+            urlparametres.put("dev_id", "1");
+            urlparametres.put("reg_id", registrationId);
+            network.urlConnectionPost(URL, urlparametres.toString());
+        } catch (JSONException e) {
+
+        }
+
 
         // Здесь мы должны отправить registrationId на наш сервер, чтобы он смог на него отправлять уведомления
     }

@@ -60,7 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
 
         // Достаем идентификатор регистрации
         final String regId = GCMRegistrar.getRegistrationId(this);
-
+        //GCMRegistrar.unregister(getBaseContext());
         if (regId.isEmpty()) { // Если отсутствует, то регистрируемся
             GCMRegistrar.register(this, SENDER_ID);
         } else {

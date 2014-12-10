@@ -2,9 +2,6 @@
     android:id="@+id/deviceInfoRemoveBtn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="100dp"
-    android:textSize="20dp"
-    android:textAlignment="center"
-    android:gravity="center_horizontal"
-    android:text="Double Click to \nRemove Device"
+    android:clickable="true"
+    android:text="REMOVE"
     android:background="#ffe31200"/>

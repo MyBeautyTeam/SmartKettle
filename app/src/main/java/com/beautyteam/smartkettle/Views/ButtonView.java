@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 
 import com.beautyteam.smartkettle.R;
@@ -38,6 +39,7 @@ public class ButtonView extends Button {
         return gestureDetector.onTouchEvent(e);
     }
 
+
     public void setOnDoubleClickListener(OnDoubleClickListener listener) {
         this.onDoubleClickListener = listener;
     }
@@ -47,6 +49,5 @@ public class ButtonView extends Button {
             this.onDoubleClickListener.doubleClick();
         }
     }
-
 
 }

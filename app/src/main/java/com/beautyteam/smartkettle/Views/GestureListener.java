@@ -37,10 +37,13 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
         return true;
     }
 
+
     @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        return true;
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.d(TAG, "onDouble");
+        viewGroup.doubleClick();
+        return false;
     }
 
-}
 
+}

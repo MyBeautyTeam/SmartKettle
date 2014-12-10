@@ -83,7 +83,7 @@ public class DeviceInfoFragment extends Fragment implements
 
         LinearLayout content =(LinearLayout) inflater.inflate(R.layout.device_info_view, null);
         removeBtn = (ButtonView) inflater.inflate(R.layout.device_info_button, null);
-
+//*
         removeBtn.setOnDoubleClickListener(new OnDoubleClickListener() {
             @Override
             public void doubleClick() {
