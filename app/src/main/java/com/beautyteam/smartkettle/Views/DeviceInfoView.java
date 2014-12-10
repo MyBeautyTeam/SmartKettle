@@ -2,13 +2,11 @@ package com.beautyteam.smartkettle.Views;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.OverScroller;
 
@@ -25,7 +23,7 @@ public class DeviceInfoView extends ViewGroup {
     View secondChild;
 
     private OverScroller scroller;
-    private GestureDetector gestureDetector;
+    private GestureDetector  gestureDetector;
 
     private int offset = 0;
 
@@ -44,7 +42,6 @@ public class DeviceInfoView extends ViewGroup {
 
     public DeviceInfoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
     }
 
     @Override
@@ -56,17 +53,17 @@ public class DeviceInfoView extends ViewGroup {
 
         v = getChildAt(1);
         secondChild = v;
-
         v.layout(v.getMeasuredWidth(), 0, 2 * v.getMeasuredWidth(), v.getMeasuredHeight());
-        //v.layout(-v.getMeasuredWidth(), 0, 0, v.getMeasuredHeight());
+
+
 
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        int widthSize = View.MeasureSpec.getSize(widthMeasureSpec);
-        int heightSize = View.MeasureSpec.getSize(heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
         for (int i = 0; i < getChildCount(); i++) {
             View v = getChildAt(i);
@@ -74,7 +71,7 @@ public class DeviceInfoView extends ViewGroup {
         }
         setMeasuredDimension(widthSize, heightSize);
     }
-/*
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         /*
@@ -87,8 +84,7 @@ public class DeviceInfoView extends ViewGroup {
             // Release the scroll.
             mIsScrolling = false;
             return false; // Do not intercept touch event, let the child handle it
-        }
-        */
+        }*/
         /*
         if (action == MotionEvent.ACTION_DOWN) {
             last_x = event.getX();
@@ -108,10 +104,10 @@ public class DeviceInfoView extends ViewGroup {
                 return true;
             }
 
-        }
+        }*/
         return false;
     }
-*/
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         /*
@@ -156,7 +152,7 @@ public class DeviceInfoView extends ViewGroup {
     // called when the GestureListener detects fling
     public void fling(int velocityX) {
         scroller.forceFinished(true);
-        scroller.fling(offset, 0, -(int)velocityX/2, 0, 0, -2*widthOfScreen/3, 0, 0, 50, 0);
+        scroller.fling(offset, 0, -(int)velocityX/2, 0, 0, -widthOfScreen/2, 0, 0, 50, 0);
         /*
         public void fling(int startX, int startY, int velocityX, int velocityY,
             int minX, int maxX, int minY, int maxY, int overX, int overY) {
@@ -164,6 +160,7 @@ public class DeviceInfoView extends ViewGroup {
         flingView();
         Log.d(TAG, "fling");
     }
+
 
     private void flingView() {
 
@@ -183,12 +180,12 @@ public class DeviceInfoView extends ViewGroup {
 
 
 
+
     private void checkOffset() {
         if (offset > 0) {
             offset = 0;
-        } else if (offset < -2*widthOfScreen/3) {
-            offset = -2*widthOfScreen/3;
+        } else if (offset < -widthOfScreen/2) {
+            offset = -widthOfScreen/2;
         }
     }
-
 }

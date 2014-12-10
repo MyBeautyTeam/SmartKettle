@@ -3,7 +3,6 @@ package com.beautyteam.smartkettle.Fragments;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -12,8 +11,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,11 +21,13 @@ import android.widget.Toast;
 import com.beautyteam.smartkettle.Database.NewsContract;
 import com.beautyteam.smartkettle.Database.SmartContentProvider;
 import com.beautyteam.smartkettle.Fragments.Adapter.NewsListCursorAdapter;
-import com.beautyteam.smartkettle.Instruments.SwipeDetector;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.R;
+import com.beautyteam.smartkettle.Views.ButtonView;
 import com.beautyteam.smartkettle.Views.DeviceInfoView;
+import com.beautyteam.smartkettle.Views.OnDoubleClickListener;
+
 
 public class DeviceInfoFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -47,7 +46,7 @@ public class DeviceInfoFragment extends Fragment implements
     private ImageView image;
     private DeviceInfoView deviceInfoView;
 //    private View mainContentView;
-    private Button removeBtn;
+    private ButtonView removeBtn;
 //    private String orientation;
     private ListView deviceInfoList;
 
@@ -83,14 +82,16 @@ public class DeviceInfoFragment extends Fragment implements
         deviceInfoView = (DeviceInfoView)fragmentView.findViewById(R.id.deviceInfoBlock);
 
         LinearLayout content =(LinearLayout) inflater.inflate(R.layout.device_info_view, null);
-        removeBtn = (Button) inflater.inflate(R.layout.device_info_button, null);
-        removeBtn.setOnClickListener(new View.OnClickListener() {
+        removeBtn = (ButtonView) inflater.inflate(R.layout.device_info_button, null);
+
+        removeBtn.setOnDoubleClickListener(new OnDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void doubleClick() {
                 //mCallback.removeDevice(id);
-                Toast.makeText(getActivity(),"Device will be removed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Device will be removed", Toast.LENGTH_LONG).show();
             }
         });
+
 
         deviceInfoView.addView(content);
         deviceInfoView.addView(removeBtn);
