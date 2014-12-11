@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -54,11 +55,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-//после отладки преференссв убрать это
+/*после отладки преференссв убрать это
         Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
         LoginActivity.this.startActivity(loginIntent);
         LoginActivity.this.finish();
- //после отладки преференссв убрать это
+ //после отладки преференссв убрать это*/
 
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);
@@ -133,6 +134,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
 
     @Override
     public void onClick(View view) {
+        MediaPlayer mpSound;
+        mpSound = MediaPlayer.create(LoginActivity.this, R.raw.sound);
+        mpSound.start();
 
         loadImage.setVisibility(View.VISIBLE);
         loadImage.startAnimation(infinityRotate);

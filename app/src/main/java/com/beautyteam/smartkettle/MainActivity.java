@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,7 +38,6 @@ import com.beautyteam.smartkettle.Fragments.NewsFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
-import com.beautyteam.smartkettle.Music.MusicService;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import com.google.android.gcm.GCMRegistrar;
@@ -48,7 +48,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class MainActivity extends FragmentActivity
-                        implements //CompoundButton.OnCheckedChangeListener,
+                        implements
                         View.OnClickListener {
 
     static final String TAG = "myLogs";
@@ -70,7 +70,6 @@ public class MainActivity extends FragmentActivity
     private TextView actionBarTitleView;
 
     private int idOwner;
-    private Intent music;
 
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
@@ -84,12 +83,6 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //================ MusicService
-        Boolean flag = true;
-            music = new Intent(this, MusicService.class);
-        music.putExtra("flag",flag);
-            startService(music);
 
         // ================== Drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,15 +140,6 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        Boolean flag = false;
-        startService(music);
-        music.putExtra("flag",flag);
-        Log.d("mainactivity", "stop");
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.actionBarPlusBtn:
@@ -207,19 +191,24 @@ public class MainActivity extends FragmentActivity
                 case 0: // История
                 case 1: // Устройства
                     pager.setCurrentItem(position, true);
+                    sound();
                     break;
                 case 2: // Добавить устройство
                     addAddTaskFragment();
+                    sound();
                     break;
                 case 3: // Добавить задачу
+                    sound();
                     addAddDeviceFragment();
                     break;
                 case 4: // Настройки
+                    sound();
                     Intent mainIntent = new Intent(MainActivity.this, SettingsActivity.class);
                     MainActivity.this.startActivity(mainIntent);
 
                     break;
                 case 5: // Выход
+                    sound();
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
@@ -233,42 +222,16 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-
-    /*HashMap<String, Boolean> getCheckboxValueMap() {
-        HashMap<String, Boolean> valueToName = new HashMap<String, Boolean>();
-        SharedPreferences sPref = getPreferences(MODE_PRIVATE);
-        valueToName.put(SettingsFragment.settingsName[0], sPref.getBoolean(SettingsFragment.settingsName[0], true));
-        valueToName.put(SettingsFragment.settingsName[1], sPref.getBoolean(SettingsFragment.settingsName[1], true));
-        valueToName.put(SettingsFragment.settingsName[2], sPref.getBoolean(SettingsFragment.settingsName[2], true));
-
-        return valueToName;
-    }*/
-
-    /*@Override // Обработчик на Checkbox в SettingsFragment
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        int numberOfCheckbox = 0;
-        switch (buttonView.getId()) {
-            case R.id.setting1:
-                numberOfCheckbox = 0;
-                break;
-            case R.id.setting2:
-                numberOfCheckbox = 1;
-                break;
-            case R.id.setting3:
-                numberOfCheckbox = 2;
-                break;
-        }
-        SharedPreferences sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sPref.edit();
-        editor.putBoolean(SettingsFragment.settingsName[numberOfCheckbox], isChecked);
-        editor.commit();
+    public void sound() {
+        MediaPlayer mpSound;
+        mpSound = MediaPlayer.create(MainActivity.this, R.raw.sound);
+        mpSound.start();
     }
-    */
-    
+
     public void refreshNewsList(){
         Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();
-        idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
-        serviceHelper.addingMoreEventsInfo(idOwner,1);
+        //idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
+        //serviceHelper.addingMoreEventsInfo(idOwner,1);
         if (newsRefreshLayout == null) newsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.newsRefreshLayout);
         newsRefreshLayout.setRefreshing(true);
         final Activity thisActivity = this;
@@ -283,8 +246,8 @@ public class MainActivity extends FragmentActivity
 
     public void refreshDeviceInfo(int idDevice) {
         Toast.makeText(this, "Refreshing details list...", Toast.LENGTH_SHORT).show();
-        idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
-        serviceHelper.addingMoreDevicesInfo(idOwner,1,idDevice);
+        //idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
+        //serviceHelper.addingMoreDevicesInfo(idOwner,1,idDevice);
         if (deviceNewsRefreshLayout == null) deviceNewsRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.deviceInfoRefreshLayout);
         deviceNewsRefreshLayout.setRefreshing(true);
         final Activity thisActivity = this;
