@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,24 @@ public class DevicesFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("FRAGMENT", "devices Destroy");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("FRAGMENT", "devices pause");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("FRAGMENT", "devices resume");
     }
 
     @Override

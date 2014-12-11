@@ -8,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,8 +143,8 @@ public class DeviceInfoFragment extends Fragment implements
                 mCallback.refreshDeviceInfo(id);
             }
         });
-        Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
-        deviceInfoList.addFooterView(newsBtn);
+        /*Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
+        deviceInfoList.addFooterView(newsBtn);*/
     }
 
     private void setRemoveBtnParams(Boolean isVisiable, float weight) {
@@ -162,6 +163,20 @@ public class DeviceInfoFragment extends Fragment implements
     public void onPause() {
         super.onPause();
         ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+
+        Log.d("FRAGMENT", "info pause");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("FRAGMENT", "info Destroy");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("FRAGMENT", "info resume");
     }
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
