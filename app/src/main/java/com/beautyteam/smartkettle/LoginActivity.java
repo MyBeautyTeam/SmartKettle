@@ -114,6 +114,13 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
             onClick(null); // Вынести в отдельную функцию, когда все станет по-уму
         }
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendNotif();
+            }
+        }, 50000);
+
     }
 
     @Override
@@ -185,5 +192,26 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
                 okBtn.setEnabled(true);
                 break;
         }
+    }
+
+    void sendNotif() {
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // 1-я часть
+        Notification notification = new Notification(R.drawable.ic_launcher, "Text in status bar",
+                System.currentTimeMillis());
+
+        // 3-я часть
+        Intent intent = new Intent(this, MainActivity.class);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        // 2-я часть
+        notification.setLatestEventInfo(this, "SmartKettle", "Чайник вскипел", pIntent);
+
+        // ставим флаг, чтобы уведомление пропало после нажатия
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        // отправляем
+        nm.notify(1, notification);
     }
 }
