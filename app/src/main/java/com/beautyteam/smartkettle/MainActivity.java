@@ -214,14 +214,9 @@ public class MainActivity extends FragmentActivity
                     addAddDeviceFragment();
                     break;
                 case 4: // Настройки
-                    getSupportFragmentManager().beginTransaction()
-                            .add(android.R.id.content, new EmptyFragment())
-                            .addToBackStack(null)
-                            .commit();
-                    getFragmentManager().beginTransaction()
-                            .replace(android.R.id.content, new SettingsFragment())
-                            //.addToBackStack(null)
-                            .commit();
+                    Intent mainIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                    MainActivity.this.startActivity(mainIntent);
+
                     break;
                 case 5: // Выход
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);

@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-
+        <activity android:name=".SettingsActivity" />
         <provider
             android:name=".Database.SmartContentProvider"
             android:authorities="com.beautyteam.smartkettle.Database.smartkettle"
