@@ -21,6 +21,7 @@ import org.codehaus.jackson.JsonParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by asus on 10.11.2014.
@@ -38,14 +39,6 @@ public class JsonParser {
     public static final String EXTRA_NEWS = "com.beautyteam.smartkettle.extra.NEWS";
     public static final String EXTRA_ID_OWNER = "com.beautyteam.smartkettle.extra.ID_OWNER";
     public static final String EXTRA_ERROR = "com.beautyteam.smartkettle.extra.ERROR";
-    private ArrayList<News> newsBegin;
-    private ArrayList<News> newsEnd;
-    private ArrayList<News> historyEnd;
-    private ArrayList<News> historyBegin;
-    private ArrayList<Device> device;
-    private JSONObject news;
-    private JSONObject devices;
-    private JSONObject history;
     private Context context;
 
     // Проверка на существование
@@ -100,19 +93,23 @@ public class JsonParser {
     }
     
     public void sendingForDevice(JSONObject json, String action) throws JSONException {
-        device =  deviceParser(json);  //parsing arraylist of devices without history
+        ArrayList<Device> device =  deviceParser(json);
+        Device dev;
         ContentValues deviceValues = new ContentValues();
-        for (int i = 0; i < device.size(); i++) {
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, device.get(i).getDescription());
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, device.get(i).getTypeId());
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, device.get(i).getId());
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, device.get(i).getSummary());
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, device.get(i).getTitle());
+        Iterator <Device> itr = device.iterator();
+        while(itr.hasNext()) {
+            dev = itr.next();
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, dev.getDescription());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, dev.getTypeId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, dev.getId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, dev.getSummary());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, dev.getTitle());
+
             Cursor cursor = context.getContentResolver().query(
                     SmartContentProvider.DEVICE_CONTENT_URI,
                     DEVICE_PROJECTION,
                     DEVICE_SELECTION,
-                    new String[]{String.valueOf(device.get(i).getId())},
+                    new String[]{String.valueOf(dev.getId())},
                     null
             );
             if (cursor.getCount() == 0) {
@@ -124,20 +121,24 @@ public class JsonParser {
     }
 
     public void sendingForNewsEnd(JSONObject history, String action) throws JSONException {
+        ArrayList<News> historyEnd;
+        News news;
         JSONObject jsonHistoryEnd = history.getJSONObject("end");
         historyEnd = newsParser(jsonHistoryEnd);
         ContentValues historyEndValues = new ContentValues();
-        for (int i = 0; i < historyEnd.size(); i++) {
-            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyEnd.get(i).getId());
-            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyEnd.get(i).getDeviceId());
+        Iterator <News> itr = historyEnd.iterator();
+        while(itr.hasNext()) {
+            news = itr.next();
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, news.getId());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, news.getDeviceId());
             historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, /*historyEnd.get(i).getShortNews()*/"Ваш чайник вскипел :)");
             historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, /*historyEnd.get(i).getLongNews()*/"Ваш чайник вскипел :)");
-            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyEnd.get(i).getEventDate());
+            historyEndValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, news.getEventDate());
             Cursor cursor = context.getContentResolver().query(
                     SmartContentProvider.NEWS_CONTENT_URI,
                     NEWS_PROJECTION,
                     NEWS_SELECTION,
-                    new String[]{String.valueOf(historyEnd.get(i).getId())},
+                    new String[]{String.valueOf(news.getId())},
                     null
             );
             if (cursor.getCount() == 0) {
@@ -149,21 +150,25 @@ public class JsonParser {
     }
 
     public void sendingForNewsBegin(JSONObject history, String action) throws JSONException {
+        ArrayList<News> historyBegin;
+        News news;
         JSONObject jsonHistoryBegin = history.getJSONObject("begin");
         historyBegin = newsParser(jsonHistoryBegin);
         ContentValues historyBeginValues = new ContentValues();
-        for (int i = 0; i < historyBegin.size(); i++) {
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, historyBegin.get(i).getId());
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, historyBegin.get(i).getDeviceId());
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_BEGIN, historyBegin.get(i).getEventDateBegin());
+        Iterator <News> itr = historyBegin.iterator();
+        while(itr.hasNext()) {
+            news = itr.next();
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_NEWS_ID, news.getId());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_DEVICE, news.getDeviceId());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE_BEGIN, news.getEventDateBegin());
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS, /*historyBegin.get(i).getShortNews()*/"Вы поставили чайник :)");
             historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS, /*historyBegin.get(i).getLongNews()*/"Вы поставили чайник :)");
-            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, historyBegin.get(i).getEventDate());
+            historyBeginValues.put(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE, news.getEventDate());
             Cursor cursor = context.getContentResolver().query(
                     SmartContentProvider.NEWS_CONTENT_URI,
                     NEWS_PROJECTION,
                     NEWS_SELECTION,
-                    new String[]{String.valueOf(historyBegin.get(i).getId())},
+                    new String[]{String.valueOf(news.getId())},
                     null
             );
             if (cursor.getCount() == 0) {
@@ -175,6 +180,9 @@ public class JsonParser {
     }
 
     public void jsonToContentProvider(String action, JSONObject json) throws JSONException {
+        JSONObject news;
+        JSONObject devices;
+        JSONObject history;
         if (action.equals(ACTION_LOGIN)) {
             try {
                 if (!json.toString().contains("error")) {

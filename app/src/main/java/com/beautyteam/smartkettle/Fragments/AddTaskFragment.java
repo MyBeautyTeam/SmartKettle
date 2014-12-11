@@ -12,21 +12,27 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
+import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
+
 
 import java.util.Date;
 
 /**
  * Created by Admin on 30.10.2014.
  */
+
+
 public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     private LinearLayout linearLayout;
     private Spinner spinner;
     private String spinnerSelected;
     private MainActivity mCallback;
+    private Fragment self;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,9 +41,18 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallback = (MainActivity) activity;
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        self = this;
         ((MainActivity)getActivity()).disableActionBarButton(); // Чтобы нельзя было породить много слоев фрагментов
+
         linearLayout = (LinearLayout)view.findViewById(R.id.addTaskLayout);
         Button okBtn = (Button) linearLayout.findViewById(R.id.addTaskOkBtn);
 
@@ -63,13 +78,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallback = (MainActivity) activity;
-    }
-
-    @Override
-    public void onClick(View v) {
+    public void onClick(View v) {   // spinnerselected - это название устройства или id? должна ли быть температура?
         switch (v.getId()) {
             case R.id.addTaskOkBtn:
                 DatePicker datePicker = (DatePicker) linearLayout.findViewById(R.id.addTaskDate);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beautyteam.smartkettle" >
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -13,7 +14,7 @@
     <permission android:name="com.beautyteam.smartkettle.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.beautyteam.smartkettle.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    
+
 
     <application
         android:allowBackup="true"
@@ -28,11 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SettingsActivity" />
         <provider
-            android:authorities="com.beautyteam.smartkettle.Database.smartkettle"
             android:name=".Database.SmartContentProvider"
-            android:exported="false">
+            android:authorities="com.beautyteam.smartkettle.Database.smartkettle"
+            android:exported="false" >
         </provider>
         <!--<activity android:name=".MainActivity" />-->
 
@@ -40,8 +42,11 @@
             android:name=".ServiceWork.ApiService"
             android:exported="false" >
         </service>
-
-
+        <service
+            android:name=".Music.MusicService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
         <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -51,7 +56,6 @@
         </receiver>
 
         <service android:name=".GCMIntentService" />
-
     </application>
 
 </manifest>

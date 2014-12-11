@@ -5,9 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Share</string>
     <string name="device_key">Идентификатор устройства</string>
+    <string name="temperature_key">Поставьте температуру кипения</string>
     <string name="device_title">Название устройства</string>
     <string name="buttons_reset">Очистить</string>
     <string name="buttons_submit">Сохранить</string>
+    <string name="settings_music">Отключить звук</string>
+    <string name="preference_settings"></string>
     <string name="news_list_icon_description">Новость</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>

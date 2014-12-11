@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -104,7 +105,18 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(RECEIVER, mReceiver);
+        outState.putBoolean("loginEditText", loginEditText.isEnabled());
+        Log.d("activity", "turn");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onClick(View view) {
+        MediaPlayer mpSound;
+        mpSound = MediaPlayer.create(LoginActivity.this, R.raw.sound);
+        mpSound.start();
 
         loadImage.setVisibility(View.VISIBLE);
         loadImage.startAnimation(infinityRotate);
@@ -112,9 +124,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         passEditText.setEnabled(false);
         okBtn.setEnabled(false);
         //===========================Service
-        mReceiver = new AppResultsReceiver(new Handler());
-        mReceiver.setReceiver(this);
-        ServiceHelper serviceHelper = new ServiceHelper(LoginActivity.this);
+          ServiceHelper serviceHelper = new ServiceHelper(LoginActivity.this);
         serviceHelper.login(loginEditText.getText().toString(),passEditText.getText().toString(), mReceiver);
     }
 
