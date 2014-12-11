@@ -143,8 +143,8 @@ public class DeviceInfoFragment extends Fragment implements
                 mCallback.refreshDeviceInfo(id);
             }
         });
-        /*Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
-        deviceInfoList.addFooterView(newsBtn);*/
+//        Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
+//        deviceInfoList.addFooterView(newsBtn);
     }
 
     private void setRemoveBtnParams(Boolean isVisiable, float weight) {

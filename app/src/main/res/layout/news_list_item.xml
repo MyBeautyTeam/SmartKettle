@@ -2,30 +2,18 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="5dp">
+    style="@style/ParentLayoutStyle">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/LayoutWidthMatchParent">
         <ImageView
             android:id="@+id/newsListIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:contentDescription="@string/news_list_icon_description"
+            style="@style/ListIconStyle"/>
         <TextView
             android:id="@+id/newsListText"
-            android:textSize="18.0sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            style="@style/ListTextStyle" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/newsListDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/newsListDate"
+        style="@style/NewsListTimeTextStyle" />
 </LinearLayout>

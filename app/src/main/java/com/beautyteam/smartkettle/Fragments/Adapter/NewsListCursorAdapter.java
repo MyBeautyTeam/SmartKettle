@@ -16,11 +16,14 @@ import com.beautyteam.smartkettle.R;
 
 public class NewsListCursorAdapter extends CursorAdapter {
     private static final String LOG_TAG = "NewsListCursorAdapterLogs";
+    private static final int NEWS_IMAGE = R.drawable.ic_news;
+    private static ViewHolder viewHolder;
     private LayoutInflater inflater;
 
     public NewsListCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewHolder = new ViewHolder();
     }
 
     @Override
@@ -31,7 +34,7 @@ public class NewsListCursorAdapter extends CursorAdapter {
             news = new News(cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS)),
                             cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS)),
                             cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE)),
-                            R.drawable.ic_drawer);
+                            NEWS_IMAGE);
         }
         return news;
     }
@@ -44,7 +47,6 @@ public class NewsListCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         Log.d(LOG_TAG, "NewsListCursorAdapter bindView");
-        ViewHolder viewHolder = new ViewHolder();
         viewHolder.mainText = (TextView) view.findViewById(R.id.newsListText);
         viewHolder.date = (TextView) view.findViewById(R.id.newsListDate);
         viewHolder.image = (ImageView) view.findViewById(R.id.newsListIcon);
@@ -53,7 +55,8 @@ public class NewsListCursorAdapter extends CursorAdapter {
         News news = new News(cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_SHORT_NEWS)),
                              cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS)),
                              cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE)),
-                             R.drawable.ic_drawer);
+                             NEWS_IMAGE);
+
         viewHolder.mainText.setText(news.getShortNews());
         viewHolder.date.setText(news.getDateInfo());
         viewHolder.image.setImageResource(news.getImage());

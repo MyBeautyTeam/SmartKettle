@@ -4,13 +4,21 @@
     <string name="app_name">SmartKettle</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Share</string>
-    <string name="device_key">Идентификатор устройста</string>
+    <string name="device_key">Идентификатор устройства</string>
     <string name="temperature_key">Поставьте температуру кипения</string>
     <string name="device_title">Название устройства</string>
     <string name="buttons_reset">Очистить</string>
     <string name="buttons_submit">Сохранить</string>
     <string name="settings_music">Отключить звук</string>
     <string name="preference_settings"></string>
+    <string name="news_list_icon_description">Новость</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="incorrect_login_or_password">Некорректный логин или пароль!</string>
+    <string name="log_in">Войти</string>
+    <string name="add_device">Добавить устройство</string>
+    <string name="add_news">Добавить новость</string>
+    <string name="loading">Загрузка</string>
     <string-array name="array_name">
         <item>Device One</item>
         <item>Device Two</item>

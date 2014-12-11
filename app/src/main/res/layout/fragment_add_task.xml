@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#123456"
+    android:background="@color/gray"
     android:id="@+id/addTaskLayout"
     android:clickable="true"
     android:layout_height="match_parent">
@@ -31,7 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff"
+            android:background="@color/white"
             android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -56,12 +56,4 @@
         </LinearLayout>
     </FrameLayout>
 
-    <Button
-        android:id="@+id/deviceAddButtonsSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/taskAddTemperature"
-        android:text="@string/buttons_submit"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>

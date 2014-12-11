@@ -7,13 +7,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.widget.ListView;
@@ -36,10 +32,6 @@ public class NewsFragment extends Fragment implements
             NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS,
             NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE
     };
-
-
-//    private static final int NEWS_PER_PAGE = 1;
-//    private static final String SORT_ORDER = "_id LIMIT " + String.valueOf(NEWS_PER_PAGE);
     private static final int LOADER_ID = 0;
     private NewsListCursorAdapter mAdapter;
     public static NewsFragment getInstance() { // Пока не используется
@@ -63,7 +55,6 @@ public class NewsFragment extends Fragment implements
         super.onAttach(activity);
         mCallback = (MainActivity)activity;
     }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,8 +66,8 @@ public class NewsFragment extends Fragment implements
                 mCallback.refreshNewsList();
             }
         });
-        /*Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
-        newsList.addFooterView(newsBtn);*/
+//        Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
+//        newsList.addFooterView(newsBtn);
     }
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), SmartContentProvider.NEWS_CONTENT_URI, PROJECTION, null, null, /*SORT_ORDER*/null);

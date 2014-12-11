@@ -53,13 +53,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
-/*после отладки преференссв убрать это
-        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-        LoginActivity.this.startActivity(loginIntent);
-        LoginActivity.this.finish();
- //после отладки преференссв убрать это*/
+        getActionBar().hide();
 
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);
