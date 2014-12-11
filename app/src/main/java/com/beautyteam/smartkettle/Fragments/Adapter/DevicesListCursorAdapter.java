@@ -16,12 +16,14 @@ import com.beautyteam.smartkettle.R;
 
 public class DevicesListCursorAdapter extends CursorAdapter {
     private static final String LOG_TAG = "DevicesListCursorAdapterLogs";
-    private static final String KETTLE = "Чайник ";
+    private static final int DEVICE_IMAGE = R.drawable.ic_kettle;
+    private static ViewHolder viewHolder;
     private LayoutInflater inflater;
 
     public DevicesListCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        viewHolder = new ViewHolder();
     }
 
     @Override
@@ -29,10 +31,10 @@ public class DevicesListCursorAdapter extends CursorAdapter {
         Cursor cursor = getCursor();
         Device device = null;
         if (cursor.moveToPosition(position)) {
-            device = new Device(KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
+            device = new Device(cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
                                 cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY)),
                                 cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION)),
-                                R.drawable.ic_drawer,
+                                DEVICE_IMAGE,
                                 cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)));
         }
         return device;
@@ -46,16 +48,15 @@ public class DevicesListCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         Log.d(LOG_TAG, "DevicesListCursorAdapter bindView");
-        ViewHolder viewHolder = new ViewHolder();
         viewHolder.name = (TextView) view.findViewById(R.id.deviceListName);
         viewHolder.summary = (TextView) view.findViewById(R.id.deviceListDescript);
         viewHolder.image = (ImageView) view.findViewById(R.id.deviceListIcon);
         view.setTag(viewHolder);
 
-        Device device = new Device(KETTLE + cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
+        Device device = new Device(cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE)),
                                    cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY)),
                                    cursor.getString(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION)),
-                                   R.drawable.ic_drawer,
+                                   DEVICE_IMAGE,
                                    cursor.getInt(cursor.getColumnIndex(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID)));
         viewHolder.name.setText(device.getTitle());
         viewHolder.summary.setText(device.getSummary());

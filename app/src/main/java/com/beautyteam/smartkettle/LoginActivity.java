@@ -47,7 +47,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        getActionBar().hide();
 
         loginEditText = (EditText)findViewById(R.id.loginEditLoginAct);
         passEditText = (EditText)findViewById(R.id.passEditLoginAct);

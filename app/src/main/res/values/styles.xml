@@ -1,8 +1,174 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="LayoutWrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="LayoutWidthMatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="LayoutHeightMatchParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="LayoutMatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ListHeaderStyle" parent="LayoutWrapContent">
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textSize">@dimen/list_header_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ListIconStyle" parent="LayoutWrapContent">
+    </style>
+
+    <style name="ListTextStyle" parent="LayoutWidthMatchParent">
+        <item name="android:paddingLeft">@dimen/padding</item>
+    </style>
+
+    <style name="NewsListTimeTextStyle" parent="LayoutWidthMatchParent">
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+
+    <style name="ParentLayoutStyle" parent="LayoutMatchParent">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+    <style name="FragmentParentLayoutStyle" parent="ParentLayoutStyle">
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="ListViewStyle" parent="LayoutMatchParent">
+        <item name="android:listSelector">@color/light_gray</item>
+        <item name="android:dividerHeight">@dimen/divider_height</item>
+        <item name="android:divider">@color/brown</item>
+    </style>
+
+    <style name="FormParentLayoutStyle" parent="ParentLayoutStyle">
+        <item name="android:background">@color/gray</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="LabelStyle" parent="LayoutWrapContent">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="ErrorMessageStyle" parent="LayoutWrapContent">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/pink</item>
+    </style>
+
+    <style name="DrawerListItemStyle" parent="LayoutWidthMatchParent">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:paddingLeft">@dimen/drawer_list_padding</item>
+        <item name="android:paddingRight">@dimen/drawer_list_padding</item>
+        <item name="android:paddingTop">@dimen/padding</item>
+        <item name="android:paddingBottom">@dimen/padding</item>
+        <item name="android:minHeight">@dimen/drawer_list_min_height</item>
+        <item name="android:textSize">@dimen/list_header_text_size</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="DrawerStyle">
+        <item name="android:layout_width">@dimen/drawer_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:choiceMode">singleChoice</item>
+        <item name="android:dividerHeight">@dimen/divider_height</item>
+        <item name="android:divider">@color/brown</item>
+        <item name="android:dividerPadding">@dimen/drawer_list_padding</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:listSelector">@color/gray</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+    
+    <style name="ActionBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">@dimen/action_bar_height</item>
+        <item name="android:background">@color/light_gray</item>
+    </style>
+
+    <style name="ActionBarStyle.TitleStyle" parent="LayoutWrapContent">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/header_text_size</item>
+    </style>
+
+    <style name="ActionBarStyle.AddButtonStyle" parent="BlackButtonAppTheme">
+        <item name="android:layout_width">@dimen/action_bar_button_width</item>
+        <item name="android:layout_height">@dimen/action_bar_button_height</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/padding</item>
+    </style>
+
+    <style name="ActionBarStyle.AddDeviceButtonStyle" parent="ActionBarStyle.AddButtonStyle">
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <style name="ActionBarStyle.AddNewsButtonStyle" parent="ActionBarStyle.AddButtonStyle">
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="EditTextStyle" parent="LayoutWidthMatchParent">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/edit_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/edit_text_margin</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+    </style>
+    
+    <style name="LoginButtonAppTheme" parent="PurpleButtonAppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="AutoCompleteTextViewAppTheme" parent="android:Widget.Holo.AutoCompleteTextView">
+        <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_dark</item>
+        <item name="android:background">@drawable/apptheme_edit_text_holo_dark</item>
+    </style>
+
+    <style name="ButtonAppTheme" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark</item>
+    </style>
+
+    <style name="ImageButtonAppTheme" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark</item>
+    </style>
+
+    <style name="PurpleButtonAppTheme" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark_purple</item>
+    </style>
+
+    <style name="PurpleImageButtonAppTheme" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark_purple</item>
+    </style>
+
+    <style name="BlackImageButtonAppTheme" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark_black</item>
+    </style>
+
+    <style name="BlackButtonAppTheme" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark_black</item>
+    </style>
+
+    <style name="SpinnerAppTheme" parent="android:Widget.Holo.Spinner">
+        <item name="android:background">@drawable/apptheme_spinner_background_holo_dark</item>
+        <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_dark</item>
+    </style>
+
 
 </resources>

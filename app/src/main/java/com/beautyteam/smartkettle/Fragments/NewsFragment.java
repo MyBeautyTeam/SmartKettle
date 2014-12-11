@@ -32,8 +32,6 @@ public class NewsFragment extends Fragment implements
             NewsContract.NewsEntry.COLUMN_NAME_LONG_NEWS,
             NewsContract.NewsEntry.COLUMN_NAME_EVENT_DATE
     };
-//    private static final int NEWS_PER_PAGE = 1;
-//    private static final String SORT_ORDER = "_id LIMIT " + String.valueOf(NEWS_PER_PAGE);
     private static final int LOADER_ID = 0;
     private NewsListCursorAdapter mAdapter;
     public static NewsFragment getInstance() { // Пока не используется
@@ -68,8 +66,8 @@ public class NewsFragment extends Fragment implements
                 mCallback.refreshNewsList();
             }
         });
-        Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
-        newsList.addFooterView(newsBtn);
+//        Button newsBtn = (Button)LayoutInflater.from(getActivity()).inflate(R.layout.fragment_news_footer, null);
+//        newsList.addFooterView(newsBtn);
     }
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), SmartContentProvider.NEWS_CONTENT_URI, PROJECTION, null, null, /*SORT_ORDER*/null);

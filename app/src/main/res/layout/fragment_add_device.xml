@@ -2,45 +2,24 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/deviceAddFragment"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffdff3ff"
-    android:gravity="center">
+    style="@style/FormParentLayoutStyle">
     <TextView
         android:id="@+id/deviceAddKeyLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:text="@string/device_key"
-        android:layout_centerHorizontal="true" />
+        style="@style/LabelStyle" />
     <EditText
         android:id="@+id/deviceAddKey"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_marginLeft="50dp"
-        android:lines="1"
-        android:maxLines="1"
-        android:layout_marginRight="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
+        style="@style/EditTextStyle"
+        android:inputType="number"
         android:layout_below="@+id/deviceAddKeyLabel"/>
     <TextView
         android:id="@+id/deviceAddTitleLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:text="@string/device_title"
         android:layout_below="@+id/deviceAddKey"
-        android:layout_centerHorizontal="true" />
+        style="@style/LabelStyle" />
     <EditText
         android:id="@+id/deviceAddTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:lines="1"
-        android:maxLines="1"
+        style="@style/EditTextStyle"
         android:inputType="text"
         android:layout_below="@+id/deviceAddTitleLabel"/>
     <Button
@@ -75,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffe31200"
-        android:text="dsdhs"
+        android:text=""
         android:textSize="18sp"
         android:layout_below="@+id/deviceAddLoadImage"
         android:layout_centerHorizontal="true" />
