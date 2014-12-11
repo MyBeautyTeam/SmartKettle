@@ -46,7 +46,9 @@ public class GCMIntentService extends GCMBaseIntentService {
         try {
             urlparametres.put("dev_id", "1");
             urlparametres.put("reg_id", registrationId);
-            network.urlConnectionPost(URL, urlparametres.toString());
+            String result = network.urlConnectionPost(URL, urlparametres.toString());
+            Log.d(TAG, "onRegistered result" + result);
+            sendNotif();
         } catch (JSONException e) {
 
         }
@@ -94,7 +96,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // 2-я часть
-        notification.setLatestEventInfo(this, "Notification's title", "Notification's text", pIntent);
+        notification.setLatestEventInfo(this, "SmartKettle", "Notification's text", pIntent);
 
         // ставим флаг, чтобы уведомление пропало после нажатия
         notification.flags |= Notification.FLAG_AUTO_CANCEL;

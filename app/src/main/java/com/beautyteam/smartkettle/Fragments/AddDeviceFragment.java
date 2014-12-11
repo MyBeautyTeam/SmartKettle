@@ -78,6 +78,7 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
 
     @Override
     public void onPause() {
+        Log.d("Fragm", "onPause");
         super.onPause();
         ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
     }
