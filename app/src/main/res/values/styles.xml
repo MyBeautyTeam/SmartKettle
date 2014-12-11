@@ -45,6 +45,7 @@
 
     <style name="FragmentParentLayoutStyle" parent="ParentLayoutStyle">
         <item name="android:background">@color/gray</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="ListViewStyle" parent="LayoutMatchParent">
@@ -56,6 +57,7 @@
     <style name="FormParentLayoutStyle" parent="ParentLayoutStyle">
         <item name="android:background">@color/gray</item>
         <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="LabelStyle" parent="LayoutWrapContent">

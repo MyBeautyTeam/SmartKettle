@@ -6,30 +6,53 @@
     android:id="@+id/addTaskLayout"
     android:clickable="true"
     android:layout_height="match_parent">
-    <Spinner
-        android:id="@+id/spinner_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        />
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/addTaskSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_toLeftOf="@+id/addTaskOkBtn"
+            android:entries="@array/array_name"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:textSize="40dp"
+            android:text=" O K "
+            android:id="@+id/addTaskOkBtn" />
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff"
             android:layout_margin="10dp"
+            android:gravity="center"
             android:orientation="vertical">
             <DatePicker
-                android:id="@+id/task_date_begin_picker"
+                android:id="@+id/addTaskDate"
                 android:layout_width="match_parent"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_height="wrap_content"/>
-            <TimePicker
-                android:id="@+id/task_time_begin_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TimePicker
+                    android:id="@+id/addTaskTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
-
 </LinearLayout>
