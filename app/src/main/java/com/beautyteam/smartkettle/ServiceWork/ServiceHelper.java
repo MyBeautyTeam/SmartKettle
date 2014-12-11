@@ -35,30 +35,33 @@ public class ServiceHelper {
         context.startService(intentService);
     }
 
-    public void addingDevice(int owner, int idDevice, String deviceTitle) {
+    public void addingDevice(int owner, int idDevice, String deviceTitle,ResultReceiver receiver) {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_DEVICE);
         intentService.putExtra(MainActivity.OWNER, owner);
         intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
         intentService.putExtra(MainActivity.DEVICE_TITLE, deviceTitle);
+        intentService.putExtra(LoginActivity.RECEIVER, receiver);
         context.startService(intentService);
     }
 
-    public void removeDevice(int owner, int idDevice) {
+    public void removeDevice(int owner, int idDevice, ResultReceiver receiver) {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_REMOVE_DEVICE);
         intentService.putExtra(MainActivity.OWNER, owner);
         intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
+        intentService.putExtra(LoginActivity.RECEIVER, receiver);
         context.startService(intentService);
     }
 
-    public void addingEvents(int owner, int idDevice, String eventDateBegin, int temperature) {
+    public void addingEvents(int owner, int idDevice, String eventDateBegin, int temperature, ResultReceiver receiver) {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_EVENTS);
         intentService.putExtra(MainActivity.OWNER, owner);
         intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
         intentService.putExtra(MainActivity.EVENT_DATE_BEGIN, eventDateBegin);
         intentService.putExtra(MainActivity.TEMPERATURE, temperature);
+        intentService.putExtra(LoginActivity.RECEIVER, receiver);
         context.startService(intentService);
     }
 

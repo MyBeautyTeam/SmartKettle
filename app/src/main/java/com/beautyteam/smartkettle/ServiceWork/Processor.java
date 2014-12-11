@@ -32,6 +32,9 @@ public class Processor {
 
     public void request(Intent intent, Network network) throws JSONException, IOException {
         urlparametres = new JSONObject();
+        ResultReceiver receiver;
+        receiver = intent.getParcelableExtra(LoginActivity.RECEIVER);
+        final Bundle data = new Bundle();
         if (intent != null) {
             action = intent.getAction();
             if (JsonParser.ACTION_LOGIN.equals(action)||JsonParser.ACTION_REGISTER.equals(action)) {
@@ -44,8 +47,6 @@ public class Processor {
                 urlparametres.put("username", login);
                 urlparametres.put("password", password);
                 json = new JSONObject(network.urlConnectionPost(url, urlparametres.toString()));
-                ResultReceiver receiver = intent.getParcelableExtra(LoginActivity.RECEIVER);
-                final Bundle data = new Bundle();
                 if (!json.toString().contains("error")) {
                     idOwner = json.getInt("owner_key");
                     data.putInt("RECEIVER_DATA", idOwner);
@@ -65,10 +66,30 @@ public class Processor {
                 urlparametres.put("title", title);
                 urlparametres.put("device", idDevice);
                 json = new JSONObject(network.urlConnectionPost(url, urlparametres.toString()));
+                if (!json.toString().contains("error")) {
+                    idOwner = json.getInt("owner_key");
+                    data.putInt("RECEIVER_DATA", idOwner);
+                    receiver.send(1, data);
+                    Log.d("json", "id to activity");
+                }
+                else {
+                    data.putString("ERROR",json.get("error").toString());
+                    receiver.send(MainActivity.STATUS_ERROR, data);
+                }
             } else if (JsonParser.ACTION_REMOVE_DEVICE.equals(action)) {
                 int idOwner = intent.getIntExtra(MainActivity.OWNER, 0);
                 int idDevice = intent.getIntExtra(MainActivity.ID_DEVICE, 0);
                 url += "api/devices/remove/?owner=" + idOwner + "&device=" + idDevice;
+                if (!json.toString().contains("error")) {
+                    idOwner = json.getInt("owner_key");
+                    data.putInt("RECEIVER_DATA", idOwner);
+                    receiver.send(1, data);
+                    Log.d("json", "id to activity");
+                }
+                else {
+                    data.putString("ERROR",json.get("error").toString());
+                    receiver.send(MainActivity.STATUS_ERROR, data);
+                }
             } else if (JsonParser.ACTION_ADDING_EVENTS.equals(action)) {
                 int idOwner = intent.getIntExtra(MainActivity.OWNER, 0);
                 int idDevice = intent.getIntExtra(MainActivity.ID_DEVICE, 0);
@@ -80,6 +101,16 @@ public class Processor {
                 urlparametres.put("event_date_begin", eventDateBegin);
                 urlparametres.put("temperature", temperature);
                 json = new JSONObject(network.urlConnectionPost(url, urlparametres.toString()));
+                if (!json.toString().contains("error")) {
+                    idOwner = json.getInt("owner_key");
+                    data.putInt("RECEIVER_DATA", idOwner);
+                    receiver.send(1, data);
+                    Log.d("json", "id to activity");
+                }
+                else {
+                    data.putString("ERROR",json.get("error").toString());
+                    receiver.send(MainActivity.STATUS_ERROR, data);
+                }
             } else if (JsonParser.ACTION_ADDING_MORE_EVENTS_INFO.equals(action)) {
                 int idOwner = intent.getIntExtra(MainActivity.OWNER, 0);
                 int idPage = intent.getIntExtra(MainActivity.ID_PAGE, 0);

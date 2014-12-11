@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -38,6 +39,7 @@ import com.beautyteam.smartkettle.Fragments.NewsFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
+import com.beautyteam.smartkettle.ServiceWork.AppResultsReceiver;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import com.google.android.gcm.GCMRegistrar;
@@ -49,7 +51,7 @@ import java.util.Locale;
 
 public class MainActivity extends FragmentActivity
                         implements
-                        View.OnClickListener {
+                        View.OnClickListener, AppResultsReceiver.Receiver {
 
     static final String TAG = "myLogs";
     static final String TWEET_MESSAGE = "Офигенное приложение! Разработчикам - любовь!";
@@ -60,6 +62,13 @@ public class MainActivity extends FragmentActivity
     public static final String DEVICE_TITLE = "DEVICE_TITLE";
     public static final String ID_PAGE = "ID_PAGE";
     public static final String ID_EVENT = "ID_EVENT";
+    public final static String RECEIVER_DATA = "RECEIVER_DATA";
+    public final static String RECEIVER = "RECEIVER";
+    public final static int STATUS_FINISHED = 1;
+    public final static int STATUS_ERROR = 0;
+    private final String LOG = "LogService";
+
+
     private ServiceHelper serviceHelper = new ServiceHelper(MainActivity.this);
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
@@ -68,7 +77,7 @@ public class MainActivity extends FragmentActivity
     private ImageButton actionBarPlusBtn;
     private ImageView actionBarKettle;
     private TextView actionBarTitleView;
-
+    private AppResultsReceiver mReceiver;
     private int idOwner;
 
     private DrawerLayout drawerLayout; // Главный layout
@@ -83,6 +92,15 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //========resultreceiver
+        if (savedInstanceState != null) {
+            mReceiver = savedInstanceState.getParcelable(RECEIVER);
+        }
+        else {
+            mReceiver = new AppResultsReceiver(new Handler());
+        }
+        mReceiver.setReceiver(this);
 
         // ================== Drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -168,7 +186,7 @@ public class MainActivity extends FragmentActivity
         else {
             idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
             int id = Integer.parseInt(params.get("key").toString());
-            serviceHelper.addingDevice(idOwner, id, params.get("title").toString());
+            serviceHelper.addingDevice(idOwner, id, params.get("title").toString(), mReceiver);
         }
         return "success";
     }
@@ -271,7 +289,7 @@ public class MainActivity extends FragmentActivity
 
     public void removeDevice(int id) {
         idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
-        serviceHelper.removeDevice(idOwner,id);
+        serviceHelper.removeDevice(idOwner,id, mReceiver);
         Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
     }
 
@@ -290,7 +308,7 @@ public class MainActivity extends FragmentActivity
         String stringDate = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).format(date);
         int temperature = 100;
         int id =1;
-        serviceHelper.addingEvents(idOwner,id, stringDate, temperature);
+        serviceHelper.addingEvents(idOwner,id, stringDate, temperature, mReceiver);
         Toast.makeText(this, "task wil be added", Toast.LENGTH_LONG).show();
     }
 
@@ -306,6 +324,23 @@ public class MainActivity extends FragmentActivity
         fTran.replace(R.id.drawer_layout, new AddDeviceFragment());
         fTran.addToBackStack(null);
         fTran.commit();
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle data) {
+        Log.d(LOG, "onReceiver");
+        String string;
+        switch (resultCode) {
+            case STATUS_FINISHED :
+                Log.d(LOG, "id in receiver");
+                string = data.getString("Good Work");
+                Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+                break;
+            case STATUS_ERROR :
+                string = data.getString("ERROR");
+                Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
 }
