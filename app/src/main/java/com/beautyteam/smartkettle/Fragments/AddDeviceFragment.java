@@ -21,7 +21,7 @@ import com.beautyteam.smartkettle.R;
 
 import java.util.HashMap;
 
-public class AddDeviceFragment extends Fragment implements  View.OnClickListener{
+public class AddDeviceFragment extends Fragment implements  View.OnClickListener {
     private MainActivity mCallback;
     private EditText keyEditText;
     private EditText titleEditText;

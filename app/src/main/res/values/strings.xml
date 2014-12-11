@@ -8,5 +8,10 @@
     <string name="device_title">Название устройства</string>
     <string name="buttons_reset">Очистить</string>
     <string name="buttons_submit">Сохранить</string>
+    <string-array name="array_name">
+        <item>Device One</item>
+        <item>Device Two</item>
+        <item>Device Three</item>
+    </string-array>
 
 </resources>

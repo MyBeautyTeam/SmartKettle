@@ -15,7 +15,7 @@ import com.beautyteam.smartkettle.R;
 /**
  * Created by Admin on 30.10.2014.
  */
-public class AddTaskFragment extends Fragment{
+public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,5 +32,14 @@ public class AddTaskFragment extends Fragment{
     public void onPause() {
         super.onPause();
         ((MainActivity)getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addTaskOkBtn:
+
+                break;
+        }
     }
 }

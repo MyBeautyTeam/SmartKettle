@@ -5,11 +5,12 @@
     android:background="#123456"
     android:layout_height="match_parent">
     <Spinner
-        android:id="@+id/spinner_type"
+        android:id="@+id/addTaskSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        />
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:entries="@array/array_name"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,13 +21,30 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
             <DatePicker
-                android:id="@+id/task_date_begin_picker"
+                android:id="@+id/addTaskDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <TimePicker
-                android:id="@+id/task_time_begin_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+                <TimePicker
+                    android:id="@+id/addTaskTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"
+                    android:layout_toLeftOf="@+id/taskAddOkBtn"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:textSize="40dp"
+                    android:text=" O K "
+                    android:id="@+id/addTaskOkBtn" />
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 
