@@ -41,13 +41,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     private ImageView loadImage;
     private Animation infinityRotate;
     private AppResultsReceiver mReceiver;
+    Bundle savedInstanceState;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        setContentView(R.layout.activity_login);
+/*после отладки преференссв убрать это
+        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+        LoginActivity.this.startActivity(loginIntent);
+        LoginActivity.this.finish();
+ после отладки преференссв убрать это*/
 
         loginEditText = (EditText)findViewById(R.id.loginEditLoginAct);
         passEditText = (EditText)findViewById(R.id.passEditLoginAct);
@@ -62,6 +68,21 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
 
         okBtn.setOnClickListener(this);
         errorMessage.setVisibility(View.INVISIBLE);
+
+        if (savedInstanceState != null) {
+            mReceiver = savedInstanceState.getParcelable(RECEIVER);
+            if (!savedInstanceState.getBoolean("loginEditText")) {
+                loadImage.setVisibility(View.VISIBLE);
+                loadImage.startAnimation(infinityRotate);
+                loginEditText.setEnabled(false);
+                passEditText.setEnabled(false);
+                okBtn.setEnabled(false);
+            }
+        }
+        else {
+            mReceiver = new AppResultsReceiver(new Handler());
+        }
+        mReceiver.setReceiver(this);
 
         SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
         if (sPref.getString(LOGIN, null) == null) { // Проверяем, есть ли данные о логине и пароле
@@ -78,6 +99,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(RECEIVER, mReceiver);
+        outState.putBoolean("loginEditText", loginEditText.isEnabled());
+        Log.d("activity", "turn");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onClick(View view) {
         loadImage.setVisibility(View.VISIBLE);
         loadImage.startAnimation(infinityRotate);
@@ -85,9 +114,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         passEditText.setEnabled(false);
         okBtn.setEnabled(false);
         //===========================Service
-        mReceiver = new AppResultsReceiver(new Handler());
-        mReceiver.setReceiver(this);
-        ServiceHelper serviceHelper = new ServiceHelper(LoginActivity.this);
+          ServiceHelper serviceHelper = new ServiceHelper(LoginActivity.this);
         serviceHelper.login(loginEditText.getText().toString(),passEditText.getText().toString(), mReceiver);
     }
 

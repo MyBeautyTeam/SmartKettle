@@ -7,8 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -33,15 +31,17 @@ import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
 import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
+import com.beautyteam.smartkettle.Fragments.NewsFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
 import com.beautyteam.smartkettle.Mechanics.Device;
+import com.beautyteam.smartkettle.Music.MusicService;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity
-                        implements CompoundButton.OnCheckedChangeListener,
+                        implements //CompoundButton.OnCheckedChangeListener,
                         View.OnClickListener {
 
     static final String TAG = "myLogs";
@@ -63,6 +63,7 @@ public class MainActivity extends FragmentActivity
     private TextView actionBarTitleView;
 
     private int idOwner;
+    private Intent music;
 
     private DrawerLayout drawerLayout; // Главный layout
     private ListView drawerList; // Список в меню слева
@@ -76,6 +77,11 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //================ MusicService
+
+            music = new Intent(this, MusicService.class);
+            startService(music);
 
         // ================== Drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -133,6 +139,13 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        startService(music);
+        Log.d("mainactivity", "stop");
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.actionBarPlusBtn:
@@ -153,7 +166,6 @@ public class MainActivity extends FragmentActivity
                 break;
         }
     }
-
 
     public String registerDevice(HashMap params) {
         if (params.get("key").equals("") || params.get("title").equals("")) {
@@ -193,12 +205,10 @@ public class MainActivity extends FragmentActivity
                     addAddDeviceFragment();
                     break;
                 case 4: // Настройки
-                    FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
-                    HashMap<String, Boolean> settingToValue = getCheckboxValueMap();
-
-                    fTran.add(R.id.drawer_layout, SettingsFragment.getInstance(settingToValue));
-                    fTran.addToBackStack(null);
-                    fTran.commit();
+                    getFragmentManager().beginTransaction()
+                            .replace(android.R.id.content, new SettingsFragment())
+                            .addToBackStack(null)
+                            .commit();
                     break;
                 case 5: // Выход
                     SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
@@ -215,15 +225,17 @@ public class MainActivity extends FragmentActivity
     }
 
 
-    HashMap<String, Boolean> getCheckboxValueMap() {
+    /*HashMap<String, Boolean> getCheckboxValueMap() {
         HashMap<String, Boolean> valueToName = new HashMap<String, Boolean>();
         SharedPreferences sPref = getPreferences(MODE_PRIVATE);
         valueToName.put(SettingsFragment.settingsName[0], sPref.getBoolean(SettingsFragment.settingsName[0], true));
         valueToName.put(SettingsFragment.settingsName[1], sPref.getBoolean(SettingsFragment.settingsName[1], true));
         valueToName.put(SettingsFragment.settingsName[2], sPref.getBoolean(SettingsFragment.settingsName[2], true));
+
         return valueToName;
-    }
-    @Override // Обработчик на Checkbox в SettingsFragment
+    }*/
+
+    /*@Override // Обработчик на Checkbox в SettingsFragment
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int numberOfCheckbox = 0;
         switch (buttonView.getId()) {
@@ -242,7 +254,7 @@ public class MainActivity extends FragmentActivity
         editor.putBoolean(SettingsFragment.settingsName[numberOfCheckbox], isChecked);
         editor.commit();
     }
-
+    */
     
     public void refreshNewsList(){
         Toast.makeText(this, "Refreshing news list...", Toast.LENGTH_SHORT).show();

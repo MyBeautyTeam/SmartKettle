@@ -38,14 +38,6 @@ public class JsonParser {
     public static final String EXTRA_NEWS = "com.beautyteam.smartkettle.extra.NEWS";
     public static final String EXTRA_ID_OWNER = "com.beautyteam.smartkettle.extra.ID_OWNER";
     public static final String EXTRA_ERROR = "com.beautyteam.smartkettle.extra.ERROR";
-    private ArrayList<News> newsBegin;
-    private ArrayList<News> newsEnd;
-    private ArrayList<News> historyEnd;
-    private ArrayList<News> historyBegin;
-    private ArrayList<Device> device;
-    private JSONObject news;
-    private JSONObject devices;
-    private JSONObject history;
     private Context context;
 
     // Проверка на существование
@@ -100,14 +92,21 @@ public class JsonParser {
     }
     
     public void sendingForDevice(JSONObject json, String action) throws JSONException {
-        device =  deviceParser(json);  //parsing arraylist of devices without history
+        ArrayList<Device> device =  deviceParser(json);
         ContentValues deviceValues = new ContentValues();
-        for (int i = 0; i < device.size(); i++) {
-            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, device.get(i).getDescription());
+        for (int i = 0; i < device.size(); i++) { // проходить по Arraylist не запршивая каждый раз get
+            Device iterator = device.listIterator().next();
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, iterator.getDescription());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, iterator.getTypeId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, iterator.getId());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, iterator.getSummary());
+            deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, iterator.getTitle());
+            /*deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DESCRIPTION, device.get(i).getDescription());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TYPE, device.get(i).getTypeId());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID, device.get(i).getId());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_SUMMARY, device.get(i).getSummary());
             deviceValues.put(DevicesContract.DevicesEntry.COLUMN_NAME_TITLE, device.get(i).getTitle());
+            */
             Cursor cursor = context.getContentResolver().query(
                     SmartContentProvider.DEVICE_CONTENT_URI,
                     DEVICE_PROJECTION,
@@ -124,6 +123,7 @@ public class JsonParser {
     }
 
     public void sendingForNewsEnd(JSONObject history, String action) throws JSONException {
+        ArrayList<News> historyEnd;
         JSONObject jsonHistoryEnd = history.getJSONObject("end");
         historyEnd = newsParser(jsonHistoryEnd);
         ContentValues historyEndValues = new ContentValues();
@@ -149,6 +149,7 @@ public class JsonParser {
     }
 
     public void sendingForNewsBegin(JSONObject history, String action) throws JSONException {
+        ArrayList<News> historyBegin;
         JSONObject jsonHistoryBegin = history.getJSONObject("begin");
         historyBegin = newsParser(jsonHistoryBegin);
         ContentValues historyBeginValues = new ContentValues();
@@ -175,6 +176,9 @@ public class JsonParser {
     }
 
     public void jsonToContentProvider(String action, JSONObject json) throws JSONException {
+        JSONObject news;
+        JSONObject devices;
+        JSONObject history;
         if (action.equals(ACTION_LOGIN)) {
             try {
                 if (!json.toString().contains("error")) {

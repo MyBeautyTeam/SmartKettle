@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.beautyteam.smartkettle" >
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -22,16 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <provider
-            android:authorities="com.beautyteam.smartkettle.Database.smartkettle"
-            android:name=".Database.SmartContentProvider"
-            android:exported="false">
-        </provider>
         <activity android:name=".MainActivity" />
+
+        <provider
+            android:name=".Database.SmartContentProvider"
+            android:authorities="com.beautyteam.smartkettle.Database.smartkettle"
+            android:exported="false" >
+        </provider>
+
         <service
             android:name=".ServiceWork.ApiService"
             android:exported="false" >
+        </service>
+        <service
+            android:name=".Music.MusicService"
+            android:enabled="true"
+            android:exported="true" >
         </service>
     </application>
 
