@@ -47,7 +47,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     private ImageView loadImage;
     private Animation infinityRotate;
     private AppResultsReceiver mReceiver;
-    Bundle savedInstanceState;
 
 
     @Override
@@ -55,11 +54,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-/*после отладки преференссв убрать это
+//после отладки преференссв убрать это
         Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
         LoginActivity.this.startActivity(loginIntent);
         LoginActivity.this.finish();
- после отладки преференссв убрать это*/
+ //после отладки преференссв убрать это
 
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);

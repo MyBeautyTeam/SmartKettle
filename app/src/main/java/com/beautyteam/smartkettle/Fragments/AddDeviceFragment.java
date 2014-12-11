@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 

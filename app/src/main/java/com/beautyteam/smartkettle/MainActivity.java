@@ -31,6 +31,7 @@ import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
 import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
 import com.beautyteam.smartkettle.Fragments.DeviceInfoFragment;
+import com.beautyteam.smartkettle.Fragments.EmptyFragment;
 import com.beautyteam.smartkettle.Fragments.NewsFragment;
 import com.beautyteam.smartkettle.Fragments.SettingsFragment;
 import com.beautyteam.smartkettle.Instruments.TweetMaker;
@@ -40,8 +41,10 @@ import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import com.google.android.gcm.GCMRegistrar;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MainActivity extends FragmentActivity
                         implements //CompoundButton.OnCheckedChangeListener,
@@ -82,8 +85,9 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.activity_main);
 
         //================ MusicService
-
+        Boolean flag = true;
             music = new Intent(this, MusicService.class);
+        music.putExtra("flag",flag);
             startService(music);
 
         // ================== Drawer
@@ -144,7 +148,9 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onStop() {
         super.onStop();
+        Boolean flag = false;
         startService(music);
+        music.putExtra("flag",flag);
         Log.d("mainactivity", "stop");
     }
 
@@ -208,9 +214,13 @@ public class MainActivity extends FragmentActivity
                     addAddDeviceFragment();
                     break;
                 case 4: // Настройки
+                    getSupportFragmentManager().beginTransaction()
+                            .add(android.R.id.content, new EmptyFragment())
+                            .addToBackStack(null)
+                            .commit();
                     getFragmentManager().beginTransaction()
                             .replace(android.R.id.content, new SettingsFragment())
-                            .addToBackStack(null)
+                            //.addToBackStack(null)
                             .commit();
                     break;
                 case 5: // Выход
@@ -317,7 +327,12 @@ public class MainActivity extends FragmentActivity
     }
 
     public void addTask(Date date, String deviceName) {
-
+        idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
+        String stringDate = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).format(date);
+        int temperature = 100;
+        int id =1;
+        serviceHelper.addingEvents(idOwner,id, stringDate, temperature);
+        Toast.makeText(this, "task wil be added", Toast.LENGTH_LONG).show();
     }
 
     private void addAddTaskFragment() {

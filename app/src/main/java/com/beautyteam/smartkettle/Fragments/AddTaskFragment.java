@@ -12,9 +12,10 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
-
+import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 
@@ -77,7 +78,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v) {   // spinnerselected - это название устройства или id? должна ли быть температура?
         switch (v.getId()) {
             case R.id.addTaskOkBtn:
                 DatePicker datePicker = (DatePicker) linearLayout.findViewById(R.id.addTaskDate);

@@ -29,12 +29,12 @@ public class MusicService extends Service {
     }
 
     public void onStart(Intent intent,int startid){
-        if(!mp.isPlaying()) {
+        if(intent.getBooleanExtra("flag",true)) {
             Log.d("music_service", "On start");
             mp.start();
         }
         else {
-            mp.pause(); // при зыкрытии и повороте проблемы
+            mp.pause(); // при зыкрытии и повороте
         }
     }
 }

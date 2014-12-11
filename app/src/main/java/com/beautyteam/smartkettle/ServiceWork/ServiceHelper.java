@@ -52,7 +52,7 @@ public class ServiceHelper {
         context.startService(intentService);
     }
 
-    public void addingEvents(int owner, int idDevice, String eventDateBegin, String temperature) {
+    public void addingEvents(int owner, int idDevice, String eventDateBegin, int temperature) {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_EVENTS);
         intentService.putExtra(MainActivity.OWNER, owner);
