@@ -41,6 +41,11 @@
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <DatePicker
+            android:id="@+id/addTaskDate"
+            android:layout_width="wrap_content"
+            android:calendarViewShown="false"
+            android:layout_height="wrap_content"/>
         <TimePicker
             android:id="@+id/addTaskTime"
             android:layout_width="wrap_content"
@@ -49,11 +54,6 @@
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
             android:layout_toLeftOf="@+id/taskAddOkBtn"/>
-        <DatePicker
-            android:id="@+id/addTaskDate"
-            android:layout_width="wrap_content"
-            android:calendarViewShown="false"
-            android:layout_height="wrap_content"/>
     </TableRow>
 
 </TableLayout>
