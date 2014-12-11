@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:background="#123456"
+    android:id="@+id/addTaskLayout"
+    android:layout_height="match_parent">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:background="#FFFFFF"
+    android:shrinkColumns="*"
+    android:stretchColumns="*">
+    >
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <Spinner
+            android:id="@+id/addTaskSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_toRightOf="@+id/addTaskDate"
+            android:entries="@array/array_name"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:textSize="40dp"
+            android:text=" O K "
+            android:id="@+id/addTaskOkBtn" />
+    </TableRow>
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <DatePicker
+            android:id="@+id/addTaskDate"
+            android:layout_width="wrap_content"
+            android:calendarViewShown="false"
+            android:layout_height="wrap_content"/>
+        <TimePicker
+            android:id="@+id/addTaskTime"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_toLeftOf="@+id/taskAddOkBtn"/>
+    </TableRow>
+
+</TableLayout>
+</LinearLayout>

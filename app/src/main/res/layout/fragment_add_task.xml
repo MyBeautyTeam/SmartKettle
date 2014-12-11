@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/taskAddFragment"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffdff3ff"
-    android:gravity="center">
-    <TextView
-        android:id="@+id/taskAddTitleLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/device_title"
-        android:layout_centerHorizontal="true" />
-
+    android:background="#123456"
+    android:id="@+id/addTaskLayout"
+    android:layout_height="match_parent">
     <Spinner
-        android:id="@+id/taskAddTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/taskAddTemperatureLabel"
+        android:id="@+id/addTaskSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/temperature_key"
-        android:layout_centerHorizontal="true"
-        android:inputType="number" />
-    <EditText
-        android:id="@+id/taskAddTemperature"
-        android:layout_width="157dp"
-        android:gravity="center_horizontal"
-        android:layout_marginLeft="50dp"
-        android:lines="1"
-        android:maxLines="1"
-        android:layout_marginRight="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_below="@+id/taskAddTemperatureLabel"
-        />
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="56dp"
-        android:ems="10"
-        android:inputType="datetime" />
+        android:padding="@dimen/activity_horizontal_margin"
+        android:entries="@array/array_name"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+            <DatePicker
+                android:id="@+id/addTaskDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+                <TimePicker
+                    android:id="@+id/addTaskTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"
+                    android:layout_toLeftOf="@+id/taskAddOkBtn"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:textSize="40dp"
+                    android:text=" O K "
+                    android:id="@+id/addTaskOkBtn" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <Button
         android:id="@+id/deviceAddButtonsSubmit"

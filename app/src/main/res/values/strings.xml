@@ -11,6 +11,10 @@
     <string name="buttons_submit">Сохранить</string>
     <string name="settings_music">Отключить звук</string>
     <string name="preference_settings"></string>
-
+    <string-array name="array_name">
+        <item>Device One</item>
+        <item>Device Two</item>
+        <item>Device Three</item>
+    </string-array>
 
 </resources>

@@ -29,4 +29,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-v4:20.0.0'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    compile files('libs/gcm.jar')
 }

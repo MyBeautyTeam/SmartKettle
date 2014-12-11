@@ -38,6 +38,9 @@ import com.beautyteam.smartkettle.Mechanics.Device;
 import com.beautyteam.smartkettle.Music.MusicService;
 import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
+import com.google.android.gcm.GCMRegistrar;
+
+import java.util.Date;
 import java.util.HashMap;
 
 public class MainActivity extends FragmentActivity
@@ -313,6 +316,10 @@ public class MainActivity extends FragmentActivity
         actionBarKettle.setEnabled(true);
     }
 
+    public void addTask(Date date, String deviceName) {
+
+    }
+
     private void addAddTaskFragment() {
         FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.drawer_layout, new AddTaskFragment());
@@ -326,4 +333,5 @@ public class MainActivity extends FragmentActivity
         fTran.addToBackStack(null);
         fTran.commit();
     }
+
 }
