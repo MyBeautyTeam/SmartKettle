@@ -5,21 +5,39 @@
     style="@style/FormParentLayoutStyle">
     <TextView
         android:id="@+id/deviceAddKeyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/device_key"
-        style="@style/LabelStyle" />
+        android:layout_centerHorizontal="true" />
     <EditText
         android:id="@+id/deviceAddKey"
-        style="@style/EditTextStyle"
-        android:inputType="number"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:lines="1"
+        android:maxLines="1"
+        android:layout_marginRight="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_below="@+id/deviceAddKeyLabel"/>
     <TextView
         android:id="@+id/deviceAddTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="@string/device_title"
         android:layout_below="@+id/deviceAddKey"
-        style="@style/LabelStyle" />
+        android:layout_centerHorizontal="true" />
     <EditText
         android:id="@+id/deviceAddTitle"
-        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:lines="1"
+        android:maxLines="1"
         android:inputType="text"
         android:layout_below="@+id/deviceAddTitleLabel"/>
     <Button
@@ -54,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffe31200"
-        android:text=""
+        android:text="dsdhs"
         android:textSize="18sp"
         android:layout_below="@+id/deviceAddLoadImage"
         android:layout_centerHorizontal="true" />
