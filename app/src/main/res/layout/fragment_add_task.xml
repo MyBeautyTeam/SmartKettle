@@ -4,6 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#123456"
     android:id="@+id/addTaskLayout"
+    android:clickable="true"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
