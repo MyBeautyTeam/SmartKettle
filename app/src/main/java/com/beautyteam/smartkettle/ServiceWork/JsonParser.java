@@ -205,21 +205,15 @@ public class JsonParser {
 
         } else if (action.equals(ACTION_ADDING_DEVICE)) {
             if (!json.toString().contains("error")) {
-                //devices = json.getJSONObject("devices");
                 sendingForDevice(json, action);
-                //sendingForNews(json.getJSONObject("news"), action);
-                /*for (int i = 0; i < devices.length(); i++) {
-                    history = devices.getJSONObject(String.valueOf(i)).getJSONObject("history");
-                    sendingForNews(history, action);
-                }*/
             } else {
                 Log.d("error", " error add device");
             }
         } else if (action.equals(ACTION_REMOVE_DEVICE)) {
             if (!json.toString().contains("error")) {
                 int num = json.getInt("success");
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("success", num);
+                //ContentValues contentValues = new ContentValues();
+                //contentValues.put("success", num);
             }
         } else if (action.equals(ACTION_ADDING_EVENTS)) {
             if (!json.toString().contains("error")) {

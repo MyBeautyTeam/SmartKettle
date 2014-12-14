@@ -40,7 +40,7 @@ public class ApiService extends IntentService {
             e.printStackTrace();
             ResultReceiver receiver = intent.getParcelableExtra(LoginActivity.RECEIVER);
             final Bundle data = new Bundle();
-            data.putString("ERROR","no connection");
+            data.putString("ERROR","Невозможно подключиться к интернету");
             receiver.send(LoginActivity.STATUS_ERROR, data);
         } catch (IOException e) {
             e.printStackTrace();

@@ -49,6 +49,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import static com.beautyteam.smartkettle.LoginActivity.*;
+
 public class MainActivity extends FragmentActivity
                         implements
                         View.OnClickListener, AppResultsReceiver.Receiver {
@@ -62,10 +64,6 @@ public class MainActivity extends FragmentActivity
     public static final String DEVICE_TITLE = "DEVICE_TITLE";
     public static final String ID_PAGE = "ID_PAGE";
     public static final String ID_EVENT = "ID_EVENT";
-    public final static String RECEIVER_DATA = "RECEIVER_DATA";
-    public final static String RECEIVER = "RECEIVER";
-    public final static int STATUS_FINISHED = 1;
-    public final static int STATUS_ERROR = 0;
     private final String LOG = "LogService";
 
 
@@ -184,7 +182,7 @@ public class MainActivity extends FragmentActivity
             return "Пустые значения!";
         }
         else {
-            idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
+            idOwner = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE).getInt(ID_OWNER,0);
             int id = Integer.parseInt(params.get("key").toString());
             serviceHelper.addingDevice(idOwner, id, params.get("title").toString(), mReceiver);
         }
@@ -227,10 +225,10 @@ public class MainActivity extends FragmentActivity
                     break;
                 case 5: // Выход
                     sound();
-                    SharedPreferences sPref = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE);
+                    SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
-                    editor.putString(LoginActivity.LOGIN, null);
-                    editor.putString(LoginActivity.PASS, null);
+                    editor.putString(LOGIN, null);
+                    editor.putString(PASS, null);
                     editor.commit();
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     MainActivity.this.startActivity(loginIntent);
@@ -288,9 +286,8 @@ public class MainActivity extends FragmentActivity
     }
 
     public void removeDevice(int id) {
-        idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
-        serviceHelper.removeDevice(idOwner,id, mReceiver);
-        Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
+        idOwner = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE).getInt(ID_OWNER,0);
+        serviceHelper.removeDevice(idOwner, id, mReceiver);
     }
 
     public void disableActionBarButton() {
@@ -304,7 +301,7 @@ public class MainActivity extends FragmentActivity
     }
 
     public void addTask(Date date, String deviceName) {
-        idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
+        idOwner = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE).getInt(ID_OWNER,0);
         String stringDate = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).format(date);
         int temperature = 100;
         int id =1;
@@ -333,7 +330,7 @@ public class MainActivity extends FragmentActivity
         switch (resultCode) {
             case STATUS_FINISHED :
                 Log.d(LOG, "id in receiver");
-                string = data.getString("Good Work");
+                string = "Успешно выполнено";
                 Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
                 break;
             case STATUS_ERROR :

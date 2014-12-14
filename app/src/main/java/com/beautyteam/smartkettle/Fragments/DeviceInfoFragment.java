@@ -89,7 +89,6 @@ public class DeviceInfoFragment extends Fragment implements
             @Override
             public void doubleClick() {
                 mCallback.removeDevice(id);
-                Toast.makeText(getActivity(), "Device will be removed", Toast.LENGTH_LONG).show();
             }
         });
 
