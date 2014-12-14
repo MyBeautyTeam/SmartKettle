@@ -162,7 +162,7 @@ public class DeviceInfoFragment extends Fragment implements
     public void onPause() {
         super.onPause();
         ((MainActivity) getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
-
+        ((MainActivity)getActivity()).unLockDrawer();
         Log.d("FRAGMENT", "info pause");
     }
 

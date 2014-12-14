@@ -42,6 +42,7 @@ import com.beautyteam.smartkettle.ServiceWork.ServiceHelper;
 
 import com.google.android.gcm.GCMRegistrar;
 
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -89,6 +90,7 @@ public class MainActivity extends FragmentActivity
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, screenNames));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
         //===================ActionBar
@@ -111,8 +113,6 @@ public class MainActivity extends FragmentActivity
 
         actionBar.setCustomView(actionBarView);
         actionBar.setDisplayShowCustomEnabled(true);
-
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
         // =============== PAGER
@@ -265,7 +265,7 @@ public class MainActivity extends FragmentActivity
 
     public void addDeviceDetailsFragment(Device device) {
         FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.drawer_layout, DeviceInfoFragment.getInstance(device));
+        fTran.replace(R.id.mainLayout, DeviceInfoFragment.getInstance(device));
         fTran.addToBackStack(null);
         fTran.commit();
     }
@@ -282,6 +282,7 @@ public class MainActivity extends FragmentActivity
     }
 
     public void visiableActionBarButton() {
+        //unLockDrawer();
         actionBarPlusBtn.setVisibility(View.VISIBLE);
         actionBarKettle.setVisibility(View.VISIBLE);
     }
@@ -297,16 +298,24 @@ public class MainActivity extends FragmentActivity
 
     private void addAddTaskFragment() {
         FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.drawer_layout, new AddTaskFragment());
+        fTran.replace(R.id.mainLayout, new AddTaskFragment());
         fTran.addToBackStack(null);
         fTran.commit();
     }
 
     private void addAddDeviceFragment() {
         FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.drawer_layout, new AddDeviceFragment());
+        fTran.replace(R.id.mainLayout, new AddDeviceFragment());
         fTran.addToBackStack(null);
         fTran.commit();
+    }
+
+    public void lockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    public void unLockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
 }

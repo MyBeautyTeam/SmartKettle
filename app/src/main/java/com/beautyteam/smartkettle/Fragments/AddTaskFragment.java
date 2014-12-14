@@ -46,6 +46,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).lockDrawer();
         super.onViewCreated(view, savedInstanceState);
 
         self = this;
@@ -73,6 +74,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     public void onPause() {
         super.onPause();
         ((MainActivity)getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
+        ((MainActivity)getActivity()).unLockDrawer();
     }
 
     @Override

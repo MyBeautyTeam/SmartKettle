@@ -43,6 +43,7 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).lockDrawer();
         return inflater.inflate(R.layout.fragment_add_device, null);
     }
 
@@ -81,6 +82,7 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
         Log.d("Fragm", "onPause");
         super.onPause();
         ((MainActivity) getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
+        ((MainActivity)getActivity()).unLockDrawer();
     }
 
 
