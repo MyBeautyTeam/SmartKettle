@@ -91,7 +91,8 @@ public class DeviceInfoView extends ViewGroup {
     }
 
     public void doubleClick() {
-        ((ButtonView)secondChild).doubleClick();
+        if (isOffsetReadyToDoubleClick())
+            ((ButtonView)secondChild).doubleClick();
     }
 
     // called when the GestureListener detects fling
@@ -128,5 +129,12 @@ public class DeviceInfoView extends ViewGroup {
         } else if (offset < -3*widthOfScreen/4) {
             offset = -3*widthOfScreen/4;
         }
+    }
+
+    private Boolean isOffsetReadyToDoubleClick() {
+        if (offset < -0.5*widthOfScreen) {
+            return true;
+        }
+        return false;
     }
 }
