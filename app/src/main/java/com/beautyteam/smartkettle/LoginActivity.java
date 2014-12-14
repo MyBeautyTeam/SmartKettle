@@ -55,10 +55,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         super.onCreate(savedInstanceState);
 
         SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
-        if (!(sPref.getInt(LoginActivity.ID_OWNER, -1) != -1)) {
+        if ((sPref.getInt(LoginActivity.ID_OWNER, -1)!= -1)) {
             Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(loginIntent);
             LoginActivity.this.finish();
+            return;
         }
 
         setContentView(R.layout.activity_login);

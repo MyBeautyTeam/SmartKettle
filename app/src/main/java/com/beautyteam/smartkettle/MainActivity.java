@@ -213,6 +213,7 @@ public class MainActivity extends FragmentActivity
                     SharedPreferences.Editor editor = sPref.edit();
                     editor.putString(LoginActivity.LOGIN, null);
                     editor.putString(LoginActivity.PASS, null);
+                    editor.putInt(LoginActivity.ID_OWNER, -1);
                     editor.commit();
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     MainActivity.this.startActivity(loginIntent);
