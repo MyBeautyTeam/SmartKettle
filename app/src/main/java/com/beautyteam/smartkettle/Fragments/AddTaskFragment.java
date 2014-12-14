@@ -12,10 +12,8 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 
-import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 
@@ -51,7 +49,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
 
         self = this;
-        ((MainActivity)getActivity()).disableActionBarButton(); // Чтобы нельзя было породить много слоев фрагментов
+        ((MainActivity)getActivity()).invisibleActionBarButton(); // Чтобы нельзя было породить много слоев фрагментов
 
         linearLayout = (LinearLayout)view.findViewById(R.id.addTaskLayout);
         Button okBtn = (Button) linearLayout.findViewById(R.id.addTaskOkBtn);
@@ -74,7 +72,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity)getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+        ((MainActivity)getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
     }
 
     @Override

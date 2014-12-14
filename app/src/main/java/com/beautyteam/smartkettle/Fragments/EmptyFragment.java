@@ -6,17 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
-
-import java.util.Date;
 
 /**
  * Created by asus on 11.12.2014.
@@ -43,6 +37,6 @@ public class EmptyFragment extends Fragment{
         @Override
         public void onPause() {
             super.onPause();
-            ((MainActivity)getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+            ((MainActivity)getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
         }
 }
