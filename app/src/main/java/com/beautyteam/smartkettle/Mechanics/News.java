@@ -68,19 +68,39 @@ public class News implements Parcelable {
 
     public String getDateInfo() {
         long diffSecond = dateDiffer();
-        if ((int)(diffSecond/SECONDS_IN_MONTH) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " months ago";
+        if (Math.abs((int)(diffSecond/SECONDS_IN_MONTH)) > 0) {
+            if (((int)(diffSecond/SECONDS_IN_MONTH)) > 0)
+                return "" + (int)(diffSecond/SECONDS_IN_MONTH) + " мес. назад";
+            if (((int)(diffSecond/SECONDS_IN_MONTH)) < 0)
+                return "через " + (int)(-diffSecond/SECONDS_IN_MONTH) + " мес.";
         }
-        if ((int)(diffSecond/SECONDS_IN_DAY) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_DAY) + " days ago";
+
+        if (Math.abs((int)(diffSecond/SECONDS_IN_DAY)) > 0) {
+            if (((int) (diffSecond / SECONDS_IN_DAY)) > 0)
+                return "" + (int) (diffSecond / SECONDS_IN_DAY) + " дн. назад";
+            if (((int) (diffSecond / SECONDS_IN_DAY)) < 0)
+                return "через " + (int) (-diffSecond / SECONDS_IN_DAY) + " дн.";
         }
-        if ((int)(diffSecond/SECONDS_IN_HOUR) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_HOUR) + " hours ago";
+
+        if (Math.abs((int)(diffSecond/SECONDS_IN_HOUR)) > 0) {
+            if (((int) (diffSecond / SECONDS_IN_HOUR)) > 0)
+                return "" + (int) (diffSecond / SECONDS_IN_HOUR) + " ч. назад";
+            if (((int) (diffSecond / SECONDS_IN_HOUR)) < 0)
+                return "через " + (int) (-diffSecond / SECONDS_IN_HOUR) + " ч.";
         }
-        if ((int)(diffSecond/SECONDS_IN_MINUTE) > 0) {
-            return "" + (int)(diffSecond/SECONDS_IN_MINUTE) + " minutes ago";
+
+        if (Math.abs((int)(diffSecond/SECONDS_IN_MINUTE)) > 0) {
+            if (((int) (diffSecond / SECONDS_IN_MINUTE)) > 0)
+                return "" + (int) (diffSecond / SECONDS_IN_MINUTE) + " мин. назад";
+            if (((int) (diffSecond / SECONDS_IN_MINUTE)) < 0)
+                return "через " + (int) (-diffSecond / SECONDS_IN_MINUTE) + " мин.";
         }
-        return "" + diffSecond + " seconds ago";
+
+        if (diffSecond > 0) {
+            return "" + diffSecond + " сек. назад";
+        } else {
+            return "через" + (-diffSecond) + " сек.";
+        }
     }
 
     public String getLongNews() {

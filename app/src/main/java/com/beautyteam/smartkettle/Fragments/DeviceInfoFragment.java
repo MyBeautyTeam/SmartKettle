@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -128,7 +127,7 @@ public class DeviceInfoFragment extends Fragment implements
         });
         */
 
-        ((MainActivity) getActivity()).disableActionBarButton();// Отключаем клики по кнопкам
+        ((MainActivity) getActivity()).invisibleActionBarButton();// Отключаем клики по кнопкам
 
 
         name.setText(getArguments().getString(NAME));
@@ -161,7 +160,7 @@ public class DeviceInfoFragment extends Fragment implements
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+        ((MainActivity) getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
 
         Log.d("FRAGMENT", "info pause");
     }

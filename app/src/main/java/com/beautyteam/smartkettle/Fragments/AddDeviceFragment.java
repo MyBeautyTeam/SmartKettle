@@ -14,10 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.beautyteam.smartkettle.LoginActivity;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.R;
 
@@ -61,7 +59,7 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
 
         self = this;
 
-        ((MainActivity)getActivity()).disableActionBarButton(); // Чтобы нельзя было породить много слоев фрагментов
+        ((MainActivity)getActivity()).invisibleActionBarButton(); // Чтобы нельзя было породить много слоев фрагментов
         keyEditText = (EditText)view.findViewById(R.id.deviceAddKey);
         titleEditText = (EditText)view.findViewById(R.id.deviceAddTitle);
         errorMessage = (TextView)view.findViewById(R.id.deviceAddErrorMessage);
@@ -82,7 +80,7 @@ public class AddDeviceFragment extends Fragment implements  View.OnClickListener
     public void onPause() {
         Log.d("Fragm", "onPause");
         super.onPause();
-        ((MainActivity) getActivity()).enableActionBarButton();// Отключаем запрет на клики по кнопкам
+        ((MainActivity) getActivity()).visiableActionBarButton();// Отключаем запрет на клики по кнопкам
     }
 
 

@@ -227,8 +227,9 @@ public class MainActivity extends FragmentActivity
                     sound();
                     SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sPref.edit();
-                    editor.putString(LOGIN, null);
-                    editor.putString(PASS, null);
+                    editor.putString(LoginActivity.LOGIN, null);
+                    editor.putString(LoginActivity.PASS, null);
+                    editor.putInt(LoginActivity.ID_OWNER, -1);
                     editor.commit();
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     MainActivity.this.startActivity(loginIntent);
@@ -290,14 +291,14 @@ public class MainActivity extends FragmentActivity
         serviceHelper.removeDevice(idOwner, id, mReceiver);
     }
 
-    public void disableActionBarButton() {
-        actionBarPlusBtn.setEnabled(false);
-        actionBarKettle.setEnabled(false);
+    public void invisibleActionBarButton() {
+        actionBarPlusBtn.setVisibility(View.INVISIBLE);
+        actionBarKettle.setVisibility(View.INVISIBLE);
     }
 
-    public void enableActionBarButton() {
-        actionBarPlusBtn.setEnabled(true);
-        actionBarKettle.setEnabled(true);
+    public void visiableActionBarButton() {
+        actionBarPlusBtn.setVisibility(View.VISIBLE);
+        actionBarKettle.setVisibility(View.VISIBLE);
     }
 
     public void addTask(Date date, String deviceName) {

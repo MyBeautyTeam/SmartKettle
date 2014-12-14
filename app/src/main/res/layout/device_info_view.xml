@@ -1,35 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/deviceInfoContent"
-    android:layout_weight="1"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/DeviceInfoViewStyle">
     <TextView
         android:id="@+id/deviceInfoName"
-        android:layout_width="wrap_content"
-        android:textSize="30dp"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/deviceInfoImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/deviceInfoDescript"
-        android:layout_width="match_parent"
-        android:textSize="20dp"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content" />
+        style="@style/DeviceInfoHeaderStyle" />
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#000000">
+        style="@style/LayoutWidthMatchParent">
+        <ImageView
+            android:id="@+id/deviceInfoImage"
+            style="@style/LayoutWrapContent"
+            android:contentDescription="@string/device_icon" />
+        <TextView
+            android:id="@+id/deviceInfoDescript"
+            style="@style/DeviceInfoTextStyle" />
     </LinearLayout>
+    <LinearLayout
+        style="@style/DividerStyle" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:layout_marginTop="25dp"
-        android:text="История использования:"/>
+        style="@style/DeviceHistoryHeaderStyle"/>
 </LinearLayout>

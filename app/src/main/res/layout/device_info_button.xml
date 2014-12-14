@@ -3,5 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:text="REMOVE"
+    android:text="Дважды кликни \nдля удаления"
     android:background="#ffe31200"/>

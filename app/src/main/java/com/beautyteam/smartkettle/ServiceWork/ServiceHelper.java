@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.content.Context;
 import android.os.ResultReceiver;
 
-import com.beautyteam.smartkettle.MainActivity;
-import com.beautyteam.smartkettle.LoginActivity;
-
 import static com.beautyteam.smartkettle.LoginActivity.*;
 import static com.beautyteam.smartkettle.MainActivity.*;
 import static com.beautyteam.smartkettle.ServiceWork.JsonParser.*;
+
 
 /**
  * Created by asus on 06.11.2014.
