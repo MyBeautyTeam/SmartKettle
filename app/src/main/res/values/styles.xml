@@ -34,6 +34,10 @@
         <item name="android:paddingLeft">@dimen/padding</item>
     </style>
 
+    <style name="DeviceInfoTextStyle" parent="ListTextStyle">
+        <item name="android:textSize">@dimen/big_text_size</item>
+    </style>
+
     <style name="NewsListTimeTextStyle" parent="LayoutWidthMatchParent">
         <item name="android:textSize">@dimen/small_text_size</item>
     </style>
@@ -43,13 +47,20 @@
         <item name="android:padding">@dimen/padding</item>
     </style>
 
+    <style name="DevicesListItemLayoutStyle" parent="ParentLayoutStyle">
+        <item name="android:background">@drawable/devices_list_item_background</item>
+    </style>
+
+    <style name="NewsListItemLayoutStyle" parent="ParentLayoutStyle">
+        <item name="android:background">@color/gray</item>
+    </style>
+
     <style name="FragmentParentLayoutStyle" parent="ParentLayoutStyle">
         <item name="android:background">@color/gray</item>
         <item name="android:clickable">true</item>
     </style>
 
     <style name="ListViewStyle" parent="LayoutMatchParent">
-        <item name="android:listSelector">@color/light_gray</item>
         <item name="android:dividerHeight">@dimen/divider_height</item>
         <item name="android:divider">@color/brown</item>
     </style>
@@ -130,11 +141,68 @@
         <item name="android:layout_marginRight">@dimen/edit_text_margin</item>
         <item name="android:lines">1</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textCursorDrawable">@null</item>
     </style>
-    
-    <style name="LoginButtonAppTheme" parent="PurpleButtonAppTheme">
+
+    <style name="PagerTitleStripStyle" parent="LayoutWidthMatchParent">
+        <item name="android:layout_gravity">top</item>
+        <item name="android:paddingTop">@dimen/padding</item>
+        <item name="android:paddingBottom">@dimen/padding</item>
+    </style>
+
+    <style name="LoginButtonStyle" parent="PurpleButtonAppTheme">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/log_in</item>
+    </style>
+
+    <style name="ResetButtonStyle" parent="LayoutWrapContent">
+        <item name="android:text">@string/buttons_reset</item>
+        <item name="android:layout_marginRight">@dimen/margin</item>
+    </style>
+
+    <style name="SubmitButtonStyle" parent="LayoutWrapContent">
+        <item name="android:text">@string/buttons_submit</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignWithParentIfMissing">false</item>
+        <item name="android:layout_alignParentTop">false</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginRight">@dimen/edit_text_margin</item>
+    </style>
+
+    <style name="FragmentDeviceInfoHalfStyle" parent="LayoutMatchParent">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="FragmentDeviceInfoUpperHalfStyle" parent="FragmentDeviceInfoHalfStyle">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="DeviceInfoViewStyle" parent="LayoutMatchParent">
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="DeviceInfoHeaderStyle" parent="LayoutWrapContent">
+        <item name="android:textSize">@dimen/big_header_text_size</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/brown</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginBottom">@dimen/margin</item>
+    </style>
+
+    <style name="DeviceHistoryHeaderStyle" parent="LayoutWidthMatchParent">
+        <item name="android:text">@string/device_history</item>
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
     </style>
 
 

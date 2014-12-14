@@ -2,19 +2,12 @@
     style="@style/FragmentParentLayoutStyle">
     <com.beautyteam.smartkettle.Views.DeviceInfoView
         android:id="@+id/deviceInfoBlock"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal" />
+        style="@style/FragmentDeviceInfoUpperHalfStyle"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/deviceInfoRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        style="@style/FragmentDeviceInfoHalfStyle">
         <ListView
             android:id="@+id/deviceInfoList"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </ListView>
+            style="@style/LayoutHeightMatchParent"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

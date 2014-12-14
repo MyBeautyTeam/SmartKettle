@@ -18,8 +18,7 @@
         android:inputType="textPassword"/>
     <Button
         android:id="@+id/okBtnLoginAct"
-        android:text="@string/log_in"
-        style="@style/LoginButtonAppTheme"/>
+        style="@style/LoginButtonStyle"/>
     <ImageView
         android:id="@+id/loadImageLoginAct"
         android:src="@drawable/ic_loading"
