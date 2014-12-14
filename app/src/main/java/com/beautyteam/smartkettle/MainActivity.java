@@ -276,14 +276,14 @@ public class MainActivity extends FragmentActivity
         Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
     }
 
-    public void disableActionBarButton() {
-        actionBarPlusBtn.setEnabled(false);
-        actionBarKettle.setEnabled(false);
+    public void invisibleActionBarButton() {
+        actionBarPlusBtn.setVisibility(View.INVISIBLE);
+        actionBarKettle.setVisibility(View.INVISIBLE);
     }
 
-    public void enableActionBarButton() {
-        actionBarPlusBtn.setEnabled(true);
-        actionBarKettle.setEnabled(true);
+    public void visiableActionBarButton() {
+        actionBarPlusBtn.setVisibility(View.VISIBLE);
+        actionBarKettle.setVisibility(View.VISIBLE);
     }
 
     public void addTask(Date date, String deviceName) {
