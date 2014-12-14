@@ -53,6 +53,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+        if (!(sPref.getInt(LoginActivity.ID_OWNER, -1) != -1)) {
+            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(loginIntent);
+            LoginActivity.this.finish();
+        }
+
         setContentView(R.layout.activity_login);
         getActionBar().hide();
 
@@ -98,7 +106,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         }
         mReceiver.setReceiver(this);
 
-        SharedPreferences sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
+        sPref = getSharedPreferences(LOGIN_PREF, MODE_PRIVATE);
 
         if (sPref.getString(LOGIN, null) == null) { // Проверяем, есть ли данные о логине и пароле
             loadImage.setVisibility(View.INVISIBLE);
