@@ -54,7 +54,7 @@ public class DeviceInfoView extends ViewGroup {
 
         v = getChildAt(1);
         secondChild = v;
-        v.layout(v.getMeasuredWidth(), 0, 2 * v.getMeasuredWidth(), v.getMeasuredHeight());
+        v.layout(v.getMeasuredWidth()-10, 0, 2 * v.getMeasuredWidth(), v.getMeasuredHeight());
     }
 
     @Override
