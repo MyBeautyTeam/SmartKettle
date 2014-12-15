@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.beautyteam.smartkettle.LoginActivity;
+import com.beautyteam.smartkettle.MainActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -98,9 +101,11 @@ public class Processor {
                 idPage = intent.getIntExtra(ID_PAGE, 0);
                 url += "api/devices/about/more/?owner=" + idOwner + "&device=" + idDevice + "&page=" + idPage;
                 json = new JSONObject(network.urlConnectionGet(url));
+
             }
         }
-        if (sendReceiver((ResultReceiver) intent.getParcelableExtra(RECEIVER), json)) {
+        ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);
+        if (sendReceiver(receiver, json)) {
             JsonParser jsonParser = new JsonParser(context);
             jsonParser.jsonToContentProvider(action, json);
         }

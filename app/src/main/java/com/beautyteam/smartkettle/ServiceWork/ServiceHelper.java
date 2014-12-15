@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.Context;
 import android.os.ResultReceiver;
 
+import com.beautyteam.smartkettle.LoginActivity;
+import com.beautyteam.smartkettle.MainActivity;
+
 import static com.beautyteam.smartkettle.LoginActivity.*;
 import static com.beautyteam.smartkettle.MainActivity.*;
 import static com.beautyteam.smartkettle.ServiceWork.JsonParser.*;
@@ -24,7 +27,7 @@ public class ServiceHelper {
         intentService.setAction(ACTION_LOGIN);
         intentService.putExtra(LOGIN, login);
         intentService.putExtra(PASS, pass);
-        intentService.putExtra(RECEIVER, receiver);
+        intentService.putExtra(LoginActivity.RECEIVER, receiver);
         context.startService(intentService);
     }
 
@@ -33,7 +36,7 @@ public class ServiceHelper {
         intentService.setAction(ACTION_REGISTER);
         intentService.putExtra(LOGIN, login);
         intentService.putExtra(PASS, pass);
-        intentService.putExtra(RECEIVER, receiver);
+        intentService.putExtra(LoginActivity.RECEIVER, receiver);
         context.startService(intentService);
     }
 

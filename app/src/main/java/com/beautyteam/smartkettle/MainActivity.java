@@ -325,6 +325,13 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(RECEIVER, mReceiver);
+        Log.d("activity", "turn");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onReceiveResult(int resultCode, Bundle data) {
         Log.d(LOG, "onReceiver");
         String string;
