@@ -142,7 +142,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
         MediaPlayer mpSound;
         mpSound = MediaPlayer.create(LoginActivity.this, R.raw.sound);
         mpSound.start();
-
+        errorMessage.setVisibility(View.INVISIBLE);
         loadImage.setVisibility(View.VISIBLE);
         loadImage.startAnimation(infinityRotate);
         loginEditText.setEnabled(false);
@@ -187,7 +187,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
                 editor.putInt(LoginActivity.ID_OWNER, idOwner);
                 editor.commit();
                 Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-                //loginIntent.putExtra(MainActivity.OWNER,idOwner);
                 LoginActivity.this.startActivity(loginIntent);
                 LoginActivity.this.finish();
                 break;
@@ -196,6 +195,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, App
                 loadImage.clearAnimation();
                 loadImage.setVisibility(View.INVISIBLE);
                 Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
+                errorMessage.setText(errorString);
+                errorMessage.setVisibility(View.VISIBLE);
                 loginEditText.setEnabled(true);
                 passEditText.setEnabled(true);
                 okBtn.setEnabled(true);
