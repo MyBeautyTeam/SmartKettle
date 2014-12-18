@@ -35,9 +35,10 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
     private String spinnerSelected;
     private MainActivity mCallback;
     private Fragment self;
+    private TimePicker timePicker;
 
     // Проверка на существование
-    private static final String[] DEVICE_PROJECTION = { DevicesContract.DevicesEntry.COLUMN_NAME_TITLE };
+    private static final String[] DEVICE_PROJECTION = {DevicesContract.DevicesEntry._ID, DevicesContract.DevicesEntry.COLUMN_NAME_TITLE };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +76,7 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
             }
         });
 
+
         Cursor cursor = getActivity().getContentResolver().query(
                 SmartContentProvider.DEVICE_CONTENT_URI,
                 DEVICE_PROJECTION,
@@ -90,7 +92,8 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
             mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(mAdapter);
         }
-
+        timePicker = (TimePicker) linearLayout.findViewById(R.id.addTaskTime);
+        timePicker.setIs24HourView(true);
     }
 
     @Override
@@ -104,8 +107,6 @@ public class AddTaskFragment extends Fragment implements  View.OnClickListener{
         switch (v.getId()) {
             case R.id.addTaskOkBtn:
                 DatePicker datePicker = (DatePicker) linearLayout.findViewById(R.id.addTaskDate);
-                TimePicker timePicker = (TimePicker) linearLayout.findViewById(R.id.addTaskTime);
-                timePicker.setIs24HourView(true);
                 Date date = new Date(datePicker.getYear() - 1900, datePicker.getMonth(), datePicker.getDayOfMonth(),
                         timePicker.getCurrentHour(), timePicker.getCurrentMinute());
                 mCallback.addTask(date, spinnerSelected);
