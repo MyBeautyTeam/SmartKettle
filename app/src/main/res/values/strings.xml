@@ -21,6 +21,7 @@
     <string name="loading">Загрузка</string>
     <string name="device_icon">Устройство</string>
     <string name="device_history">История использования:</string>
+    <string name="remove_button_text">Дважды кликни \nдля удаления</string>
     <string-array name="array_name">
         <item>Device One</item>
         <item>Device Two</item>

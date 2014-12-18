@@ -60,6 +60,10 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="FragmentParentLayoutStyleWithoutPadding" parent="FragmentParentLayoutStyle">
+        <item name="android:padding">@dimen/null_padding</item>
+    </style>
+
     <style name="ListViewStyle" parent="LayoutMatchParent">
         <item name="android:dividerHeight">@dimen/divider_height</item>
         <item name="android:divider">@color/brown</item>
@@ -172,10 +176,12 @@
 
     <style name="FragmentDeviceInfoHalfStyle" parent="LayoutMatchParent">
         <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/padding</item>
     </style>
 
     <style name="FragmentDeviceInfoUpperHalfStyle" parent="FragmentDeviceInfoHalfStyle">
         <item name="android:orientation">horizontal</item>
+        <item name="android:padding">@dimen/null_padding</item>
     </style>
 
     <style name="DeviceInfoViewStyle" parent="LayoutMatchParent">
@@ -197,12 +203,84 @@
         <item name="android:background">@color/brown</item>
         <item name="android:layout_marginTop">@dimen/margin</item>
         <item name="android:layout_marginBottom">@dimen/margin</item>
+        <item name="android:layout_marginLeft">@dimen/padding</item>
+        <item name="android:layout_marginRight">@dimen/padding</item>
     </style>
 
     <style name="DeviceHistoryHeaderStyle" parent="LayoutWidthMatchParent">
         <item name="android:text">@string/device_history</item>
         <item name="android:textSize">@dimen/big_text_size</item>
         <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:paddingLeft">@dimen/padding</item>
+        <item name="android:paddingRight">@dimen/padding</item>
+    </style>
+
+    <style name="RemoveButtonStyle" parent="LayoutMatchParent">
+        <item name="android:clickable">true</item>
+        <item name="android:text">@string/remove_button_text</item>
+        <item name="android:background">@color/pink</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/remove_button_padding_left</item>
+    </style>
+
+    <style name="LandFragmentDeviceInfoLayoutStyle" parent="LayoutMatchParent">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="LandFragmentDeviceInfoLeftHalfStyle" parent="LayoutMatchParent">
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/padding</item>
+    </style>
+
+    <style name="LandFragmentDeviceInfoHalfStyle" parent="LayoutMatchParent">
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="AddTaskSpinnerStyle" parent="LayoutWrapContent">
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+        <item name="android:entries">@array/array_name</item>
+    </style>
+
+    <style name="LandAddTaskSpinnerStyle" parent="AddTaskSpinnerStyle">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="AddTaskSubmitButtonStyle" parent="LayoutWrapContent">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_margin">@dimen/padding</item>
+        <item name="android:text">@string/buttons_submit</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="AddTaskParentLayoutStyle" parent="LayoutMatchParent">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="LandDatePickerStyle" parent="LayoutWidthMatchParent">
+        <item name="android:calendarViewShown">false</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="LandDatePickerStyle">
+        <item name="android:layout_margin">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="TimePickerStyle" parent="LayoutWidthMatchParent">
+        <item name="android:layout_margin">@dimen/margin</item>
+    </style>
+
+    <style name="TableLayoutStyle" parent="LayoutMatchParent">
+        <item name="android:layout_margin">@dimen/padding</item>
+        <item name="android:shrinkColumns">*</item>
+        <item name="android:stretchColumns">*</item>
+    </style>
+
+    <style name="LandAddTaskSubmitButtonStyle" parent="LayoutWrapContent">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:text">@string/buttons_submit</item>
     </style>
 
 

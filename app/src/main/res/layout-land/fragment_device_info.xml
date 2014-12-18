@@ -1,23 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffedef">
+    style="@style/LandFragmentDeviceInfoLayoutStyle">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/deviceInfoRefreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        style="@style/LandFragmentDeviceInfoLeftHalfStyle">
         <ListView
             android:id="@+id/deviceInfoList"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </ListView>
+            style="@style/ListViewStyle"/>
     </android.support.v4.widget.SwipeRefreshLayout>
     <com.beautyteam.smartkettle.Views.DeviceInfoView
         android:id="@+id/deviceInfoBlock"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"/>
+        style="@style/LandFragmentDeviceInfoHalfStyle"/>
 </LinearLayout>

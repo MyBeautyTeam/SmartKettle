@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/FragmentParentLayoutStyle">
+    style="@style/FragmentParentLayoutStyleWithoutPadding">
     <com.beautyteam.smartkettle.Views.DeviceInfoView
         android:id="@+id/deviceInfoBlock"
         style="@style/FragmentDeviceInfoUpperHalfStyle"/>
@@ -8,6 +8,6 @@
         style="@style/FragmentDeviceInfoHalfStyle">
         <ListView
             android:id="@+id/deviceInfoList"
-            style="@style/LayoutHeightMatchParent"/>
+            style="@style/ListViewStyle"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

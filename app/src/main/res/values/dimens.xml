@@ -18,5 +18,7 @@
     <dimen name="action_bar_button_width">65dp</dimen>
     <dimen name="edit_text_margin">50dp</dimen>
     <dimen name="margin">10dp</dimen>
+    <dimen name="null_padding">0dp</dimen>
+    <dimen name="remove_button_padding_left">55dp</dimen>
 
 </resources>
