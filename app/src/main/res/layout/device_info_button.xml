@@ -1,7 +1,3 @@
 <com.beautyteam.smartkettle.Views.ButtonView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/deviceInfoRemoveBtn"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:text="Дважды кликни \nдля удаления"
-    android:background="#ffe31200"/>
+    style="@style/RemoveButtonStyle" />

@@ -7,6 +7,8 @@ import android.os.ResultReceiver;
 import com.beautyteam.smartkettle.MainActivity;
 import com.beautyteam.smartkettle.LoginActivity;
 
+import static com.beautyteam.smartkettle.MainActivity.*;
+
 /**
  * Created by asus on 06.11.2014.
  */
@@ -39,7 +41,7 @@ public class ServiceHelper {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_DEVICE);
         intentService.putExtra(MainActivity.OWNER, owner);
-        intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
+        intentService.putExtra(ID_DEVICE, idDevice);
         intentService.putExtra(MainActivity.DEVICE_TITLE, deviceTitle);
         context.startService(intentService);
     }
@@ -48,7 +50,7 @@ public class ServiceHelper {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_REMOVE_DEVICE);
         intentService.putExtra(MainActivity.OWNER, owner);
-        intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
+        intentService.putExtra(ID_DEVICE, idDevice);
         context.startService(intentService);
     }
 
@@ -56,9 +58,9 @@ public class ServiceHelper {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_EVENTS);
         intentService.putExtra(MainActivity.OWNER, owner);
-        intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
-        intentService.putExtra(MainActivity.EVENT_DATE_BEGIN, eventDateBegin);
-        intentService.putExtra(MainActivity.TEMPERATURE, temperature);
+        intentService.putExtra(ID_DEVICE, idDevice);
+        intentService.putExtra(EVENT_DATE_BEGIN, eventDateBegin);
+        intentService.putExtra(TEMPERATURE, temperature);
         context.startService(intentService);
     }
 
@@ -74,7 +76,7 @@ public class ServiceHelper {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ENDED_EVENTS);
         intentService.putExtra(MainActivity.OWNER, owner);
-        intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
+        intentService.putExtra(ID_DEVICE, idDevice);
         intentService.putExtra(MainActivity.ID_EVENT, event);
         context.startService(intentService);
     }
@@ -83,7 +85,7 @@ public class ServiceHelper {
         Intent intentService = new Intent(context, ApiService.class);
         intentService.setAction(JsonParser.ACTION_ADDING_MORE_DEVICES_INFO);
         intentService.putExtra(MainActivity.OWNER,owner);
-        intentService.putExtra(MainActivity.ID_DEVICE, idDevice);
+        intentService.putExtra(ID_DEVICE, idDevice);
         intentService.putExtra(MainActivity.ID_PAGE, page);
         context.startService(intentService);
     }

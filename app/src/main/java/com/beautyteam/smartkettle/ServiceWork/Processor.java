@@ -19,7 +19,7 @@ import java.io.IOException;
  * Created by asus on 29.10.2014.
  */
 public class Processor {
-    private String url = "http://beautyteam.cloudapp.net/";
+    private String url = "http://10.20.2.167/";
     private JSONObject urlparametres;
     private JSONObject json = null;
     String action = "";

@@ -87,7 +87,7 @@ public class DeviceInfoFragment extends Fragment implements
         removeBtn.setOnDoubleClickListener(new OnDoubleClickListener() {
             @Override
             public void doubleClick() {
-                //mCallback.removeDevice(id);
+                mCallback.removeDevice(id);
                 Toast.makeText(getActivity(), "Device will be removed", Toast.LENGTH_LONG).show();
             }
         });

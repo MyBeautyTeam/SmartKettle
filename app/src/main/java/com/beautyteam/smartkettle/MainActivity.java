@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -29,6 +30,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beautyteam.smartkettle.Database.DevicesContract;
+import com.beautyteam.smartkettle.Database.SmartContentProvider;
 import com.beautyteam.smartkettle.Fragments.Adapter.FragmentPagerAdapter;
 import com.beautyteam.smartkettle.Fragments.AddDeviceFragment;
 import com.beautyteam.smartkettle.Fragments.AddTaskFragment;
@@ -69,6 +72,7 @@ public class MainActivity extends FragmentActivity
     private ImageButton actionBarPlusBtn;
     private ImageView actionBarKettle;
     private TextView actionBarTitleView;
+    private String SELECTION = DevicesContract.DevicesEntry.COLUMN_NAME_DEVICES_ID + " = ?";
 
     private int idOwner;
 
@@ -273,6 +277,7 @@ public class MainActivity extends FragmentActivity
     public void removeDevice(int id) {
         idOwner = getSharedPreferences(LoginActivity.LOGIN_PREF, MODE_PRIVATE).getInt(LoginActivity.ID_OWNER,0);
         serviceHelper.removeDevice(idOwner,id);
+        getContentResolver().delete(SmartContentProvider.DEVICE_CONTENT_URI, SELECTION, new String[] {String.valueOf(id)});
         Toast.makeText(this, "Device will be removed", Toast.LENGTH_LONG).show();
     }
 
@@ -292,7 +297,7 @@ public class MainActivity extends FragmentActivity
         String stringDate = new SimpleDateFormat("d MMMM yyyy HH:mm:ss", Locale.ENGLISH).format(date);
         int temperature = 100;
         int id =1;
-        serviceHelper.addingEvents(idOwner,id, stringDate, temperature);
+        serviceHelper.addingEvents(idOwner, id, stringDate, temperature);
         Toast.makeText(this, "task wil be added", Toast.LENGTH_LONG).show();
     }
 
